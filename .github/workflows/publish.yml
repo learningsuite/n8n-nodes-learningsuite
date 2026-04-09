@@ -32,49 +32,9 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Publish n8n-nodes-learningsuite
-        run: npm publish --provenance --access public
-        env:
-          RELEASE_MODE: 'true'
-
-      - name: Publish n8n-nodes-learningsuiteio
-        shell: bash
+      - name: Release
         run: |
-          set -euo pipefail
-          publish_dir="$(mktemp -d)"
-
-          cp -R dist "${publish_dir}/dist"
-          cp README.md LICENSE package.json "${publish_dir}/"
-
-          npm pkg set --prefix "${publish_dir}" name="n8n-nodes-learningsuiteio"
-          npm publish "${publish_dir}" --provenance --access public --ignore-scripts
+          [ -n "$NPM_TOKEN" ] && npm config set //registry.npmjs.org/:_authToken "$NPM_TOKEN"
+          npm run release
         env:
-          RELEASE_MODE: 'true'
-
-      - name: Publish @rjsebening/n8n-nodes-learningsuite
-        shell: bash
-        run: |
-          set -euo pipefail
-          publish_dir="$(mktemp -d)"
-
-          cp -R dist "${publish_dir}/dist"
-          cp README.md LICENSE package.json "${publish_dir}/"
-
-          npm pkg set --prefix "${publish_dir}" name="@rjsebening/n8n-nodes-learningsuite"
-          npm publish "${publish_dir}" --provenance --access public --ignore-scripts
-        env:
-          RELEASE_MODE: 'true'
-
-      - name: Publish @rjsebening/n8n-nodes-learningsuiteio
-        shell: bash
-        run: |
-          set -euo pipefail
-          publish_dir="$(mktemp -d)"
-
-          cp -R dist "${publish_dir}/dist"
-          cp README.md LICENSE package.json "${publish_dir}/"
-
-          npm pkg set --prefix "${publish_dir}" name="@rjsebening/n8n-nodes-learningsuiteio"
-          npm publish "${publish_dir}" --provenance --access public --ignore-scripts
-        env:
-          RELEASE_MODE: 'true'
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
