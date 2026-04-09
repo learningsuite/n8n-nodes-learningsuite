@@ -163,7 +163,7 @@ Automatically monitor your participants' progress and send personalized reminder
 
 2. Go to **Settings** → **Community Nodes**
 
-3. Install: `n8n-nodes-learningsuite` or `@rjsebening/n8n-nodes-learningsuite`
+3. Install: `n8n-nodes-learningsuite` or `@learningsuite/n8n-nodes-learningsuite`
 
 4. Restart n8n
 
@@ -173,7 +173,7 @@ Automatically monitor your participants' progress and send personalized reminder
 
 ```bash
 # In your n8n project directory
-npm i @rjsebening/n8n-nodes-learningsuite
+npm i @learningsuite/n8n-nodes-learningsuite
 
 # Restart n8n
 npm start
@@ -310,7 +310,7 @@ We welcome contributions! Please note the following guidelines:
 
 # Clone Repository
 
-git clone https://github.com/rjsebening/n8n-nodes-learningsuite.git
+git clone https://github.com/learningsuite/n8n-nodes-learningsuite.git
 
 cd n8n-nodes-learningsuite
 
@@ -390,7 +390,7 @@ This project is licensed under the [MIT License].
 
 ### Report Issues
 
-For bugs or feature requests, please create a [GitHub Issue](https://github.com/rjsebening/n8n-nodes-learningsuite/issues).
+For bugs or feature requests, please create a [GitHub Issue](https://github.com/learningsuite/n8n-nodes-learningsuite/issues).
 
 ### FAQ
 

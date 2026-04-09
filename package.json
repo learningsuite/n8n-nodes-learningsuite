@@ -11,17 +11,17 @@
 		"courses"
 	],
 	"license": "MIT",
-	"homepage": "https://github.com/rjsebening/n8n-nodes-learningsuite#readme",
+	"homepage": "https://github.com/learningsuite/n8n-nodes-learningsuite#readme",
 	"author": {
 		"name": "Fabio Moretti",
 		"email": "office@learningsuite.io"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/rjsebening/n8n-nodes-learningsuite.git"
+		"url": "https://github.com/learningsuite/n8n-nodes-learningsuite.git"
 	},
 	"bugs": {
-		"url": "https://github.com/rjsebening/n8n-nodes-learningsuite/issues"
+		"url": "https://github.com/learningsuite/n8n-nodes-learningsuite/issues"
 	},
 	"main": "index.js",
 	"scripts": {

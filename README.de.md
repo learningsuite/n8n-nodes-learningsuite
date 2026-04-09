@@ -195,7 +195,7 @@ Verknüpfe Formulare von deiner Website und gib Nutzern, welche das Formular aus
 
 2. Gehe zu **Settings** → **Community Nodes**
 
-3. Installiere: `n8n-nodes-learningsuite` oder `@rjsebening/n8n-nodes-learningsuite`
+3. Installiere: `n8n-nodes-learningsuite` oder `@learningsuite/n8n-nodes-learningsuite`
 
 4. Starte n8n neu
   
@@ -206,7 +206,7 @@ Verknüpfe Formulare von deiner Website und gib Nutzern, welche das Formular aus
 
 ```bash
 # In deinem n8n Projekt-Verzeichnis
-npm  i  @rjsebening/n8n-nodes-learningsuite
+npm  i  @learningsuite/n8n-nodes-learningsuite
 
 # n8n neu starten
 npm  start
@@ -386,7 +386,7 @@ Wir freuen uns über Beiträge! Bitte beachte folgende Guidelines:
 
 # Repository klonen
 
-git  clone  https://github.com/rjsebening/n8n-nodes-learningsuite.git
+git  clone  https://github.com/learningsuite/n8n-nodes-learningsuite.git
 
 cd  n8n-nodes-learningsuite
 
@@ -498,7 +498,7 @@ Dieses Projekt ist unter der [MIT Lizenz](LICENSE) lizenziert.
 
 ### Probleme melden
 
-Für Bugs oder Feature Requests, bitte ein [GitHub Issue](https://github.com/rjsebening/n8n-nodes-learningsuite/issues) erstellen.
+Für Bugs oder Feature Requests, bitte ein [GitHub Issue](https://github.com/learningsuite/n8n-nodes-learningsuite/issues) erstellen.
 
   
 

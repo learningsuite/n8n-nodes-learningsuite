@@ -4,7 +4,7 @@ export class LearningSuiteApi implements ICredentialType {
 	name = 'learningSuiteApi';
 	displayName = 'LearningSuite API';
 	icon: Icon = 'file:learningsuite.svg';
-	documentationUrl = 'https://github.com/rjsebening/n8n-nodes-learningsuite/blob/main/CREDENTIALS.md';
+	documentationUrl = 'https://github.com/learningsuite/n8n-nodes-learningsuite/blob/main/CREDENTIALS.md';
 
 	properties: INodeProperties[] = [
 		{
