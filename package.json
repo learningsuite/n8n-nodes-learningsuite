@@ -1,5 +1,5 @@
 {
-	"name": "@learningsuite/n8n-nodes-learningsuite",
+	"name": "n8n-nodes-learningsuite",
 	"version": "1.2.2",
 	"description": "n8n node for LearningSuite API",
 	"keywords": [
@@ -25,6 +25,15 @@
 	},
 	"main": "index.js",
 	"scripts": {
+		"build": "npx rimraf dist && tsc && gulp build:icons",
+		"dev": "tsc --watch",
+		"format": "prettier nodes credentials --write",
+		"lint": "eslint nodes credentials package.json",
+		"lintfix": "eslint nodes credentials package.json --fix",
+		"lint:node": "n8n-node lint",
+		"lint:all": "npm run lint && npm run lint:node",
+		"release": "n8n-node release",
+		"prepublishOnly": "n8n-node prerelease"
 	},
 	"files": [
 		"dist",
