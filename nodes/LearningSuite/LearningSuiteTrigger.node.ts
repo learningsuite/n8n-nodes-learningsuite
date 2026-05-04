@@ -235,7 +235,7 @@ function buildDesiredFilter(this: IHookFunctions, event: string): { filter: IDat
 			break;
 		}
 
-		// ---------------- Lesson Completed (kaskadiert)
+		// ---------------- Lesson Completed (cascading)
 		case 'lesson.completed': {
 			const col = getCol('additionalLessonCompleted');
 			if (col.courseId) filter.courseInstanceId = String(col.courseId);

@@ -1,7 +1,7 @@
 import type { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 
-/** Einheitlicher Funktions-Typ für alle Execute-Handler. */
+/** Unified function type for all execute handlers. */
 export type ExecuteHandler = (ctx: IExecuteFunctions, itemIndex: number) => Promise<IDataObject | IDataObject[]>;
 
-/** Registry-Typ: resource -> operation -> handler */
+/** Registry type: resource -> operation -> handler */
 export type HandlersRegistry = Record<string, Record<string, ExecuteHandler>>;

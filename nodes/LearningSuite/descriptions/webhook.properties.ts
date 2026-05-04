@@ -131,7 +131,7 @@ export const webhookProperties: INodeProperties[] = [
 		],
 	},
 
-	// ====== Optionen pro Event (identisch zu instantProperties) ======
+	// ====== Options per event (identical to instantProperties) ======
 
 	// Login Options
 	{
@@ -564,7 +564,7 @@ export const webhookProperties: INodeProperties[] = [
 		],
 	},
 
-	// Lesson Completed (kaskadiert)
+	// Lesson Completed (cascading)
 	{
 		displayName: 'Lesson Completed Options',
 		name: 'additionalLessonCompleted',

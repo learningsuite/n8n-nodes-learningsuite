@@ -29,5 +29,5 @@ const sendPushNotification: ExecuteHandler = async (ctx, i) => {
 };
 
 export const userHandlers = {
-	sendPushNotification, // 👈 KEY muss exakt dem operation value entsprechen
+	sendPushNotification, // 👈 KEY must exactly match the operation value
 };

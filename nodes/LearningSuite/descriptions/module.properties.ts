@@ -29,7 +29,7 @@ export const moduleProperties: INodeProperties[] = [
 			},
 		],
 	},
-	// (neu) optionaler Kurs-Filter – erleichtert die Modulauswahl
+	// (new) optional course filter - makes module selection easier
 	{
 		displayName: 'Course Name or ID',
 		name: 'courseId',

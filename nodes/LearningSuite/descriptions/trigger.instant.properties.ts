@@ -1,7 +1,7 @@
 import type { INodeProperties } from 'n8n-workflow';
 
 export const instantProperties: INodeProperties[] = [
-	// Event-Auswahl (nur Instant)
+	// Event selection (instant only)
 	{
 		displayName: 'Event',
 		name: 'event',
@@ -354,7 +354,7 @@ export const instantProperties: INodeProperties[] = [
 		],
 	},
 
-	// Feedback (nur courseInstanceId)
+	// Feedback (courseInstanceId only)
 	{
 		displayName: 'Feedback Options',
 		name: 'additionalFeedbackOptions',
@@ -454,7 +454,7 @@ export const instantProperties: INodeProperties[] = [
 		],
 	},
 
-	// Lesson Completed (kaskadierende LoadOptions)
+	// Lesson Completed (cascading load options)
 	{
 		displayName: 'Lesson Completed Options',
 		name: 'additionalLessonCompleted',

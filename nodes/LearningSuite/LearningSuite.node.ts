@@ -109,10 +109,6 @@ export class LearningSuite implements INodeType {
 				description: 'LearningSuite API Test',
 			},
 		],
-		requestDefaults: {
-			baseURL: '={{$credentials.baseUrl}}',
-			headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-		},
 		properties: [
 			resourceSelector,
 			...aiProperties,
