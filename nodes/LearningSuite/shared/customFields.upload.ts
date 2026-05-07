@@ -33,20 +33,23 @@ function resolveFileType(fieldType: string): FileType {
 async function createFileSlot(
 	ctx: IExecuteFunctions,
 	userId: string,
-	isVideo: boolean,
+	customFieldKey: string,
+	fileName?: string,
 ): Promise<CreateFileResponse> {
+	const body: IDataObject = { customFieldKey };
+	if (fileName) {
+		body.fileName = fileName;
+	}
+
 	const response = (await lsRequest.call(ctx, 'POST', `/custom-fields/store/${userId}/files`, {
-		body: { isVideo } as unknown as IDataObject,
+		body,
 	})) as IDataObject;
 
 	const fileId = response.fileId as string | undefined;
 	const uploadSpec = response.uploadSpec as UploadSpec | undefined;
 
 	if (!fileId || !uploadSpec) {
-		throw new NodeOperationError(
-			ctx.getNode(),
-			'Upload spec or fileId missing in the response from create file API',
-		);
+		throw new NodeOperationError(ctx.getNode(), 'Upload spec or fileId missing in the response from create file API');
 	}
 
 	return { fileId, uploadSpec };
@@ -109,14 +112,11 @@ async function uploadViaTus(
 		returnFullResponse: true,
 	});
 
-	const location: string | undefined =
-		createResponse.headers?.['location'] ?? createResponse.headers?.['Location'];
+	const location: string | undefined = createResponse.headers?.['location'] ?? createResponse.headers?.['Location'];
 	if (!location) {
 		throw new NodeOperationError(ctx.getNode(), 'tus creation response missing Location header');
 	}
-	const uploadUrl = location.startsWith('http')
-		? location
-		: new URL(location, uploadSpec.uploadUrl).toString();
+	const uploadUrl = location.startsWith('http') ? location : new URL(location, uploadSpec.uploadUrl).toString();
 
 	let offset = 0;
 	while (offset < buffer.length) {
@@ -222,6 +222,7 @@ async function uploadSingleFile(
 	ctx: IExecuteFunctions,
 	itemIndex: number,
 	userId: string,
+	customFieldKey: string,
 	binaryPropertyName: string,
 	fieldType: string,
 	fileNameOverride?: string,
@@ -230,11 +231,10 @@ async function uploadSingleFile(
 	const buffer = await ctx.helpers.getBinaryDataBuffer(itemIndex, binaryPropertyName);
 
 	const fileType = resolveFileType(fieldType);
-	const isVideo = fileType === 'videos';
 	const mimeType = binaryData.mimeType || 'application/octet-stream';
 	const fileName = fileNameOverride || binaryData.fileName || 'upload';
 
-	const { fileId, uploadSpec } = await createFileSlot(ctx, userId, isVideo);
+	const { fileId, uploadSpec } = await createFileSlot(ctx, userId, customFieldKey, fileName);
 
 	if (uploadSpec.type === 'storage') {
 		await uploadViaStorage(ctx, uploadSpec, buffer, mimeType);
@@ -257,6 +257,7 @@ export async function uploadFilesFromBinaryProperties(
 	ctx: IExecuteFunctions,
 	itemIndex: number,
 	userId: string,
+	customFieldKey: string,
 	binaryPropertyNames: string,
 	fieldType: string,
 	fileNameOverride?: string,
@@ -273,7 +274,7 @@ export async function uploadFilesFromBinaryProperties(
 	const results: UploadedFileValue[] = [];
 
 	for (const name of names) {
-		const value = await uploadSingleFile(ctx, itemIndex, userId, name, fieldType, fileNameOverride);
+		const value = await uploadSingleFile(ctx, itemIndex, userId, customFieldKey, name, fieldType, fileNameOverride);
 		results.push(value);
 	}
 

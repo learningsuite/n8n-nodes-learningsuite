@@ -1,5 +1,5 @@
 import type { ILoadOptionsFunctions, IDataObject, INodePropertyOptions } from 'n8n-workflow';
-import { lsRequest } from '../../shared';
+import { lsRequest, lsRequestAll } from '../../shared';
 
 export type Option = INodePropertyOptions;
 type LoadOptionRow = IDataObject;
@@ -30,4 +30,15 @@ export async function fetchOptions(
 	const res = await lsRequest.call(this, 'GET', endpoint, { qs });
 	const rows = ensureArray(res) as LoadOptionRow[];
 	return toOptions(rows, labelKeys, valueKeys);
+}
+
+export async function fetchOptionsAll(
+	this: ILoadOptionsFunctions,
+	endpoint: string,
+	qs?: IDataObject,
+	labelKeys?: string[],
+	valueKeys?: string[],
+): Promise<INodePropertyOptions[]> {
+	const rows = await lsRequestAll.call(this, endpoint, { qs });
+	return toOptions(rows as LoadOptionRow[], labelKeys, valueKeys);
 }

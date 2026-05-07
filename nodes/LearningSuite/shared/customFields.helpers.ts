@@ -1,7 +1,7 @@
 // n8n-nodes-learningsuite/nodes/LearningSuite/methods/loadOptions/customFields.helpers.ts
 
 import type { ILoadOptionsFunctions } from 'n8n-workflow';
-import { lsRequest } from './request';
+import { lsRequestAll } from './request';
 import type { LsFieldDefinition } from './customFields.shared';
 import { isLsCard, isLsFieldDefinition } from './customFields.shared';
 
@@ -9,11 +9,7 @@ export async function fetchFieldDefinition(
 	ctx: ILoadOptionsFunctions,
 	fieldKey: string,
 ): Promise<LsFieldDefinition | undefined> {
-	const cards = await lsRequest.call(ctx, 'GET', '/custom-fields/cards/expanded');
-
-	if (!Array.isArray(cards)) {
-		return undefined;
-	}
+	const cards = await lsRequestAll.call(ctx, '/custom-fields/cards/expanded');
 
 	for (const card of cards) {
 		if (!isLsCard(card) || !Array.isArray(card.definitions)) {

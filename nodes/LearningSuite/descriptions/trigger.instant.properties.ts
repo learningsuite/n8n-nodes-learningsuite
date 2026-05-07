@@ -10,6 +10,11 @@ export const instantProperties: INodeProperties[] = [
 		description: 'Select the LearningSuite instant (webhook) event',
 		options: [
 			{
+				name: 'Agent Action Executed',
+				value: 'agentAction.executed',
+				description: 'Triggers when an AI agent action has been executed',
+			},
+			{
 				name: 'Community Post Commented',
 				value: 'communityPost.commented',
 				description: 'Triggers when a community post was commented',
@@ -85,6 +90,35 @@ export const instantProperties: INodeProperties[] = [
 				name: 'User Activation Status Changed',
 				value: 'user.activationStatusChanged',
 				description: 'Triggers when a user is activated or deactivated',
+			},
+		],
+	},
+	// Agent Action Executed
+	{
+		displayName: 'Agent Action Executed Options',
+		name: 'additionalAgentActionExecuted',
+		type: 'collection',
+		default: {},
+		placeholder: 'Add option',
+		displayOptions: { show: { event: ['agentAction.executed'] } },
+		options: [
+			{
+				displayName: 'Tool Key Name or ID',
+				name: 'toolKey',
+				type: 'options',
+				default: '',
+				description:
+					'Optional: Only trigger for a specific agent action. Leave empty to trigger for all actions. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				typeOptions: { loadOptionsMethod: 'ai_getAgentActions' },
+			},
+			{
+				displayName: 'Agent Name or ID',
+				name: 'agentId',
+				type: 'options',
+				default: '',
+				description:
+					'Optional: Only trigger for actions executed by a specific AI agent. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				typeOptions: { loadOptionsMethod: 'ai_getAiAgents' },
 			},
 		],
 	},

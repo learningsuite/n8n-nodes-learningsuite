@@ -15,6 +15,7 @@ import { instantProperties as instantProperties } from './descriptions/trigger.i
 import { toIdArray } from './shared/parsing';
 
 // methods - loadOptions
+import * as loAi from './methods/loadOptions/ai.loadOptions';
 import * as loBundle from './methods/loadOptions/bundle.loadOptions';
 import * as loCommunity from './methods/loadOptions/community.loadOptions';
 import * as loCourse from './methods/loadOptions/course.loadOptions';
@@ -43,6 +44,7 @@ type ApiErrorLike = {
 };
 
 const INSTANT_EVENTS = new Set<string>([
+	'agentAction.executed',
 	'accessRequest.created',
 	'communityPost.created',
 	'communityPost.commented',
@@ -93,6 +95,22 @@ function buildDesiredFilter(this: IHookFunctions, event: string): { filter: IDat
 	};
 
 	switch (event) {
+		// ---------------- Agent Action
+		case 'agentAction.executed': {
+			const col = getCol('additionalAgentActionExecuted') as {
+				toolKey?: string;
+				agentId?: string;
+			};
+
+			if (col?.toolKey) {
+				filter.toolKey = String(col.toolKey);
+			}
+			if (col?.agentId) {
+				filter.agentId = String(col.agentId);
+			}
+			break;
+		}
+
 		// ---------------- Community
 		case 'communityPost.commented': {
 			const col = getCol('additionalCommunityPostCommented');
@@ -305,6 +323,7 @@ export class LearningSuiteTrigger implements INodeType {
 
 	methods = {
 		loadOptions: {
+			...loAi,
 			...loBundle,
 			...loCommunity,
 			...loCourse,

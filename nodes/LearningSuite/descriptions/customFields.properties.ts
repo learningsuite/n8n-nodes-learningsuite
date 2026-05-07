@@ -88,6 +88,12 @@ export const customFieldsProperties: INodeProperties[] = [
 				description: 'Update a custom field value within a profile of a custom field card',
 				action: 'Update a custom field value within a profile of a custom field card',
 			},
+			{
+				name: 'Upload File From URL',
+				value: 'createFileUploadTarget',
+				description: 'Upload a file from a public URL and append it to a custom field',
+				action: 'Upload a file from a public URL and append it to a custom field',
+			},
 		],
 	},
 	{
@@ -100,7 +106,7 @@ export const customFieldsProperties: INodeProperties[] = [
 		required: true,
 		default: '',
 		description:
-			'The ID of the user whose custom field data should be accessed. Choose from the list, or specify an ID using an expression. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+			'The ID of the user whose custom field data should be accessed. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 		displayOptions: {
 			show: {
 				resource: ['customFields'],
@@ -113,6 +119,7 @@ export const customFieldsProperties: INodeProperties[] = [
 					'getStoreValues',
 					'setFieldValue',
 					'setMultipleFieldValues',
+					'createFileUploadTarget',
 					'updateProfileField',
 				],
 			},
@@ -124,7 +131,7 @@ export const customFieldsProperties: INodeProperties[] = [
 		type: 'options',
 		default: '',
 		description:
-			'Filter results by a specific custom field card. Choose from the list or specify an ID using an expression. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+			'Filter results by a specific custom field card. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 		typeOptions: {
 			loadOptionsMethod: 'customFields_getCards',
 		},
@@ -142,7 +149,7 @@ export const customFieldsProperties: INodeProperties[] = [
 		required: true,
 		default: '',
 		description:
-			'The custom field card to use. Choose from the list or specify an ID using an expression. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+			'The custom field card to use. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 		typeOptions: {
 			loadOptionsMethod: 'customFields_getCards',
 		},
@@ -150,6 +157,26 @@ export const customFieldsProperties: INodeProperties[] = [
 			show: {
 				resource: ['customFields'],
 				operation: ['getProfileByCard', 'updateProfileField'],
+			},
+		},
+	},
+	{
+		displayName: 'Profile ID',
+		name: 'profileId',
+		type: 'string',
+		default: '',
+		description:
+			'If specified, the profile with this ID is used. Takes precedence over Profile Index and Profile Name.',
+		displayOptions: {
+			show: {
+				resource: ['customFields'],
+				operation: [
+					'setFieldValue',
+					'setMultipleFieldValues',
+					'getProfileByCard',
+					'updateProfileField',
+					'createFileUploadTarget',
+				],
 			},
 		},
 	},
@@ -167,23 +194,10 @@ export const customFieldsProperties: INodeProperties[] = [
 					'setFieldValue',
 					'updateProfileField',
 					'setMultipleFieldValues',
+					'createFileUploadTarget',
 					'getProfileByCard',
 					'getStoreValues',
 				],
-			},
-		},
-	},
-	{
-		displayName: 'Profile ID',
-		name: 'profileId',
-		type: 'string',
-		default: '',
-		description:
-			'If specified, the profile with this ID is used. Takes precedence over Profile Index and Profile Name.',
-		displayOptions: {
-			show: {
-				resource: ['customFields'],
-				operation: ['setFieldValue', 'setMultipleFieldValues', 'getProfileByCard', 'updateProfileField'],
 			},
 		},
 	},
@@ -197,7 +211,7 @@ export const customFieldsProperties: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['customFields'],
-				operation: ['updateProfileField', 'getProfileByCard'],
+				operation: ['updateProfileField', 'getProfileByCard', 'createFileUploadTarget'],
 			},
 		},
 	},
@@ -219,6 +233,54 @@ export const customFieldsProperties: INodeProperties[] = [
 			},
 		},
 		default: '',
+	},
+	{
+		displayName: 'Field Key Name or ID',
+		name: 'customFieldKey',
+		type: 'options',
+		description:
+			'The file, image, video, or audio custom field to append to. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+		required: true,
+		typeOptions: {
+			loadOptionsMethod: 'customFields_getMediaDefinitions',
+		},
+		displayOptions: {
+			show: {
+				resource: ['customFields'],
+				operation: ['createFileUploadTarget'],
+			},
+		},
+		default: '',
+	},
+	{
+		displayName: 'File Name',
+		name: 'customFieldFileName',
+		type: 'string',
+		default: '',
+		placeholder: 'e.g. report.pdf',
+		description:
+			'Optional title for videos. Also used for files in the custom field file value returned by LearningSuite.',
+		displayOptions: {
+			show: {
+				resource: ['customFields'],
+				operation: ['createFileUploadTarget'],
+			},
+		},
+	},
+	{
+		displayName: 'Public Download URL',
+		name: 'publicDownloadUrl',
+		type: 'string',
+		default: '',
+		required: true,
+		placeholder: 'https://example.com/file.pdf',
+		description: 'Public URL that LearningSuite downloads and uploads before returning the custom field file value',
+		displayOptions: {
+			show: {
+				resource: ['customFields'],
+				operation: ['createFileUploadTarget'],
+			},
+		},
 	},
 	{
 		displayName: 'Field Type Name or ID',
@@ -360,13 +422,73 @@ export const customFieldsProperties: INodeProperties[] = [
 		},
 	},
 	{
+		displayName: 'File Value Mode',
+		name: 'fileValueMode',
+		type: 'options',
+		default: 'add',
+		description: 'How to handle existing file values in the custom field',
+		options: [
+			{
+				name: 'Add',
+				value: 'add',
+				description: 'Append uploaded files and fail if the field limit would be exceeded',
+			},
+			{
+				name: 'Replace',
+				value: 'replace',
+				description: 'Replace all existing file values with the uploaded files',
+			},
+			{
+				name: 'Replace if Limit Reached',
+				value: 'replaceIfFull',
+				description: 'Append uploaded files, but replace existing files if the field limit would be exceeded',
+			},
+		],
+		displayOptions: {
+			show: {
+				resource: ['customFields'],
+				operation: ['setFieldValue', 'updateProfileField'],
+				fieldType: ['files', 'images', 'videos', 'audios'],
+			},
+		},
+	},
+	{
+		displayName: 'File Value Mode',
+		name: 'fileValueMode',
+		type: 'options',
+		default: 'add',
+		description: 'How to handle existing file values in the custom field',
+		options: [
+			{
+				name: 'Add',
+				value: 'add',
+				description: 'Append uploaded files and fail if the field limit would be exceeded',
+			},
+			{
+				name: 'Replace',
+				value: 'replace',
+				description: 'Replace all existing file values with the uploaded files',
+			},
+			{
+				name: 'Replace if Limit Reached',
+				value: 'replaceIfFull',
+				description: 'Append uploaded files, but replace existing files if the field limit would be exceeded',
+			},
+		],
+		displayOptions: {
+			show: {
+				resource: ['customFields'],
+				operation: ['setMultipleFieldValues', 'createFileUploadTarget'],
+			},
+		},
+	},
+	{
 		displayName: 'File Name',
 		name: 'fieldValueFileName',
 		type: 'string',
 		default: '',
 		placeholder: 'e.g. report.pdf',
-		description:
-			'Optional custom file name. If left empty, the original file name from the binary data is used.',
+		description: 'Optional custom file name. If left empty, the original file name from the binary data is used.',
 		displayOptions: {
 			show: {
 				resource: ['customFields'],

@@ -110,3 +110,27 @@ export async function apiRequest(
 ): Promise<IDataObject | IDataObject[]> {
 	return requestCore.call(this, { method, endpoint: path, qs, body });
 }
+
+export async function lsRequestAll(
+	this: ApiThis,
+	endpoint: string,
+	{ qs }: { qs?: IDataObject } = {},
+): Promise<IDataObject[]> {
+	const pageSize = 100;
+	const maxPages = 500;
+	const all: IDataObject[] = [];
+	let offset = 0;
+
+	for (let page = 0; page < maxPages; page++) {
+		const res = await lsRequest.call(this, 'GET', endpoint, {
+			qs: { ...(qs ?? {}), limit: pageSize, offset },
+		});
+		const rows = Array.isArray(res) ? res : res ? [res] : [];
+		all.push(...(rows as IDataObject[]));
+
+		if (rows.length < pageSize) break;
+		offset += pageSize;
+	}
+
+	return all;
+}

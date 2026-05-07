@@ -12,6 +12,7 @@ import {
 import type { HandlersRegistry } from './exec.types';
 
 // methods - loadOptions
+import * as loAi from './methods/loadOptions/ai.loadOptions';
 import * as loBundle from './methods/loadOptions/bundle.loadOptions';
 import * as loCommunity from './methods/loadOptions/community.loadOptions';
 import * as loCourse from './methods/loadOptions/course.loadOptions';
@@ -131,6 +132,7 @@ export class LearningSuite implements INodeType {
 
 	methods = {
 		loadOptions: {
+			...loAi,
 			...loBundle,
 			...loCommunity,
 			...loCourse,

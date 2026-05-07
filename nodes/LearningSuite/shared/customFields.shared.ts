@@ -20,6 +20,7 @@ export interface LsTypeDefinition {
 export interface LsFieldDefinition {
 	key: string;
 	name: string;
+	customFieldCardId?: string;
 	typeDefinition?: LsTypeDefinition;
 }
 

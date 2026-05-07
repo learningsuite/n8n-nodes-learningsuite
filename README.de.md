@@ -3,9 +3,9 @@
 
   
 
-![n8n](https://img.shields.io/badge/n8n-1.113.0+-brightgreen)
+![n8n](https://img.shields.io/badge/n8n-2.17.2+-brightgreen)
 
-![Version](https://img.shields.io/badge/version-0.1.0-blue)
+![Version](https://img.shields.io/badge/version-1.2.3-blue)
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 
@@ -37,9 +37,9 @@ Diese Community Node verwendet die öffentliche LearningSuite API und ist nicht 
 
 ## 🚀 Features
 
-- **14 Ressourcen** vollständig unterstützt (Member, Course, Group, Bundle, Hub, Module, Community, Custom Fields, Popup, Webhook, Role, User, Team Member, AI, API Call)
-- **87 Operationen** für maximale Flexibilität
-- **Instant Trigger (Webhook-basierend)** mit 17 Event-Types für Echtzeit-Automatisierung
+- **15 Ressourcen** vollständig unterstützt (Member, Course, Group, Bundle, Hub, Module, Community, Custom Fields, Popup, Webhook, Role, User, Team Member, AI, API Call)
+- **90 Action-Endpunkte** für maximale Flexibilität
+- **Instant Trigger (Webhook-basierend)** mit 18 Event-Types für Echtzeit-Automatisierung
 - **Polling Trigger** mit 11 Event-Types für zeitgesteuerte Abfragen
 - **Flexible API Call** Resource für custom Endpunkte
 
@@ -81,12 +81,13 @@ Diese Community Node verwendet die öffentliche LearningSuite API und ist nicht 
 - Get Community Areas, Get Community Badges, Get Community Forums, Get Community Posts
 - Create Community Post Comment
 
-### 🔧 **Custom Fields** (13 Operationen)
+### 🔧 **Custom Fields** (14 Operationen)
 
 - Get Cards, Get Cards (Expanded), Get Categories, Get Definitions
 - Get Field Values, Get Store, Get Store Values
 - Get Profile by Card, Get Profiles, Get Profiles (Expanded)
 - Set Field Value, Set Multiple Field Values, Update Profile Field
+- Upload File From URL
 
 ### 🎯 **Popup** (4 Operationen)
 
@@ -104,9 +105,9 @@ Diese Community Node verwendet die öffentliche LearningSuite API und ist nicht 
 
 - Send Push Notification
 
-### 🤖 **AI** (1 Operation)
+### 🤖 **AI** (3 Operationen)
 
-- RAG Chat
+- Get Agent Actions, Get AI Agents, RAG Chat
 
 ### 🛡️ **Role** (1 Operation)
 
@@ -123,6 +124,7 @@ Der LearningSuite Trigger unterstützt folgende Events:
 ### ⚡ Instant Trigger Events (Webhook)
 
 - ✅ Community Post Commented
+- ✅ Agent Action Executed
 - ✅ Community Post Created
 - ✅ Community Post Moderated
 - ✅ Course Member Added
@@ -311,6 +313,19 @@ docker.n8n.io/n8nio/n8n
 
 ```
 
+### Custom-Field-Datei-Uploads
+
+Die Custom Fields Resource unterstützt Datei-, Bild-, Video- und Audio-Felder.
+
+- Nutze **Set Field Value**, **Set Multiple Field Values** oder **Update Profile Field**, wenn die Datei als n8n Binary Data im Workflow vorliegt.
+- Nutze **Upload File From URL**, wenn LearningSuite eine öffentliche Datei-URL selbst herunterladen und den zurückgegebenen Datei-Wert an das gewählte Custom Field anhängen soll.
+- Datei-Felder unterstützen den Modus **File Value Mode**:
+  - **Add**: neue Dateiwerte anhängen und abbrechen, wenn das Feldlimit überschritten würde
+  - **Replace**: bestehende Dateiwerte durch die hochgeladenen Dateiwerte ersetzen
+  - **Replace if Limit Reached**: anhängen, solange Platz ist, sonst bestehende Dateiwerte ersetzen
+- Die Node berücksichtigt die in LearningSuite definierten Limits des Custom Fields, z.B. `maxFiles`, `maxImages`, `maxVideos` und `maxAudios`.
+- Bei Custom-Field-Cards mit mehreren Profilen kannst du über Profile ID, Profile Index oder Profile Name ein bestimmtes Profil ansprechen. Wenn die Card keine mehreren Profile erlaubt, werden Profilparameter ignoriert und das Default-Profil verwendet.
+
   
 
 ### ⚡ Instant Webhook Trigger Setup
@@ -446,17 +461,35 @@ npm  test
 
   
 
+### Version 1.2.3 (aktuell)
+
+  
+
+#### Custom-Fields-Datei-Uploads
+
+- ✅ Datei per öffentlicher URL hochladen
+
+- ✅ Binary Uploads für Datei-, Bild-, Video- und Audio-Custom-Fields
+
+- ✅ Datei-Wert-Modus: hinzufügen, ersetzen oder ersetzen, wenn das Feldlimit erreicht ist
+
+- ✅ Custom-Field-Dateilimits werden berücksichtigt (`maxFiles`, `maxImages`, `maxVideos`, `maxAudios`)
+
+- ✅ Verbesserte Verarbeitung von Custom-Field-Profilkarten und Default-Profilen
+
+  
+
 ### Version 0.1.0 (2025-09-23)
 
   
 
-#### 🎉 Initial Release
+#### Initial Release
 
 - ✅ Vollständige LearningSuite API Integration
 
-- ✅ 14 Ressourcen mit 87 Operationen
+- ✅ 15 Ressourcen mit 90 Action-Endpunkten
 
-- ✅ Webhook Trigger mit 17 Event-Types für Echtzeit-Automatisierung
+- ✅ Webhook Trigger mit 18 Event-Types für Echtzeit-Automatisierung
 
 - ✅ Polling Trigger mit 11 Event-Types
 
@@ -476,7 +509,7 @@ npm  test
 
   
 
--  **n8n Version**: 1.112.3+ (getestet mit latest)
+-  **n8n Version**: 2.17.2+ (getestet mit latest)
 
 -  **Node Version**: 20+
 

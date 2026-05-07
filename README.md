@@ -1,8 +1,8 @@
 # n8n-nodes-learningsuite
 
-![n8n](https://img.shields.io/badge/n8n-1.113.0+-brightgreen)
+![n8n](https://img.shields.io/badge/n8n-2.17.2+-brightgreen)
 
-![Version](https://img.shields.io/badge/version-0.1.0-blue)
+![Version](https://img.shields.io/badge/version-1.2.3-blue)
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 
@@ -20,9 +20,9 @@ This community node uses the public LearningSuite API and is not affiliated with
 
 ## 🚀 Features
 
-- **14 resources** fully supported (Member, Course, Group, Bundle, Hub, Module, Community, Custom Fields, Popup, Webhook, Role, User, Team Member, AI, API Call)
-- **87 operations** for maximum flexibility
-- **Instant trigger (webhook-based)** with 17 event types for real-time automation
+- **15 resources** fully supported (Member, Course, Group, Bundle, Hub, Module, Community, Custom Fields, Popup, Webhook, Role, User, Team Member, AI, API Call)
+- **90 action endpoints** for maximum flexibility
+- **Instant trigger (webhook-based)** with 18 event types for real-time automation
 - **Polling trigger** with 11 event types for scheduled polling
 - **Flexible API call** resource for custom endpoints
 
@@ -64,12 +64,13 @@ This community node uses the public LearningSuite API and is not affiliated with
 - Get community areas, get community badges, get community forums, get community posts
 - Create community post comment
 
-### 🔧 **Custom Fields** (13 operations)
+### 🔧 **Custom Fields** (14 operations)
 
 - Get cards, get cards (expanded), get categories, get definitions
 - Get field values, get store, get store values
 - Get profile by card, get profiles, get profiles (expanded)
 - Set field value, set multiple field values, update profile field
+- Upload file from URL
 
 ### 🎯 **Popup** (4 operations)
 
@@ -87,9 +88,9 @@ This community node uses the public LearningSuite API and is not affiliated with
 
 - Send push notification
 
-### 🤖 **AI** (1 operation)
+### 🤖 **AI** (3 operations)
 
-- RAG Chat
+- Get agent actions, get AI agents, RAG Chat
 
 ### 🛡️ **Role** (1 operation)
 
@@ -106,6 +107,7 @@ The LearningSuite trigger supports the following events:
 ### ⚡ Instant Trigger Events (Webhook)
 
 - ✅ Community Post Commented
+- ✅ Agent Action Executed
 - ✅ Community Post Created
 - ✅ Community Post Moderated
 - ✅ Course Member Added
@@ -258,6 +260,19 @@ docker.n8n.io/n8nio/n8n
 
 ```
 
+### Custom Field File Uploads
+
+The Custom Fields resource supports file, image, video, and audio custom fields.
+
+- Use **Set Field Value**, **Set Multiple Field Values**, or **Update Profile Field** when the file is available as n8n binary data.
+- Use **Upload File From URL** when LearningSuite should download a public file URL and append the returned file value to the selected custom field.
+- File fields support **File Value Mode**:
+  - **Add**: append new file values and fail if the custom field limit would be exceeded
+  - **Replace**: replace existing file values with the uploaded file values
+  - **Replace if Limit Reached**: append while possible, otherwise replace existing file values
+- The node respects the LearningSuite file limits defined on the custom field, such as `maxFiles`, `maxImages`, `maxVideos`, and `maxAudios`.
+- For custom field cards with multiple profiles, use Profile ID, Profile Index, or Profile Name to target a specific profile. If the card does not allow multiple profiles, profile parameters are ignored and the default profile is used.
+
 ### ⚡ Instant Webhook Trigger Setup
 
 ```
@@ -352,15 +367,29 @@ npm test
 
 ## 📝 Changelog
 
+### Version 1.2.3 (current)
+
+#### Custom Fields File Uploads
+
+- ✅ Upload file from public URL
+
+- ✅ Binary uploads for file, image, video, and audio custom fields
+
+- ✅ File Value Mode: add, replace, and replace when the field limit is reached
+
+- ✅ Respect custom field file limits (`maxFiles`, `maxImages`, `maxVideos`, `maxAudios`)
+
+- ✅ Improved handling for custom field profile cards and default profiles
+
 ### Version 0.1.0 (2025-09-23)
 
-#### 🎉 Initial Release
+#### Initial Release
 
 - ✅ Full LearningSuite API integration
 
-- ✅ 14 resources with 87 operations
+- ✅ 15 resources with 90 action endpoints
 
-- ✅ Webhook triggers with 17 event types for real-time automation
+- ✅ Webhook triggers with 18 event types for real-time automation
 
 - ✅ Polling triggers with 11 event types
 
@@ -376,7 +405,7 @@ npm test
 
 ## 🛠️ Compatibility
 
-- **n8n Version**: 1.112.3+ (tested with latest)
+- **n8n Version**: 2.17.2+ (tested with latest)
 
 - **Node Version**: 20+
 
