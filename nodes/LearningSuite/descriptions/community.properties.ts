@@ -288,8 +288,7 @@ export const communityProperties: INodeProperties[] = [
 		typeOptions: { rows: 4 },
 		displayOptions: { show: { resource: ['community'], operation: ['createCommunityPost'] } },
 		default: '{}',
-		description:
-			'Optional post element as a JSON object, for example a content link. Only applicable to feed posts.',
+		description: 'Optional post element as a JSON object, for example a content link. Only applicable to feed posts.',
 	},
 	{
 		displayName: 'Order',

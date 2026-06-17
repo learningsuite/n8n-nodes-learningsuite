@@ -93,11 +93,11 @@ export class LearningSuite implements INodeType {
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-		description: 'Interact with LearningSuite API (powered by agentur-systeme.de)',
+		description: 'Interact with LearningSuite API (powered by joergsebening.de)',
 		defaults: {
 			name: 'LearningSuite',
 			// @ts-expect-error -- description required by linter
-			description: 'Interact with LearningSuite API (powered by agentur-systeme.de)',
+			description: 'Interact with LearningSuite API (powered by joergsebening.de)',
 		},
 		inputs: [NodeConnectionTypes.Main],
 		outputs: [NodeConnectionTypes.Main],

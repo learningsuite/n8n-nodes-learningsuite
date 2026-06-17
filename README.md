@@ -44,7 +44,7 @@ This community node uses the public LearningSuite API and is not affiliated with
 
 - Add bundles to group, add courses to group, add members to groups, add members to groups (summary)
 - Create group, delete group, find group by name, find or create group
-- Get group courses, get many, remove courses from group, remove members from groups
+- Get group by ID, get group courses, get many, remove courses from group, remove members from groups
 
 ### 📦 **Bundle** (2 operations)
 

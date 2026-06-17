@@ -185,12 +185,12 @@ export class LearningSuitePollingTrigger implements INodeType {
 		group: ['trigger', 'schedule'],
 		version: 1,
 		polling: true,
-		description: 'Polling Trigger node for LearningSuite API (powered by agentur-systeme.de)',
+		description: 'Polling Trigger node for LearningSuite API (powered by joergsebening.de)',
 		subtitle: '={{$parameter["event"]}}',
 		defaults: {
 			name: 'LearningSuite Polling Trigger',
 			// @ts-expect-error -- description is required by n8n node linting for defaults
-			description: 'Polling Trigger node for LearningSuite API (powered by agentur-systeme.de)',
+			description: 'Polling Trigger node for LearningSuite API (powered by joergsebening.de)',
 		},
 		inputs: [],
 		outputs: [NodeConnectionTypes.Main],

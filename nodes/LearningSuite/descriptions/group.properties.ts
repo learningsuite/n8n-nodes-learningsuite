@@ -48,6 +48,12 @@ export const groupProperties: INodeProperties[] = [
 				action: 'Find or create group',
 			},
 			{
+				name: 'Get Group by ID',
+				value: 'getById',
+				description: 'Get a single group by ID',
+				action: 'Get group by ID',
+			},
+			{
 				name: 'Get Group Courses',
 				value: 'getCourses',
 				description: 'List courses assigned to a group',
@@ -74,7 +80,10 @@ export const groupProperties: INodeProperties[] = [
 		type: 'options',
 		typeOptions: { loadOptionsMethod: 'group_getGroups' },
 		displayOptions: {
-			show: { resource: ['group'], operation: ['delete', 'getCourses', 'addCourses', 'removeCourses', 'addBundles'] },
+			show: {
+				resource: ['group'],
+				operation: ['delete', 'getById', 'getCourses', 'addCourses', 'removeCourses', 'addBundles'],
+			},
 		},
 		default: '',
 		required: true,
@@ -136,14 +145,14 @@ export const groupProperties: INodeProperties[] = [
 		type: 'collection',
 		placeholder: 'Add Option',
 		default: {},
-		displayOptions: { show: { resource: ['group'], operation: ['getAll', 'findByName', 'findOrCreate'] } },
+		displayOptions: { show: { resource: ['group'], operation: ['getAll', 'getById', 'findByName', 'findOrCreate'] } },
 		options: [
 			{
 				displayName: 'Include Users',
 				name: 'includeUsers',
 				type: 'boolean',
 				default: false,
-				description: 'Whether: Include users in group results',
+				description: 'Whether to include users in the group results',
 			},
 		],
 	},
