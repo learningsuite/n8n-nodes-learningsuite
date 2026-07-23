@@ -105,9 +105,9 @@ Diese Community Node verwendet die öffentliche LearningSuite API und ist nicht 
 
 - Send Push Notification
 
-### 🤖 **AI** (3 Operationen)
+### 🤖 **AI** (4 Operationen)
 
-- Get Agent Actions, Get AI Agents, RAG Chat
+- Agent Chat, Concierge Chat, Get Agent Actions, Get AI Agents
 
 ### 🛡️ **Role** (1 Operation)
 

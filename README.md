@@ -88,9 +88,9 @@ This community node uses the public LearningSuite API and is not affiliated with
 
 - Send push notification
 
-### 🤖 **AI** (3 operations)
+### 🤖 **AI** (4 operations)
 
-- Get agent actions, get AI agents, RAG Chat
+- Agent chat, concierge chat, get agent actions, get AI agents
 
 ### 🛡️ **Role** (1 operation)
 
