@@ -190,18 +190,20 @@ export class LearningSuite implements INodeType {
 					});
 				}
 			} catch (error) {
+				const nodeError =
+					error instanceof NodeApiError || error instanceof NodeOperationError
+						? error
+						: new NodeOperationError(this.getNode(), error as Error, { itemIndex: i });
+
 				if (this.continueOnFail()) {
 					returnData.push({
 						json: items[i].json,
-						error:
-							error instanceof NodeApiError || error instanceof NodeOperationError
-								? error
-								: new NodeOperationError(this.getNode(), error as Error, { itemIndex: i }),
+						error: nodeError,
 						pairedItem: { item: i },
 					});
 					continue;
 				}
-				throw error;
+				throw nodeError;
 			}
 		}
 

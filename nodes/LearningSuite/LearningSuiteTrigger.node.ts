@@ -320,7 +320,6 @@ export class LearningSuiteTrigger implements INodeType {
 		},
 		inputs: [],
 		outputs: [NodeConnectionTypes.Main],
-		usableAsTool: true,
 		credentials: [
 			{
 				name: 'learningSuiteApi',

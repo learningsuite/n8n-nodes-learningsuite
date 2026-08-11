@@ -194,7 +194,6 @@ export class LearningSuitePollingTrigger implements INodeType {
 		},
 		inputs: [],
 		outputs: [NodeConnectionTypes.Main],
-		usableAsTool: true,
 		credentials: [{ name: 'learningSuiteApi', required: true }],
 		properties: pollingProperties,
 	};
