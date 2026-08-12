@@ -15,6 +15,11 @@ export const instantProperties: INodeProperties[] = [
 				description: 'Triggers when an AI agent action has been executed',
 			},
 			{
+				name: 'AI Agent Limit for Inaccessible Course Content Exceeded',
+				value: 'aiAgent.limitForInaccessibleCourseContentExceeded',
+				description: 'Triggers when an AI agent exceeds the limit for inaccessible course content',
+			},
+			{
 				name: 'Community Post Commented',
 				value: 'communityPost.commented',
 				description: 'Triggers when a community post was commented',
@@ -90,6 +95,25 @@ export const instantProperties: INodeProperties[] = [
 				name: 'User Activation Status Changed',
 				value: 'user.activationStatusChanged',
 				description: 'Triggers when a user is activated or deactivated',
+			},
+		],
+	},
+	{
+		displayName: 'AI Agent Limit Options',
+		name: 'additionalAiAgentLimit',
+		type: 'collection',
+		default: {},
+		placeholder: 'Add option',
+		displayOptions: { show: { event: ['aiAgent.limitForInaccessibleCourseContentExceeded'] } },
+		options: [
+			{
+				displayName: 'Agent Name or ID',
+				name: 'agentId',
+				type: 'options',
+				default: '',
+				description:
+					'Optional: Only trigger for a specific AI agent. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				typeOptions: { loadOptionsMethod: 'ai_getAiAgents' },
 			},
 		],
 	},

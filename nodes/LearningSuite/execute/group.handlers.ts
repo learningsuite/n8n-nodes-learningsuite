@@ -56,6 +56,14 @@ const removeMembers: ExecuteHandler = async (ctx, i) => {
 	return await lsRequest.call(ctx, 'DELETE', '/remove-members-from-groups', { body: { userIds, groupIds } });
 };
 
+const getById: ExecuteHandler = async (ctx, i) => {
+	const groupId = ctx.getNodeParameter('groupId', i) as string;
+	const additionalOptions = ctx.getNodeParameter('additionalOptions', i, {}) as IDataObject;
+	const qs: IDataObject = {};
+	if (additionalOptions.includeUsers) qs.includeUsers = additionalOptions.includeUsers as boolean;
+	return await lsRequest.call(ctx, 'GET', `/groups/${groupId}`, { qs });
+};
+
 const getCourses: ExecuteHandler = async (ctx, i) => {
 	const groupId = ctx.getNodeParameter('groupId', i) as string;
 	return await lsRequest.call(ctx, 'GET', `/group/${groupId}/courses`);
@@ -96,6 +104,7 @@ export const groupHandlers = {
 	delete: deleteGroup,
 	findByName,
 	findOrCreate,
+	getById,
 	addMembers,
 	removeMembers,
 	getCourses,

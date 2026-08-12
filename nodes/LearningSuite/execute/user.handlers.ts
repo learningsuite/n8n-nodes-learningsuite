@@ -28,6 +28,12 @@ const sendPushNotification: ExecuteHandler = async (ctx, i) => {
 	});
 };
 
+const sendLoginEmail: ExecuteHandler = async (ctx, i) => {
+	const userId = ctx.getNodeParameter('userId', i) as string;
+	return await lsRequest.call(ctx, 'POST', `/user/${encodeURIComponent(userId)}/send-login-email`);
+};
+
 export const userHandlers = {
-	sendPushNotification, // 👈 KEY must exactly match the operation value
+	sendLoginEmail,
+	sendPushNotification,
 };

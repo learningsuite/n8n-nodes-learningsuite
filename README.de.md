@@ -57,11 +57,11 @@ Diese Community Node verwendet die öffentliche LearningSuite API und ist nicht 
 - Get Published Courses, Get Course Modules, Get Course Modules for Member
 - Get Course Members, Get Course Access Requests, Get Course Submissions, Create Lesson
 
-### 👥 **Group** (12 Operationen)
+### 👥 **Group** (13 Operationen)
 
 - Add Bundles to Group, Add Courses to Group, Add Members to Groups, Add Members to Groups (Summary)
 - Create Group, Delete Group, Find Group by Name, Find or Create Group
-- Get Group Courses, Get Many, Remove Courses From Group, Remove Members From Groups
+- Get Group by ID, Get Group Courses, Get Many, Remove Courses From Group, Remove Members From Groups
 
 ### 📦 **Bundle** (2 Operationen)
 
@@ -105,9 +105,9 @@ Diese Community Node verwendet die öffentliche LearningSuite API und ist nicht 
 
 - Send Push Notification
 
-### 🤖 **AI** (3 Operationen)
+### 🤖 **AI** (4 Operationen)
 
-- Get Agent Actions, Get AI Agents, RAG Chat
+- Agent Chat, Concierge Chat, Get Agent Actions, Get AI Agents
 
 ### 🛡️ **Role** (1 Operation)
 

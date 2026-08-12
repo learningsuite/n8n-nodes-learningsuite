@@ -23,12 +23,34 @@ export const userProperties: INodeProperties[] = [
 		displayOptions: { show: { resource: ['user'] } },
 		options: [
 			{
+				name: 'Send Login Email',
+				value: 'sendLoginEmail',
+				action: 'Send login email',
+				description: 'Send a login information email with a login link to a user',
+			},
+			{
 				name: 'Send Push Notification',
 				value: 'sendPushNotification',
 				action: 'Send push notification',
 				description: 'Send push notifications to selected users or groups (requires custom app with push support)',
 			},
 		],
+	},
+	{
+		displayName: 'User Name or ID',
+		name: 'userId',
+		type: 'options',
+		typeOptions: { loadOptionsMethod: 'member_getMembers' },
+		displayOptions: {
+			show: {
+				resource: ['user'],
+				operation: ['sendLoginEmail'],
+			},
+		},
+		default: '',
+		required: true,
+		description:
+			'User ID of the user who should receive a login link email. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 	},
 	// User IDs
 	{

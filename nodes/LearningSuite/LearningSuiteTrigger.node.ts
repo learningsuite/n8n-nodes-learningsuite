@@ -45,6 +45,7 @@ type ApiErrorLike = {
 
 const INSTANT_EVENTS = new Set<string>([
 	'agentAction.executed',
+	'aiAgent.limitForInaccessibleCourseContentExceeded',
 	'accessRequest.created',
 	'communityPost.created',
 	'communityPost.commented',
@@ -105,6 +106,17 @@ function buildDesiredFilter(this: IHookFunctions, event: string): { filter: IDat
 			if (col?.toolKey) {
 				filter.toolKey = String(col.toolKey);
 			}
+			if (col?.agentId) {
+				filter.agentId = String(col.agentId);
+			}
+			break;
+		}
+
+		case 'aiAgent.limitForInaccessibleCourseContentExceeded': {
+			const col = getCol('additionalAiAgentLimit') as {
+				agentId?: string;
+			};
+
 			if (col?.agentId) {
 				filter.agentId = String(col.agentId);
 			}
@@ -308,7 +320,6 @@ export class LearningSuiteTrigger implements INodeType {
 		},
 		inputs: [],
 		outputs: [NodeConnectionTypes.Main],
-		usableAsTool: true,
 		credentials: [
 			{
 				name: 'learningSuiteApi',

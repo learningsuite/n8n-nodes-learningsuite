@@ -52,6 +52,18 @@ export const courseProperties: INodeProperties[] = [
 				description: 'List published courses',
 				action: 'Get published courses',
 			},
+			{
+				name: 'Publish Course',
+				value: 'publishCourse',
+				description: 'Publish all pending changes of a course to a new version',
+				action: 'Publish course',
+			},
+			{
+				name: 'Update Lesson',
+				value: 'updateLesson',
+				description: 'Update a lesson name or visibility',
+				action: 'Update lesson',
+			},
 		],
 	},
 	{
@@ -69,6 +81,7 @@ export const courseProperties: INodeProperties[] = [
 					'getAccessRequests',
 					'getSubmissions',
 					'createLesson',
+					'publishCourse',
 				],
 			},
 		},
@@ -76,6 +89,21 @@ export const courseProperties: INodeProperties[] = [
 		required: true,
 		description:
 			'ID of the course. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+	},
+	{
+		displayName: 'Course Name or ID',
+		name: 'courseId',
+		type: 'options',
+		typeOptions: { loadOptionsMethod: 'course_getCourses' },
+		displayOptions: {
+			show: {
+				resource: ['course'],
+				operation: ['updateLesson'],
+			},
+		},
+		default: '',
+		description:
+			'Optional course filter for loading modules. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 	},
 	{
 		displayName: 'Module Name or ID',
@@ -95,6 +123,43 @@ export const courseProperties: INodeProperties[] = [
 		required: true,
 		description:
 			'Select a module. Optionally, select a course first to filter the list. Or enter an ID using an expression. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+	},
+	{
+		displayName: 'Module Name or ID',
+		name: 'moduleId',
+		type: 'options',
+		displayOptions: {
+			show: {
+				resource: ['course'],
+				operation: ['updateLesson'],
+			},
+		},
+		typeOptions: {
+			loadOptionsMethod: 'course_getModules',
+			loadOptionsDependsOn: ['courseId'],
+		},
+		default: '',
+		description:
+			'Optional module filter for loading lessons. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+	},
+	{
+		displayName: 'Lesson Name or ID',
+		name: 'lessonId',
+		type: 'options',
+		typeOptions: {
+			loadOptionsMethod: 'module_getLessons',
+			loadOptionsDependsOn: ['moduleId'],
+		},
+		displayOptions: {
+			show: {
+				resource: ['course'],
+				operation: ['updateLesson'],
+			},
+		},
+		default: '',
+		required: true,
+		description:
+			'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
 	},
 	{
 		displayName: 'Section Name or ID',
@@ -165,6 +230,14 @@ export const courseProperties: INodeProperties[] = [
 		default: '',
 		displayOptions: { show: { resource: ['course'], operation: ['createLesson'] } },
 	},
+	{
+		displayName:
+			'<b>Publishing this course goes live immediately.</b> It will include all pending changes since the last published version.',
+		name: 'notice_publishCourse',
+		type: 'notice',
+		default: '',
+		displayOptions: { show: { resource: ['course'], operation: ['publishCourse'] } },
+	},
 
 	{
 		displayName: 'Additional Options',
@@ -212,6 +285,77 @@ export const courseProperties: INodeProperties[] = [
 				default: '',
 				description:
 					'A direct-downloadable video URL to be inserted as the first element on the lesson page. If no explicit thumbnail is set, the first frame of the video will be used as thumbnail.',
+			},
+		],
+	},
+	{
+		displayName: 'Publish Options',
+		name: 'publishOptions',
+		type: 'collection',
+		placeholder: 'Add Option',
+		default: {},
+		displayOptions: { show: { resource: ['course'], operation: ['publishCourse'] } },
+		options: [
+			{
+				displayName: 'Notify Members',
+				name: 'notifyMembers',
+				type: 'boolean',
+				default: false,
+				description:
+					'Whether course members should receive a notification with the update message via email and notification center',
+			},
+			{
+				displayName: 'Update Message',
+				name: 'updateMessage',
+				type: 'string',
+				typeOptions: { rows: 4 },
+				default: '',
+				description: 'Optional update message sent with the course update notification',
+			},
+			{
+				displayName: 'Version Name',
+				name: 'versionName',
+				type: 'string',
+				default: '',
+				description: 'Optional display name of the new version',
+			},
+			{
+				displayName: 'Version Notes',
+				name: 'versionNotes',
+				type: 'string',
+				typeOptions: { rows: 4 },
+				default: '',
+				description: 'Optional internal notes for the new version',
+			},
+		],
+	},
+	{
+		displayName: 'Lesson Update Fields',
+		name: 'lessonUpdateFields',
+		type: 'collection',
+		placeholder: 'Add Field',
+		default: {},
+		displayOptions: { show: { resource: ['course'], operation: ['updateLesson'] } },
+		options: [
+			{
+				displayName: 'Name',
+				name: 'name',
+				type: 'string',
+				default: '',
+				description: 'The new lesson name',
+			},
+			{
+				displayName: 'Visibility',
+				name: 'visibility',
+				type: 'options',
+				options: [
+					{ name: 'Do Not Change', value: '' },
+					{ name: 'Coming Soon', value: 'COMING_SOON' },
+					{ name: 'Draft', value: 'DRAFT' },
+					{ name: 'Visible', value: 'VISIBLE' },
+				],
+				default: '',
+				description: 'The visibility status of the lesson',
 			},
 		],
 	},

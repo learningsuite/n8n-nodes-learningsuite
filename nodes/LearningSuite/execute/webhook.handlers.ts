@@ -60,6 +60,17 @@ function buildDesiredFilter(ctx: ExecuteContext, i: number, eventType: string): 
 			break;
 		}
 
+		case 'aiAgent.limitForInaccessibleCourseContentExceeded': {
+			const col = getCol(ctx, i, 'additionalAiAgentLimit') as {
+				agentId?: string;
+			};
+
+			if (col?.agentId) {
+				filter.agentId = String(col.agentId);
+			}
+			break;
+		}
+
 		// ---------------- Community
 		case 'communityPost.commented': {
 			const col = getCol(ctx, i, 'additionalCommunityPostCommented');
@@ -269,6 +280,12 @@ const getSampleData: ExecuteHandler = async (ctx, i) => {
 	switch (sampleDataType) {
 		case 'agent-action-executed-events': {
 			const col = ctx.getNodeParameter('additionalAgentActionExecutedSample', i, {}) as IDataObject;
+			qs = col;
+			break;
+		}
+
+		case 'ai-agent-limit-for-inaccessible-course-content-exceeded-events': {
+			const col = ctx.getNodeParameter('additionalAiAgentLimitSample', i, {}) as IDataObject;
 			qs = col;
 			break;
 		}

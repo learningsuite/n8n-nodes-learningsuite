@@ -4,6 +4,27 @@ import type { INodeProperties } from 'n8n-workflow';
 
 export const webhookSampleDataProperties: INodeProperties[] = [
 	{
+		displayName: 'AI Agent Limit Options',
+		name: 'additionalAiAgentLimitSample',
+		type: 'collection',
+		default: {},
+		placeholder: 'Add option',
+		displayOptions: {
+			show: { sampleDataType: ['ai-agent-limit-for-inaccessible-course-content-exceeded-events'] },
+		},
+		options: [
+			{
+				displayName: 'Agent Name or ID',
+				name: 'agentId',
+				type: 'options',
+				default: '',
+				description:
+					'Optional agent ID to filter AI agent inaccessible course content limit events. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				typeOptions: { loadOptionsMethod: 'ai_getAiAgents' },
+			},
+		],
+	},
+	{
 		displayName: 'Agent Action Executed Options',
 		name: 'additionalAgentActionExecutedSample',
 		type: 'collection',

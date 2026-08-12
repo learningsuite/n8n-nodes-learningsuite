@@ -65,6 +65,67 @@ const removeBadgesFromUser: ExecuteHandler = async (ctx, i) => {
 	return await lsRequest.call(ctx, 'DELETE', '/community/badges/user', { body });
 };
 
+const createCommunityPost: ExecuteHandler = async (ctx, i) => {
+	const authorUserId = String(ctx.getNodeParameter('authorUserId', i, '') || '').trim();
+	const forumId = String(ctx.getNodeParameter('forumId', i, '') || '').trim();
+	const postTitle = String(ctx.getNodeParameter('postTitle', i, '') || '').trim();
+	const answerToPostId = String(ctx.getNodeParameter('answerToPostId', i, '') || '').trim();
+	const contentFormat = ctx.getNodeParameter('contentFormat', i, 'string') as string;
+
+	if (!authorUserId) {
+		throw new NodeOperationError(ctx.getNode(), 'Please provide authorUserId.');
+	}
+	if (!forumId) {
+		throw new NodeOperationError(ctx.getNode(), 'Please provide a forum ID.');
+	}
+
+	let content: string | IDataObject[];
+	if (contentFormat === 'json') {
+		const contentJson = ctx.getNodeParameter('contentJson', i, '[]') as string;
+		try {
+			content = JSON.parse(contentJson) as IDataObject[];
+		} catch (err) {
+			throw new NodeOperationError(ctx.getNode(), `Invalid JSON in content: ${String(err)}`);
+		}
+		if (!Array.isArray(content)) {
+			throw new NodeOperationError(ctx.getNode(), 'Content JSON must be an array of objects.');
+		}
+	} else {
+		content = String(ctx.getNodeParameter('content', i, '') || '').trim();
+		if (!content) {
+			throw new NodeOperationError(ctx.getNode(), 'The post content cannot be empty.');
+		}
+	}
+
+	const body: IDataObject = {
+		authorUserId,
+		forumId,
+		content,
+	};
+
+	if (postTitle) {
+		body.postTitle = postTitle;
+	}
+	if (answerToPostId) {
+		body.answerToPostId = answerToPostId;
+	}
+
+	const elementJson = String(ctx.getNodeParameter('elementJson', i, '{}') || '').trim();
+	if (elementJson && elementJson !== '{}') {
+		try {
+			const element = JSON.parse(elementJson) as IDataObject;
+			if (!element || Array.isArray(element) || typeof element !== 'object') {
+				throw new Error('Element JSON must be an object.');
+			}
+			body.element = element;
+		} catch (err) {
+			throw new NodeOperationError(ctx.getNode(), `Invalid JSON in element: ${String(err)}`);
+		}
+	}
+
+	return lsRequest.call(ctx, 'POST', '/community/posts', { body });
+};
+
 export const commentOnPost: ExecuteHandler = async (ctx, i) => {
 	const postId = String(ctx.getNodeParameter('postId', i, '') || '').trim();
 	const authorUserId = String(ctx.getNodeParameter('authorUserId', i, '') || '').trim();
@@ -99,6 +160,7 @@ export const communityHandlers = {
 	getBadges,
 	assignBadgesToUser,
 	removeBadgesFromUser,
+	createCommunityPost,
 	commentOnPost,
 	getCommunityPosts,
 };

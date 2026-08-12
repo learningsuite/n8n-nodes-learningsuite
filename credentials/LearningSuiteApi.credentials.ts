@@ -3,7 +3,10 @@ import type { IAuthenticate, ICredentialTestRequest, ICredentialType, Icon, INod
 export class LearningSuiteApi implements ICredentialType {
 	name = 'learningSuiteApi';
 	displayName = 'LearningSuite API';
-	icon: Icon = 'file:learningsuite.svg';
+	icon: Icon = {
+		light: 'file:learningsuite-icon-light.svg',
+		dark: 'file:learningsuite-icon-dark.svg',
+	};
 	documentationUrl = 'https://github.com/learningsuite/n8n-nodes-learningsuite/blob/main/CREDENTIALS.md';
 
 	properties: INodeProperties[] = [

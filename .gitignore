@@ -1,6 +1,7 @@
 # Build outputs
 dist/
 *.tsbuildinfo
+scripts/.scan-tools/
 
 # Dependencies
 node_modules/

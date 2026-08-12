@@ -80,8 +80,9 @@ async function requestCore(
 
 		return await this.helpers.httpRequestWithAuthentication.call(this, 'learningSuiteApi', options);
 	} catch (error) {
-		if (error instanceof NodeApiError) throw error;
-		throw new NodeApiError(this.getNode(), error as JsonObject);
+		throw error instanceof NodeApiError
+			? error
+			: new NodeApiError(this.getNode(), error as JsonObject);
 	}
 }
 

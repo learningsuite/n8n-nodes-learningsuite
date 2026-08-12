@@ -1,4 +1,5 @@
 import type { IDataObject } from 'n8n-workflow';
+import { NodeOperationError } from 'n8n-workflow';
 import { lsRequest } from '../shared';
 import type { ExecuteHandler } from '../exec.types';
 
@@ -97,6 +98,39 @@ const createLesson: ExecuteHandler = async (ctx, i) => {
 	return lsRequest.call(ctx, 'POST', `/courses/${courseId}/create-lesson/${sectionId}`, { body });
 };
 
+const publishCourse: ExecuteHandler = async (ctx, i) => {
+	const courseId = ctx.getNodeParameter('courseId', i) as string;
+	const publishOptions = ctx.getNodeParameter('publishOptions', i, {}) as IDataObject;
+
+	const body: IDataObject = {
+		versionName: publishOptions.versionName,
+		versionNotes: publishOptions.versionNotes,
+		notifyMembers: publishOptions.notifyMembers,
+		updateMessage: publishOptions.updateMessage,
+	};
+
+	Object.keys(body).forEach((k) => {
+		if (body[k] === '' || body[k] === undefined || body[k] === null) delete body[k];
+	});
+
+	return lsRequest.call(ctx, 'POST', `/courses/${courseId}/publish`, { body });
+};
+
+const updateLesson: ExecuteHandler = async (ctx, i) => {
+	const lessonId = ctx.getNodeParameter('lessonId', i) as string;
+	const fields = ctx.getNodeParameter('lessonUpdateFields', i, {}) as IDataObject;
+
+	const body: IDataObject = {};
+	if (fields.name) body.name = String(fields.name);
+	if (fields.visibility) body.visibility = String(fields.visibility);
+
+	if (!body.name && !body.visibility) {
+		throw new NodeOperationError(ctx.getNode(), 'Please provide at least one lesson field to update.');
+	}
+
+	return lsRequest.call(ctx, 'PUT', `/lessons/${encodeURIComponent(lessonId)}`, { body });
+};
+
 export const courseHandlers = {
 	getPublished,
 	getModules,
@@ -105,4 +139,6 @@ export const courseHandlers = {
 	getAccessRequests,
 	getSubmissions,
 	createLesson,
+	publishCourse,
+	updateLesson,
 };

@@ -44,7 +44,7 @@ This community node uses the public LearningSuite API and is not affiliated with
 
 - Add bundles to group, add courses to group, add members to groups, add members to groups (summary)
 - Create group, delete group, find group by name, find or create group
-- Get group courses, get many, remove courses from group, remove members from groups
+- Get group by ID, get group courses, get many, remove courses from group, remove members from groups
 
 ### 📦 **Bundle** (2 operations)
 
@@ -88,9 +88,9 @@ This community node uses the public LearningSuite API and is not affiliated with
 
 - Send push notification
 
-### 🤖 **AI** (3 operations)
+### 🤖 **AI** (4 operations)
 
-- Get agent actions, get AI agents, RAG Chat
+- Agent chat, concierge chat, get agent actions, get AI agents
 
 ### 🛡️ **Role** (1 operation)
 

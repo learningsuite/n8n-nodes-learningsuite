@@ -1,74 +1,75 @@
 {
-	"name": "n8n-nodes-learningsuite",
-	"version": "1.3.4",
-	"description": "n8n node for LearningSuite API",
-	"keywords": [
-		"n8n-community-node-package",
-		"learningsuite",
-		"learningsuite.io",
-		"learning",
-		"education",
-		"courses"
-	],
-	"license": "MIT",
-	"homepage": "https://github.com/learningsuite/n8n-nodes-learningsuite#readme",
-	"author": {
-		"name": "Fabio Moretti",
-		"email": "office@learningsuite.io"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/learningsuite/n8n-nodes-learningsuite.git"
-	},
-	"bugs": {
-		"url": "https://github.com/learningsuite/n8n-nodes-learningsuite/issues"
-	},
-	"main": "index.js",
-	"scripts": {
-		"build": "npx rimraf dist && tsc && gulp build:icons",
-		"dev": "tsc --watch",
-		"format": "prettier nodes credentials --write",
-		"lint": "eslint nodes credentials package.json",
-		"lintfix": "eslint nodes credentials package.json --fix",
-		"lint:node": "n8n-node lint",
-		"lint:all": "npm run lint && npm run lint:node",
-		"release": "n8n-node release",
-		"prepublishOnly": "n8n-node prerelease"
-	},
-	"files": [
-		"dist",
-		"README.md",
-		"LICENSE"
-	],
-	"n8n": {
-		"n8nNodesApiVersion": 1,
-		"strict": true,
-		"credentials": [
-			"dist/credentials/LearningSuiteApi.credentials.js"
-		],
-		"nodes": [
-			"dist/nodes/LearningSuite/LearningSuite.node.js",
-			"dist/nodes/LearningSuite/LearningSuiteTrigger.node.js",
-			"dist/nodes/LearningSuitePollingTrigger/LearningSuitePollingTrigger.node.js"
-		]
-	},
-	"devDependencies": {
-		"@n8n/node-cli": "^0.23.0",
-		"@typescript-eslint/parser": "^8.52.0",
-		"eslint": "^9.39.4",
-		"eslint-plugin-n8n-nodes-base": "^1.16.3",
-		"gulp": "^5.0.0",
-		"gulp-cli": "^3.1.0",
-		"package-json-from-dist": "^1.0.1",
-		"prettier": "^3.8.1",
-		"release-it": "^19.2.4",
-		"rimraf": "^6.0.1",
-		"typescript": "^5.9.3"
-	},
-	"peerDependencies": {
-		"n8n-workflow": "*"
-	},
-	"publishConfig": {
-		"access": "public"
-	}
+  "name": "n8n-nodes-learningsuite",
+  "version": "1.4.1",
+  "description": "n8n node for LearningSuite API",
+  "keywords": [
+    "n8n-community-node-package",
+    "learningsuite",
+    "learningsuite.io",
+    "learning",
+    "education",
+    "courses"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/learningsuite/n8n-nodes-learningsuite#readme",
+  "author": {
+    "name": "Fabio Moretti",
+    "email": "office@learningsuite.io"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/learningsuite/n8n-nodes-learningsuite.git"
+  },
+  "bugs": {
+    "url": "https://github.com/learningsuite/n8n-nodes-learningsuite/issues"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "npx rimraf dist && tsc && gulp build:icons",
+    "dev": "tsc --watch",
+    "format": "prettier nodes credentials --write",
+    "lint": "eslint nodes credentials package.json",
+    "lintfix": "eslint nodes credentials package.json --fix",
+    "lint:node": "n8n-node lint",
+    "lint:all": "npm run lint && npm run lint:node",
+    "lint:scan": "node scripts/scan-local.mjs",
+    "release": "n8n-node release",
+    "prepublishOnly": "n8n-node prerelease"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "strict": true,
+    "credentials": [
+      "dist/credentials/LearningSuiteApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/LearningSuite/LearningSuite.node.js",
+      "dist/nodes/LearningSuite/LearningSuiteTrigger.node.js",
+      "dist/nodes/LearningSuitePollingTrigger/LearningSuitePollingTrigger.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@n8n/node-cli": "^0.43.2",
+    "@typescript-eslint/parser": "^8.52.0",
+    "eslint": "^9.39.4",
+    "eslint-plugin-n8n-nodes-base": "^1.16.3",
+    "gulp": "^5.0.0",
+    "gulp-cli": "^3.1.0",
+    "package-json-from-dist": "^1.0.1",
+    "prettier": "^3.8.1",
+    "release-it": "^19.2.4",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.9.3"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

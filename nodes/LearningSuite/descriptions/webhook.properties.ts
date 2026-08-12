@@ -84,6 +84,10 @@ export const webhookProperties: INodeProperties[] = [
 		description: 'Type of event to subscribe to',
 		options: [
 			{ name: 'Agent Action Executed', value: 'agentAction.executed' },
+			{
+				name: 'AI Agent Limit for Inaccessible Course Content Exceeded',
+				value: 'aiAgent.limitForInaccessibleCourseContentExceeded',
+			},
 			{ name: 'Community Post Commented', value: 'communityPost.commented' },
 			{ name: 'Community Post Created', value: 'communityPost.created' },
 			{ name: 'Community Post Moderated', value: 'communityPost.moderated' },
@@ -115,6 +119,10 @@ export const webhookProperties: INodeProperties[] = [
 		description: 'Type of sample data to retrieve',
 		options: [
 			{ name: 'Agent Action Executed Events', value: 'agent-action-executed-events' },
+			{
+				name: 'AI Agent Limit for Inaccessible Course Content Exceeded Events',
+				value: 'ai-agent-limit-for-inaccessible-course-content-exceeded-events',
+			},
 			{ name: 'Community Post Commented', value: 'community-post-commented-events' },
 			{ name: 'Community Post Created Events', value: 'community-post-created-events' },
 			{ name: 'Community Post Moderated Events', value: 'community-post-moderated-events' },
@@ -166,6 +174,33 @@ export const webhookProperties: INodeProperties[] = [
 				default: '',
 				description:
 					'Optional: Only trigger for actions executed by a specific AI agent. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				typeOptions: { loadOptionsMethod: 'ai_getAiAgents' },
+			},
+		],
+	},
+
+	// AI Agent Limit for Inaccessible Course Content Exceeded
+	{
+		displayName: 'AI Agent Limit Options',
+		name: 'additionalAiAgentLimit',
+		type: 'collection',
+		default: {},
+		placeholder: 'Add option',
+		displayOptions: {
+			show: {
+				resource: ['webhook'],
+				operation: ['createSubscription', 'updateSubscription'],
+				eventType: ['aiAgent.limitForInaccessibleCourseContentExceeded'],
+			},
+		},
+		options: [
+			{
+				displayName: 'Agent Name or ID',
+				name: 'agentId',
+				type: 'options',
+				default: '',
+				description:
+					'Optional: Only trigger for a specific AI agent. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 				typeOptions: { loadOptionsMethod: 'ai_getAiAgents' },
 			},
 		],
