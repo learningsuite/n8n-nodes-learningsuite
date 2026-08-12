@@ -517,6 +517,10 @@ npm  test
 
   
 
+## 🙌 Großes Dankeschön an den Maintainer
+
+Ein riesiges Dankeschön an **[Jörg Sebening](https://github.com/rjsebening)**, der diese Integration für LearningSuite entwickelt, die Grundlage für ihren heutigen Funktionsumfang geschaffen hat und sie weiterhin pflegt. Seine Arbeit, Sorgfalt und kontinuierliche Unterstützung machen diese LearningSuite-Integration möglich.
+
 ## 📄 Lizenz
 
   

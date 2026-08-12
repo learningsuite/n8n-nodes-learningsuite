@@ -411,6 +411,10 @@ npm test
 
 - **TypeScript**: 5.0+
 
+## 🙌 Huge Thanks to the Maintainer
+
+A huge thank-you to **[Jörg Sebening](https://github.com/rjsebening)**, who built this integration for LearningSuite, laid the foundation for everything it supports today, and continues to maintain it. His work, care, and ongoing support make this LearningSuite integration possible.
+
 ## 📄 License
 
 This project is licensed under the [MIT License].
