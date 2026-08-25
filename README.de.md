@@ -5,13 +5,28 @@
 
 ![n8n](https://img.shields.io/badge/n8n-2.17.2+-brightgreen)
 
-![Version](https://img.shields.io/badge/version-1.2.3-blue)
+![Version](https://img.shields.io/badge/version-1.5.0-blue)
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 
   
 
-Eine n8n Community Node für die **LearningSuite API**, die es ermöglicht, deine LearningSuite Instanz nahtlos in n8n Workflows zu integrieren.
+### Offizielle n8n Integration für **LearningSuite – Die Premium-Lernplattform für Unternehmen & Coaches**
+
+Automatisiere Mitglieder-Onboarding, Kurszugriffe und Community-Aktivität, reagiere auf Echtzeit-Events und halte deine Teilnehmer in Bewegung — **ohne manuelle Arbeit**.
+
+  
+
+## 🧭 Überblick
+
+  
+
+Diese offizielle Community Node verbindet **LearningSuite** nahtlos mit deinen n8n Workflows.
+Von der Mitgliederanlage über Kurszugriffe und Community-Interaktionen bis zu Echtzeit-Triggern — jeder wichtige Prozess durchgängig automatisiert.
+
+  
+
+Die Integration wurde für LearningSuite entwickelt und wird von Jörg Sebening gemeinsam mit dem LearningSuite Team gepflegt.
 
   
 
@@ -23,23 +38,11 @@ n8n ist ein einfach zu bedienendes Tool, mit dem du Aktionen zwischen verschiede
 
   
 
-## ⚖️ Rechtlicher Hinweis
-
-  
-
-Diese Community Node verwendet die öffentliche LearningSuite API und ist nicht mit LearningSuite verbunden oder von LearningSuite gesponsert. Alle Markenzeichen gehören ihren jeweiligen Eigentümern.
-
-  
-
-**Hinweis**: Dies ist eine von der Community entwickelte Node für die LearningSuite API. Für offiziellen Support wende dich bitte direkt an LearningSuite.
-
-  
-
 ## 🚀 Features
 
-- **15 Ressourcen** vollständig unterstützt (Member, Course, Group, Bundle, Hub, Module, Community, Custom Fields, Popup, Webhook, Role, User, Team Member, AI, API Call)
-- **90 Action-Endpunkte** für maximale Flexibilität
-- **Instant Trigger (Webhook-basierend)** mit 18 Event-Types für Echtzeit-Automatisierung
+- **16 Ressourcen** vollständig unterstützt (Member, Course, Group, Bundle, Hub, Module, Community, Calendar Event, Custom Fields, Popup, Webhook, Role, User, Team Member, AI, API Call)
+- **100 Action-Endpunkte** für maximale Flexibilität
+- **Instant Trigger (Webhook-basierend)** mit 19 Event-Types für Echtzeit-Automatisierung
 - **Polling Trigger** mit 11 Event-Types für zeitgesteuerte Abfragen
 - **Flexible API Call** Resource für custom Endpunkte
 
@@ -47,75 +50,85 @@ Diese Community Node verwendet die öffentliche LearningSuite API und ist nicht 
 
 ### 👤 **Member** (20 Operationen)
 
-- Get by Email, Get by ID, Get All, Create, Update, Delete, Find or Create
-- Activate/Deactivate, Add/Remove Courses, Add/Remove Bundles
-- Get Courses, Get Course Info, Get Member Bundles
+- Get Member by Email, Get Member by ID, Get Many Members, Create a Member, Update a Member, Delete a Member, Find or Create Member
+- Activate Deactivate Member, Add Member to Courses, Remove Member From Courses, Add Member to Bundles, Remove Member From Bundles
+- Get Member Courses, Get Member Course Info, Get Member Bundles
 - Get Course Progress, Get Module Progress, Get Lesson Progress, Set Course Progress, Reset Course Progress
 
-### 📚 **Course** (7 Operationen)
+### 📚 **Course** (9 Operationen)
 
-- Get Published Courses, Get Course Modules, Get Course Modules for Member
-- Get Course Members, Get Course Access Requests, Get Course Submissions, Create Lesson
+- Get Published Courses, Publish Course, Get Course Modules, Get Course Modules for Member
+- Get Course Members, Get Course Access Requests, Get Course Submissions
+- Create Lesson, Update Lesson
 
 ### 👥 **Group** (13 Operationen)
 
-- Add Bundles to Group, Add Courses to Group, Add Members to Groups, Add Members to Groups (Summary)
-- Create Group, Delete Group, Find Group by Name, Find or Create Group
-- Get Group by ID, Get Group Courses, Get Many, Remove Courses From Group, Remove Members From Groups
+- Create a Group, Delete a Group, Find Groups by Name, Find or Create Group, Get Group by ID, Get Many Groups
+- Add Members to Groups, Add Members to Groups Summary, Remove Members From Groups
+- Add Courses to Group, Remove Courses From Group, Get Group Courses, Add Bundles to Group
 
 ### 📦 **Bundle** (2 Operationen)
 
-- Get All, Get Bundle Members
+- Get Bundles, Get Bundle Members
 
 ### 🏠 **Hub** (6 Operationen)
 
-- Get All, Get Templates, Create, Give Hub Access, Remove Hub Access, Get Hub Template Variables
+- Get Many Hubs, Get Hub Templates, Get Hub Template Variables, Create a Hub, Add Hub Access, Remove Hub Access
 
 ### 📖 **Module** (3 Operationen)
 
-- Get Module Lessons, Get Module Sections, Change Module Access for Member
+- Get Module Lessons, Get Module Sections, Change Module Access
 
-### 💬 **Community** (7 Operationen)
+### 💬 **Community** (8 Operationen)
 
-- Assign Badges to Member, Remove Community Badges From Member
-- Get Community Areas, Get Community Badges, Get Community Forums, Get Community Posts
-- Create Community Post Comment
+- Get Community Areas, Get Community Forums, Get Community Posts, Get Community Badges
+- Create Community Post, Add Comment to Post
+- Assign Badges to Member, Remove Badges From Member
+
+### 🗓️ **Calendar Event** (4 Operationen)
+
+- Get Many Calendar Events, Create a Calendar Event, Update a Calendar Event, Delete a Calendar Event
+- Erinnerungen (Push/E-Mail), Link-Phasen (Before/During/After), Zugriff über Member/Gruppen/Bundles
+- Update übernimmt Felder aus eingehenden Items automatisch
 
 ### 🔧 **Custom Fields** (14 Operationen)
 
-- Get Cards, Get Cards (Expanded), Get Categories, Get Definitions
-- Get Field Values, Get Store, Get Store Values
-- Get Profile by Card, Get Profiles, Get Profiles (Expanded)
-- Set Field Value, Set Multiple Field Values, Update Profile Field
-- Upload File From URL
+- Retrieve All Custom Field Cards, Retrieve Custom Field Cards Including Their Definitions and Categories
+- Retrieve Custom Field Categories, Retrieve Custom Field Definitions
+- Retrieve the Values of a Custom Field for a User, Get All Custom Field Values of a User for a Given Profile
+- Retrieve Custom Field Profiles of a User, Retrieve Custom Field Profiles Including Their Values, Retrieve the Values of a Custom Field Card Profile for a User
+- Retrieve the Complete Custom Field Store of a User
+- Set the Value of a Single Custom Field for a User, Set Multiple Custom Field Values for a User in One Request, Update a Custom Field Value Within a Profile of a Custom Field Card
+- Upload a File From a Public URL and Append It to a Custom Field
 
 ### 🎯 **Popup** (4 Operationen)
 
-- Get All, Get Popup, Trigger Popup for Member, Delete Popup Trigger
+- Get Many Popups, Get a Popup, Trigger Popup for Member, Remove Popup Trigger for Member
 
-### 🔗 **Webhook** (5 Operationen)
+### 🔗 **Webhook** (6 Operationen)
 
-- Get/Create/Update/Delete Subscriptions, Get Sample Data
+- Get Webhook Subscription, Get Webhook Subscriptions, Create Webhook Subscription, Update Webhook Subscription, Delete Webhook Subscription
+- Get Webhook Sample Data
 
 ### 👤 **Team Member** (3 Operationen)
 
-- Get Many, Get by Email, Get by ID
+- Get Team Members, Get Team Member by Email, Get Team Member by ID
 
-### 📢 **User** (1 Operation)
+### 📢 **User** (2 Operationen)
 
-- Send Push Notification
+- Send Push Notification, Send Login Email
 
 ### 🤖 **AI** (4 Operationen)
 
-- Agent Chat, Concierge Chat, Get Agent Actions, Get AI Agents
+- Send Message to AI Agent, Send Message to AI Concierge, List AI Agents, List Agent Actions
 
 ### 🛡️ **Role** (1 Operation)
 
-- Get All
+- Get Many Roles
 
 ### 🛠️ **API Call** (1 Operation)
 
-- Make Request (für beliebige API-Aufrufe)
+- Custom API Call (für beliebige Endpunkte)
 
 ## 🎣 Trigger Events
 
@@ -123,14 +136,15 @@ Der LearningSuite Trigger unterstützt folgende Events:
 
 ### ⚡ Instant Trigger Events (Webhook)
 
-- ✅ Community Post Commented
 - ✅ Agent Action Executed
+- ✅ AI Agent Limit for Inaccessible Course Content Exceeded
+- ✅ Community Post Commented
 - ✅ Community Post Created
 - ✅ Community Post Moderated
 - ✅ Course Member Added
 - ✅ Course Progress Changed
 - ✅ Course Updated
-- ✅ Custom Field Value Changed
+- ✅ Custom Field Value Changed Events
 - ✅ Custom Popup Interaction
 - ✅ Exam Completed
 - ✅ Exam Graded
@@ -197,7 +211,7 @@ Verknüpfe Formulare von deiner Website und gib Nutzern, welche das Formular aus
 
 2. Gehe zu **Settings** → **Community Nodes**
 
-3. Installiere: `n8n-nodes-learningsuite` oder `@learningsuite/n8n-nodes-learningsuite`
+3. Installiere: `@learningsuite/n8n-nodes-learningsuite`
 
 4. Starte n8n neu
   
@@ -327,6 +341,17 @@ Die Custom Fields Resource unterstützt Datei-, Bild-, Video- und Audio-Felder.
 - Bei Custom-Field-Cards mit mehreren Profilen kannst du über Profile ID, Profile Index oder Profile Name ein bestimmtes Profil ansprechen. Wenn die Card keine mehreren Profile erlaubt, werden Profilparameter ignoriert und das Default-Profil verwendet.
 
   
+
+### Kalender-Events
+
+Die Ressource Calendar Event arbeitet auf Event-**Serien**, nie auf einzelnen Terminen — eine wöchentliche Serie ist ein Eintrag, unabhängig davon, wie oft sie stattfindet.
+
+- **Get Many** filtert über die Laufzeit der Serie: `From Date`/`To Date` wählen Serien aus, deren Laufzeit sich mit dem Zeitraum überschneidet, jeweils um einen Tag erweitert für Zeitzonen-Toleranz. Eine Serie kann deshalb zurückkommen, obwohl kein einziger ihrer Termine im exakten Zeitraum liegt. Die einzelnen Termine berechnest du aus `startDate`, `startTime`, `timeZone`, `duration`, `repetitionInterval` und `endDate`.
+- **Datum und Uhrzeit** im Format `YYYY-MM-DD` bzw. `HH:mm`, interpretiert in der IANA-Zeitzone des Events (z.B. `Europe/Berlin`).
+- **Update** übernimmt seine Felder automatisch aus dem eingehenden Item, ein Get-Many-Ergebnis lässt sich also direkt weiterreichen. Gesendet wird nur, was gemappt ist — alles andere behält seinen Wert.
+- **Wert leeren**: das Feld auf den Ausdruck `{{ null }}` setzen. Die API erlaubt das nur für Description, Duration und End Date.
+- **Link Stages** ersetzen den einzelnen Link durch die Phasen Before/During/After. Sobald eine Phase gesetzt ist, ist die During-Phase Pflicht.
+- **Zugriff** (Member, Gruppen, Bundles) lässt sich nur beim Anlegen setzen; der Update-Endpunkt nimmt ihn nicht entgegen.
 
 ### ⚡ Instant Webhook Trigger Setup
 
@@ -459,51 +484,7 @@ npm  test
 
 ## 📝 Changelog
 
-  
-
-### Version 1.2.3 (aktuell)
-
-  
-
-#### Custom-Fields-Datei-Uploads
-
-- ✅ Datei per öffentlicher URL hochladen
-
-- ✅ Binary Uploads für Datei-, Bild-, Video- und Audio-Custom-Fields
-
-- ✅ Datei-Wert-Modus: hinzufügen, ersetzen oder ersetzen, wenn das Feldlimit erreicht ist
-
-- ✅ Custom-Field-Dateilimits werden berücksichtigt (`maxFiles`, `maxImages`, `maxVideos`, `maxAudios`)
-
-- ✅ Verbesserte Verarbeitung von Custom-Field-Profilkarten und Default-Profilen
-
-  
-
-### Version 0.1.0 (2025-09-23)
-
-  
-
-#### Initial Release
-
-- ✅ Vollständige LearningSuite API Integration
-
-- ✅ 15 Ressourcen mit 90 Action-Endpunkten
-
-- ✅ Webhook Trigger mit 18 Event-Types für Echtzeit-Automatisierung
-
-- ✅ Polling Trigger mit 11 Event-Types
-
-- ✅ "Find-or-Create" Logik für Member und Groups
-
-- ✅ Custom Fields Resource mit vollständigem CRUD Support
-
-- ✅ Kurs-Fortschritt Management (Get/Set/Reset)
-
-- ✅ Flexible Parameter-Konfiguration
-
-- ✅ API Call Resource für custom Endpunkte
-
-  
+Alle nennenswerten Änderungen stehen in [CHANGELOG.md](CHANGELOG.md).
 
 ## 🛠️ Kompatibilität
 
@@ -517,25 +498,17 @@ npm  test
 
   
 
-## 🙌 Großes Dankeschön an den Maintainer
-
-Ein riesiges Dankeschön an **[Jörg Sebening](https://github.com/rjsebening)**, der diese Integration für LearningSuite entwickelt, die Grundlage für ihren heutigen Funktionsumfang geschaffen hat und sie weiterhin pflegt. Seine Arbeit, Sorgfalt und kontinuierliche Unterstützung machen diese LearningSuite-Integration möglich.
-
-## 📄 Lizenz
-
-  
-
-Dieses Projekt ist unter der [MIT Lizenz](LICENSE) lizenziert.
-
-  
-
 ## ❓ Support
 
   
 
 ### Probleme melden
 
-Für Bugs oder Feature Requests, bitte ein [GitHub Issue](https://github.com/learningsuite/n8n-nodes-learningsuite/issues) erstellen.
+Für Fehler oder Feature-Wünsche **in dieser Node** erstelle bitte ein [GitHub Issue](https://github.com/learningsuite/n8n-nodes-learningsuite/issues).
+
+  
+
+Bei Fragen zur LearningSuite API selbst oder zu deinem LearningSuite Account wende dich an den LearningSuite Support.
 
   
 
@@ -571,22 +544,23 @@ A: Die Standard URL ist `https://api.learningsuite.io/api/v1`. Bei Custom Domain
 
 💡 **Feature Request?** Öffne ein Issue - wir sind immer offen für Verbesserungen!
 
-  
+## 📬 Betreut für LearningSuite
 
-## 📋 Haftungsausschluss
+Diese Integration wurde für **LearningSuite** entwickelt und wird von **[Jörg Sebening](https://github.com/rjsebening)** in Zusammenarbeit mit dem LearningSuite Team gepflegt.
 
-  
+👉 [LearningSuite](https://learningsuite.io) · [GitHub](https://github.com/learningsuite/n8n-nodes-learningsuite) · [Support](https://learningsuite.io)
 
-Diese inoffizielle Community Node ist nicht mit LearningSuite verbunden, von LearningSuite unterstützt oder gesponsert. Sie nutzt ausschließlich die öffentlich verfügbare LearningSuite API gemäß deren Nutzungsbedingungen.
+## 🙌 Großer Dank an den Maintainer
 
-  
+Ein großes Dankeschön an **[Jörg Sebening](https://github.com/rjsebening)**, der diese Integration für LearningSuite gebaut, das Fundament für alles gelegt hat, was sie heute kann, und sie weiterhin pflegt. Seine Arbeit, Sorgfalt und fortlaufende Unterstützung machen diese offizielle LearningSuite Integration möglich.
 
-**Wichtige Hinweise:**
+## ⚖️ Rechtliches
 
-- Diese Node wird von der Community entwickelt und gepflegt
+* Offizielle LearningSuite Integration, entwickelt und gepflegt für die Nutzung mit der öffentlichen LearningSuite API
+* Bei Fragen zur API → **[LearningSuite Support](https://learningsuite.io)** kontaktieren
+* Alle Markenzeichen und Logos gehören ihren jeweiligen Eigentümern
 
-- Für Probleme mit der LearningSuite API wende dich an den offiziellen LearningSuite Support
+## 📄 Lizenz
 
-- Alle LearningSuite Markenzeichen und Logos gehören LearningSuite
-
-- Diese Node stellt lediglich eine Schnittstelle zur öffentlichen API dar
+**MIT Lizenz**
+Beiträge und Pull Requests sind willkommen!

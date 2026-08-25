@@ -2,6 +2,7 @@
 import type { HandlersRegistry } from '../exec.types';
 import { apiCallHandlers } from './apiCall.handlers';
 import { bundleHandlers } from './bundle.handlers';
+import { calendarEventHandlers } from './calendarEvent.handlers';
 import { communityHandlers } from './community.handlers';
 import { courseHandlers } from './course.handlers';
 import { groupHandlers } from './group.handlers';
@@ -20,6 +21,7 @@ export const registry: HandlersRegistry = {
 	ai: aiHandlers,
 	apiCall: apiCallHandlers,
 	bundle: bundleHandlers,
+	calendarEvent: calendarEventHandlers,
 	community: communityHandlers,
 	course: courseHandlers,
 	customFields: customFieldsHandlers,
