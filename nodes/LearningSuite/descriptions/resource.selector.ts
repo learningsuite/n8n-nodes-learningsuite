@@ -22,6 +22,11 @@ export const resourceSelector: INodeProperties = {
 			description: 'List bundles (course packages) and retrieve the members of a bundle',
 		},
 		{
+			name: 'Calendar Event',
+			value: 'calendarEvent',
+			description: 'Manage calendar event series of the event plan',
+		},
+		{
 			name: 'Community',
 			value: 'community',
 			description: 'Retrieve community areas and forums; Optionally filter by area',
