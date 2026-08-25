@@ -11,7 +11,22 @@
 
   
 
-Die offizielle n8n Integration für **LearningSuite**, die deine LearningSuite Instanz mit n8n Workflows verbindet. Entwickelt und gepflegt von [Jörg Sebening](https://github.com/rjsebening) für LearningSuite.
+### Offizielle n8n Integration für **LearningSuite – Die Premium-Lernplattform für Unternehmen & Coaches**
+
+Automatisiere Mitglieder-Onboarding, Kurszugriffe und Community-Aktivität, reagiere auf Echtzeit-Events und halte deine Teilnehmer in Bewegung — **ohne manuelle Arbeit**.
+
+  
+
+## 🧭 Überblick
+
+  
+
+Diese offizielle Community Node verbindet **LearningSuite** nahtlos mit deinen n8n Workflows.
+Von der Mitgliederanlage über Kurszugriffe und Community-Interaktionen bis zu Echtzeit-Triggern — jeder wichtige Prozess durchgängig automatisiert.
+
+  
+
+Die Integration wurde für LearningSuite entwickelt und wird von Jörg Sebening gemeinsam mit dem LearningSuite Team gepflegt.
 
   
 

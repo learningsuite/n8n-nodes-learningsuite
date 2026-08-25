@@ -6,7 +6,16 @@
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-The official n8n integration for **LearningSuite**, connecting your LearningSuite instance to n8n workflows. Built and maintained by [Jörg Sebening](https://github.com/rjsebening) for LearningSuite.
+### Official n8n Integration for **LearningSuite – The Premium Learning Platform for Businesses & Coaches**
+
+Automate member onboarding, course access, and community activity, react to real-time events, and keep your learners moving — **without manual work**.
+
+## 🧭 Overview
+
+This official community node connects **LearningSuite** seamlessly with your n8n workflows.
+From member creation to course access, community interaction, and real-time triggers — automate every key process end-to-end.
+
+The integration was developed for LearningSuite and is maintained by Jörg Sebening together with the LearningSuite team.
 
 ## What is n8n?
 
