@@ -1,5 +1,5 @@
 {
-	"node": "n8n-nodes-base.learningsuite",
+	"node": "n8n-nodes-learningsuite.learningSuite",
 	"nodeVersion": "1.0",
 	"codexVersion": "1.0",
 	"categories": ["Marketing & Content", "Communication"],

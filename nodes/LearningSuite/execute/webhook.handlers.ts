@@ -203,7 +203,7 @@ function buildDesiredFilter(ctx: ExecuteContext, i: number, eventType: string): 
 			break;
 		}
 
-		// ---------------- Lesson Completed (kaskadiert)
+		// ---------------- Lesson Completed (cascading)
 		case 'lesson.completed': {
 			const col = getCol(ctx, i, 'additionalLessonCompleted');
 			if (col.courseId) filter.courseInstanceId = String(col.courseId);

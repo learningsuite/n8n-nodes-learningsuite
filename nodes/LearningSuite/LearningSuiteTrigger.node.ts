@@ -265,7 +265,7 @@ function buildDesiredFilter(this: IHookFunctions, event: string): { filter: IDat
 			break;
 		}
 
-		// ---------------- Lesson Completed (kaskadiert)
+		// ---------------- Lesson Completed (cascading)
 		case 'lesson.completed': {
 			const col = getCol('additionalLessonCompleted');
 			if (col.courseId) filter.courseInstanceId = String(col.courseId);
@@ -311,12 +311,12 @@ export class LearningSuiteTrigger implements INodeType {
 		},
 		group: ['trigger'],
 		version: 1,
-		description: 'Interact with LearningSuite API (powered by joergsebening.de)',
+		description: 'Interact with LearningSuite API (powered by agentur-systeme.de)',
 		subtitle: '={{$parameter["event"]}}',
 		defaults: {
 			name: 'LearningSuite Trigger',
 			// @ts-expect-error -- description is required by n8n node linting for defaults
-			description: 'Interact with LearningSuite API (powered by joergsebening.de)',
+			description: 'Interact with LearningSuite API (powered by agentur-systeme.de)',
 		},
 		inputs: [],
 		outputs: [NodeConnectionTypes.Main],

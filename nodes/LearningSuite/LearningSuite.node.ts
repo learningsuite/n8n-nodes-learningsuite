@@ -14,6 +14,7 @@ import type { HandlersRegistry } from './exec.types';
 // methods - loadOptions
 import * as loAi from './methods/loadOptions/ai.loadOptions';
 import * as loBundle from './methods/loadOptions/bundle.loadOptions';
+import * as loCalendarEvent from './methods/loadOptions/calendarEvent.loadOptions';
 import * as loCommunity from './methods/loadOptions/community.loadOptions';
 import * as loCourse from './methods/loadOptions/course.loadOptions';
 import * as loGroup from './methods/loadOptions/group.loadOptions';
@@ -26,6 +27,7 @@ import * as loWebhook from './methods/loadOptions/webhook.loadOptions';
 import * as loTeamMember from './methods/loadOptions/teamMember.loadOptions';
 import * as loCustomFields from './methods/loadOptions/customFields.loadOptions';
 
+import { getCalendarEventResourceMapperFields } from './methods/resourceMappers/calendarEvent.resourceMapper';
 import { getTemplateVariablesResourceMapperFields } from './methods/resourceMappers/hub.resourceMapper';
 import { getMultipleCustomFieldValueResourceMapperFields } from './methods/resourceMappers/customFields.resourceMapper';
 
@@ -33,6 +35,7 @@ import { getMultipleCustomFieldValueResourceMapperFields } from './methods/resou
 import { resourceSelector } from './descriptions/resource.selector';
 import { apiCallProperties } from './descriptions/apiCall.properties';
 import { bundleProperties } from './descriptions/bundle.properties';
+import { calendarEventProperties } from './descriptions/calendarEvent.properties';
 import { communityProperties } from './descriptions/community.properties';
 import { courseProperties } from './descriptions/course.properties';
 import { groupProperties } from './descriptions/group.properties';
@@ -50,6 +53,7 @@ import { aiProperties } from './descriptions/ai.properties';
 // handlers
 import { apiCallHandlers } from './execute/apiCall.handlers';
 import { bundleHandlers } from './execute/bundle.handlers';
+import { calendarEventHandlers } from './execute/calendarEvent.handlers';
 import { communityHandlers } from './execute/community.handlers';
 import { courseHandlers } from './execute/course.handlers';
 import { groupHandlers } from './execute/group.handlers';
@@ -68,6 +72,7 @@ const registry: HandlersRegistry = {
 	ai: { ...aiHandlers },
 	apiCall: { ...apiCallHandlers },
 	bundle: { ...bundleHandlers },
+	calendarEvent: { ...calendarEventHandlers },
 	community: { ...communityHandlers },
 	course: { ...courseHandlers },
 	customFields: { ...customFieldsHandlers },
@@ -93,11 +98,11 @@ export class LearningSuite implements INodeType {
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-		description: 'Interact with LearningSuite API (powered by joergsebening.de)',
+		description: 'Interact with LearningSuite API (powered by agentur-systeme.de)',
 		defaults: {
 			name: 'LearningSuite',
 			// @ts-expect-error -- description required by linter
-			description: 'Interact with LearningSuite API (powered by joergsebening.de)',
+			description: 'Interact with LearningSuite API (powered by agentur-systeme.de)',
 		},
 		inputs: [NodeConnectionTypes.Main],
 		outputs: [NodeConnectionTypes.Main],
@@ -110,15 +115,12 @@ export class LearningSuite implements INodeType {
 				description: 'LearningSuite API Test',
 			},
 		],
-		requestDefaults: {
-			baseURL: '={{$credentials.baseUrl}}',
-			headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-		},
 		properties: [
 			resourceSelector,
 			...aiProperties,
 			...apiCallProperties,
 			...bundleProperties,
+			...calendarEventProperties,
 			...communityProperties,
 			...courseProperties,
 			...customFieldsProperties,
@@ -138,6 +140,7 @@ export class LearningSuite implements INodeType {
 		loadOptions: {
 			...loAi,
 			...loBundle,
+			...loCalendarEvent,
 			...loCommunity,
 			...loCourse,
 			...loCustomFields,
@@ -151,6 +154,7 @@ export class LearningSuite implements INodeType {
 			...loWebhook,
 		},
 		resourceMapping: {
+			getCalendarEventResourceMapperFields,
 			getTemplateVariablesResourceMapperFields,
 			getMultipleCustomFieldValueResourceMapperFields,
 		},

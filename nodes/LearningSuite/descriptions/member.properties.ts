@@ -208,7 +208,7 @@ export const memberProperties: INodeProperties[] = [
 				displayName: 'Do Not Require Password Change',
 				name: 'doNotRequirePasswordChange',
 				type: 'boolean',
-				default: false, // ← Beispiel sagt false
+				default: false, // <- Example says false
 				description:
 					'Whether the member is not prompted to change their password upon first login, if this option is enabled. This option should only be used if the member has not set a password and should log in using SSO. The default setting is "true," so for privacy reasons, only the member knows their password.',
 			},

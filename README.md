@@ -2,27 +2,27 @@
 
 ![n8n](https://img.shields.io/badge/n8n-2.17.2+-brightgreen)
 
-![Version](https://img.shields.io/badge/version-1.2.3-blue)
+![Version](https://img.shields.io/badge/version-1.5.0-blue)
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-An n8n Community Node for the **LearningSuite API**, which allows you to seamlessly integrate your LearningSuite instance into n8n workflows.
+An n8n node for the **LearningSuite API** that connects your LearningSuite instance to n8n workflows. It is developed and maintained by its original author, Jörg Sebening — and LearningSuite has published this integration.
 
 ## What is n8n?
 
 n8n is an easy-to-use tool that allows you to automate actions between different web apps, such as LearningSuite. Creating so-called "workflows" between apps automates many of the manual tasks. This can save you or your employees a tremendous amount of time.
 
-## ⚖️ Legal Notice
+## ⚖️ Maintainer & Legal Notice
 
-This community node uses the public LearningSuite API and is not affiliated with or sponsored by LearningSuite. All trademarks belong to their respective owners.
+This repository is the original source of the LearningSuite n8n integration, developed and maintained by Jörg Sebening ([@rjsebening](https://github.com/rjsebening)) as its official maintainer. LearningSuite has published this integration.
 
-**Note**: This is a community-developed node for the LearningSuite API. For official support, please contact LearningSuite directly.
+The node uses the public LearningSuite API. LearningSuite, its trademarks, and its logos belong to LearningSuite.
 
 ## 🚀 Features
 
-- **15 resources** fully supported (Member, Course, Group, Bundle, Hub, Module, Community, Custom Fields, Popup, Webhook, Role, User, Team Member, AI, API Call)
-- **90 action endpoints** for maximum flexibility
-- **Instant trigger (webhook-based)** with 18 event types for real-time automation
+- **16 resources** fully supported (Member, Course, Group, Bundle, Hub, Module, Community, Calendar Event, Custom Fields, Popup, Webhook, Role, User, Team Member, AI, API Call)
+- **100 action endpoints** for maximum flexibility
+- **Instant trigger (webhook-based)** with 19 event types for real-time automation
 - **Polling trigger** with 11 event types for scheduled polling
 - **Flexible API call** resource for custom endpoints
 
@@ -30,75 +30,85 @@ This community node uses the public LearningSuite API and is not affiliated with
 
 ### 👤 **Member** (20 operations)
 
-- Get by email, get by ID, get all, create, update, delete, find or create
-- Activate/deactivate, add/remove courses, add/remove bundles
-- Get courses, get course information, get member bundles
+- Get member by email, get member by ID, get many members, create a member, update a member, delete a member, find or create member
+- Activate deactivate member, add member to courses, remove member from courses, add member to bundles, remove member from bundles
+- Get member courses, get member course info, get member bundles
 - Get course progress, get module progress, get lesson progress, set course progress, reset course progress
 
-### 📚 **Course** (7 operations)
+### 📚 **Course** (9 operations)
 
-- Get published courses, get course modules, get course modules for member
-- Get course members, get course access requests, get course submissions, create lesson
+- Get published courses, publish course, get course modules, get course modules for member
+- Get course members, get course access requests, get course submissions
+- Create lesson, update lesson
 
-### 👥 **Group** (12 operations)
+### 👥 **Group** (13 operations)
 
-- Add bundles to group, add courses to group, add members to groups, add members to groups (summary)
-- Create group, delete group, find group by name, find or create group
-- Get group by ID, get group courses, get many, remove courses from group, remove members from groups
+- Create a group, delete a group, find groups by name, find or create group, get group by ID, get many groups
+- Add members to groups, add members to groups summary, remove members from groups
+- Add courses to group, remove courses from group, get group courses, add bundles to group
 
 ### 📦 **Bundle** (2 operations)
 
-- Get all, get bundle members
+- Get bundles, get bundle members
 
 ### 🏠 **Hub** (6 operations)
 
-- Get all, get templates, create, give hub access, remove hub access, get hub template variables
+- Get many hubs, get hub templates, get hub template variables, create a hub, add hub access, remove hub access
 
 ### 📖 **Module** (3 operations)
 
-- Get module lessons, get module sections, change module access for member
+- Get module lessons, get module sections, change module access
 
-### 💬 **Community** (7 operations)
+### 💬 **Community** (8 operations)
 
-- Assign badges to member, remove community badges from member
-- Get community areas, get community badges, get community forums, get community posts
-- Create community post comment
+- Get community areas, get community forums, get community posts, get community badges
+- Create community post, add comment to post
+- Assign badges to member, remove badges from member
+
+### 🗓️ **Calendar Event** (4 operations)
+
+- Get many calendar events, create a calendar event, update a calendar event, delete a calendar event
+- Reminders (push/email), per-phase link stages (before/during/after), access via members/groups/bundles
+- Update maps fields from incoming items automatically
 
 ### 🔧 **Custom Fields** (14 operations)
 
-- Get cards, get cards (expanded), get categories, get definitions
-- Get field values, get store, get store values
-- Get profile by card, get profiles, get profiles (expanded)
-- Set field value, set multiple field values, update profile field
-- Upload file from URL
+- Retrieve all custom field cards, retrieve custom field cards including their definitions and categories
+- Retrieve custom field categories, retrieve custom field definitions
+- Retrieve the values of a custom field for a user, get all custom field values of a user for a given profile
+- Retrieve custom field profiles of a user, retrieve custom field profiles including their values, retrieve the values of a custom field card profile for a user
+- Retrieve the complete custom field store of a user
+- Set the value of a single custom field for a user, set multiple custom field values for a user in one request, update a custom field value within a profile of a custom field card
+- Upload a file from a public URL and append it to a custom field
 
 ### 🎯 **Popup** (4 operations)
 
-- Get all, get popup, trigger popup for member, delete popup trigger
+- Get many popups, get a popup, trigger popup for member, remove popup trigger for member
 
-### 🔗 **Webhook** (5 operations)
+### 🔗 **Webhook** (6 operations)
 
-- Get/create/update/delete subscriptions, get sample data
+- Get webhook subscription, get webhook subscriptions, create webhook subscription, update webhook subscription, delete webhook subscription
+- Get webhook sample data
 
 ### 👤 **Team Member** (3 operations)
 
-- Get many, get by email, get by ID
+- Get team members, get team member by email, get team member by ID
 
-### 📢 **User** (1 operation)
+### 📢 **User** (2 operations)
 
-- Send push notification
+- Send push notification, send login email
 
 ### 🤖 **AI** (4 operations)
 
-- Agent chat, concierge chat, get agent actions, get AI agents
+- Send message to AI agent, send message to AI concierge, list AI agents, list agent actions
 
 ### 🛡️ **Role** (1 operation)
 
-- Get all
+- Get many roles
 
 ### 🛠️ **API Call** (1 operation)
 
-- Make a request (for any API calls)
+- Custom API call (for any endpoint)
 
 ## 🎣 Trigger Events
 
@@ -106,14 +116,15 @@ The LearningSuite trigger supports the following events:
 
 ### ⚡ Instant Trigger Events (Webhook)
 
-- ✅ Community Post Commented
 - ✅ Agent Action Executed
+- ✅ AI Agent Limit for Inaccessible Course Content Exceeded
+- ✅ Community Post Commented
 - ✅ Community Post Created
 - ✅ Community Post Moderated
 - ✅ Course Member Added
 - ✅ Course Progress Changed
 - ✅ Course Updated
-- ✅ Custom Field Value Changed
+- ✅ Custom Field Value Changed Events
 - ✅ Custom Popup Interaction
 - ✅ Exam Completed
 - ✅ Exam Graded
@@ -273,6 +284,17 @@ The Custom Fields resource supports file, image, video, and audio custom fields.
 - The node respects the LearningSuite file limits defined on the custom field, such as `maxFiles`, `maxImages`, `maxVideos`, and `maxAudios`.
 - For custom field cards with multiple profiles, use Profile ID, Profile Index, or Profile Name to target a specific profile. If the card does not allow multiple profiles, profile parameters are ignored and the default profile is used.
 
+### Calendar Events
+
+The Calendar Event resource works on event **series**, never on single dates — a weekly series is one entry, no matter how often it takes place.
+
+- **Get Many** filters by series lifetime: `From Date`/`To Date` select series whose lifetime overlaps the range, widened by one day for timezone tolerance. A series can therefore be returned although none of its dates falls inside the exact range. Calculate the individual dates from `startDate`, `startTime`, `timeZone`, `duration`, `repetitionInterval`, and `endDate`.
+- **Dates and times** use `YYYY-MM-DD` and `HH:mm` and are interpreted in the event's IANA time zone (e.g. `Europe/Berlin`).
+- **Update** maps its fields from the incoming item automatically, so a Get Many result can be piped straight into it. Only mapped fields are sent, everything else keeps its current value.
+- **Clearing a value**: set the field to the expression `{{ null }}`. The API allows this for Description, Duration, and End Date only.
+- **Link Stages** replace the single link with before/during/after phases. As soon as any phase is set, the During phase is required.
+- **Access** (members, groups, bundles) can only be set when creating an event; the update endpoint does not accept it.
+
 ### ⚡ Instant Webhook Trigger Setup
 
 ```
@@ -367,41 +389,7 @@ npm test
 
 ## 📝 Changelog
 
-### Version 1.2.3 (current)
-
-#### Custom Fields File Uploads
-
-- ✅ Upload file from public URL
-
-- ✅ Binary uploads for file, image, video, and audio custom fields
-
-- ✅ File Value Mode: add, replace, and replace when the field limit is reached
-
-- ✅ Respect custom field file limits (`maxFiles`, `maxImages`, `maxVideos`, `maxAudios`)
-
-- ✅ Improved handling for custom field profile cards and default profiles
-
-### Version 0.1.0 (2025-09-23)
-
-#### Initial Release
-
-- ✅ Full LearningSuite API integration
-
-- ✅ 15 resources with 90 action endpoints
-
-- ✅ Webhook triggers with 18 event types for real-time automation
-
-- ✅ Polling triggers with 11 event types
-
-- ✅ "Find-or-Create" logic for members and groups
-
-- ✅ Custom Fields resource with full CRUD support
-
-- ✅ Course progress management (get/set/reset)
-
-- ✅ Flexible parameter configuration
-
-- ✅ API call resource for custom endpoints
+All notable changes are documented in [CHANGELOG.md](CHANGELOG.md).
 
 ## 🛠️ Compatibility
 
@@ -419,7 +407,9 @@ This project is licensed under the [MIT License].
 
 ### Report Issues
 
-For bugs or feature requests, please create a [GitHub Issue](https://github.com/rjsebening/n8n-nodes-learningsuite/issues).
+For bugs or feature requests **in this node**, please create a [GitHub Issue](https://github.com/rjsebening/n8n-nodes-learningsuite/issues).
+
+For questions about the LearningSuite API itself or your LearningSuite account, contact LearningSuite support.
 
 ### FAQ
 
@@ -440,17 +430,3 @@ A: The default URL is `https://api.learningsuite.io/api/v1`. For custom domains,
 ⭐ **Like this node?** Give us a star on GitHub!
 
 💡 **Feature request?** Open an issue - we're always open to improvements!
-
-## 📋 Disclaimer
-
-This unofficial community node is not affiliated with, endorsed by, or sponsored by LearningSuite. It exclusively uses the publicly available LearningSuite API in accordance with its Terms of Use.
-
-**Important Notes:**
-
-- This node is developed and maintained by the community.
-
-- For issues with the LearningSuite API, contact official LearningSuite Support.
-
-- All LearningSuite trademarks and logos belong to LearningSuite.
-
-- This node merely provides an interface to the public API.

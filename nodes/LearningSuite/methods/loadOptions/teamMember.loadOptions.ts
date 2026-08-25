@@ -15,7 +15,7 @@ type TeamMemberRow = IDataObject & {
 };
 
 function buildLabel(m: TeamMemberRow): string {
-	const fullName = m?.fullName || [m?.firstName, m?.lastName].filter(Boolean).join(' ') || 'Unbekannt';
+	const fullName = m?.fullName || [m?.firstName, m?.lastName].filter(Boolean).join(' ') || 'Unknown';
 	const role = m?.roleId ?? '—';
 	const email = m?.email ?? '';
 	return [fullName, role, email].filter(Boolean).join(' - ');

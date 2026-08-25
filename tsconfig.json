@@ -17,11 +17,13 @@
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
 		"skipLibCheck": true,
-		"forceConsistentCasingInFileNames": true
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true
 	},
 	"include": [
 		"credentials/**/*",
-		"nodes/**/*"
+		"nodes/**/*",
+		"nodes/**/*.json"
 	],
 	"exclude": [
 		"dist/**/*",
