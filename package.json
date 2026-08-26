@@ -1,6 +1,6 @@
 {
-  "name": "n8n-nodes-learningsuite",
-  "version": "1.5.0",
+  "name": "@learningsuite/n8n-nodes-learningsuite",
+  "version": "1.5.1",
   "description": "n8n node for LearningSuite API",
   "keywords": [
     "n8n-community-node-package",
