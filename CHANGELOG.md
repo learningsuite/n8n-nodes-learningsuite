@@ -4,6 +4,25 @@ All notable changes to this project are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0] - 2026-10-20
+
+### Added
+
+- Support for LearningSuite API 1.28.0
+- **Hub → Delete Hub** for `DELETE /hub/{hubId}`; hub templates can be deleted as well
+- **Member → Get Member AI Credits** for `GET /members/{memberId}/ai-credits`
+- **Calendar Event → Get Analytics** for `GET /calendar-events/{calendarEventSeriesId}/analytics`, with occurrence date, limit/offset and the `onlyWithActions` filter
+- **Member → Get Many**: `Created After` / `Created Before` filters (`created_at_gte` / `created_at_lte`)
+- **Member → Add Bundles to Member**: `Pause Until`, `Unlimited Pause`, `Resume Pause` and `Remove Access Until Override` (sends `accessUntilOverride: null`); the endpoint now updates existing accesses as well
+- **Custom Fields → Get Definitions**: `Field Key Names or IDs` filter (`fieldKeys`, max. 50)
+- Login type `app-email-password` in the `login.new` webhook filter, the instant trigger and the login sample data; the sample data also gained the missing `app-email-code`
+
+### Changed
+
+- Date options of Add Bundles to Member are normalized to the API's ISO date-time format with time zone; unparsable dates now fail with a clear error instead of an API validation error
+- Create Lesson: the video URL description mentions Google Drive and Dropbox share links
+- `@n8n/node-cli` updated to 0.52.6; its lint now agrees with `@n8n/scan-community-package` that trigger nodes must not set `usableAsTool`, so the ESLint override for trigger files is gone and `eslint.config.mjs` is the n8n default again
+
 ## [1.5.0] - 2026-08-25
 
 ### Added

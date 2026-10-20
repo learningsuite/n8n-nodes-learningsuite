@@ -164,6 +164,7 @@ export const instantProperties: INodeProperties[] = [
 					'Filter by login type. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 				options: [
 					{ name: 'All', value: '' },
+					{ name: 'App Email & Password', value: 'app-email-password' },
 					{ name: 'App Email Code', value: 'app-email-code' },
 					{ name: 'Auto Login', value: 'auto-login' },
 					{ name: 'Email & Password', value: 'email-password' },

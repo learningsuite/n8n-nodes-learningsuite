@@ -11,6 +11,12 @@ export const hubProperties: INodeProperties[] = [
 		options: [
 			{ name: 'Create Hub', value: 'create', description: 'Create a new hub from a template', action: 'Create a hub' },
 			{
+				name: 'Delete Hub',
+				value: 'delete',
+				description: 'Permanently delete a hub or hub template',
+				action: 'Delete a hub',
+			},
+			{
 				name: 'Get Hub Template Variables',
 				value: 'getTemplateVariables',
 				description: 'List variables required by the selected hub template',
@@ -41,12 +47,20 @@ export const hubProperties: INodeProperties[] = [
 		displayName: 'Hub Name or ID',
 		name: 'hubId',
 		type: 'options',
-		displayOptions: { show: { resource: ['hub'], operation: ['addAccess', 'removeAccess'] } },
+		displayOptions: { show: { resource: ['hub'], operation: ['addAccess', 'removeAccess', 'delete'] } },
 		typeOptions: { loadOptionsMethod: 'hub_getHubs' },
 		default: '',
 		required: true,
 		description:
 			'ID of the hub. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+	},
+	{
+		displayName:
+			'The hub is deleted <b>permanently</b>. Hub templates can be deleted as well - pass the template ID via expression.',
+		name: 'deleteNotice',
+		type: 'notice',
+		displayOptions: { show: { resource: ['hub'], operation: ['delete'] } },
+		default: '',
 	},
 	{
 		displayName:

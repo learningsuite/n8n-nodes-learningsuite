@@ -18,7 +18,7 @@ export const memberProperties: INodeProperties[] = [
 			{
 				name: 'Add Bundles to Member',
 				value: 'addToBundles',
-				description: 'Grant one or more bundles to a member',
+				description: 'Grant bundles to a member or update existing bundle accesses (dates, pause, resume)',
 				action: 'Add member to bundles',
 			},
 			{
@@ -58,6 +58,12 @@ export const memberProperties: INodeProperties[] = [
 				value: 'getAll',
 				description: 'List members with optional filters',
 				action: 'Get many members',
+			},
+			{
+				name: 'Get Member AI Credits',
+				value: 'getAiCredits',
+				description: 'Get the AI credit limits of a member with current usage',
+				action: 'Get member AI credits',
 			},
 			{
 				name: 'Get Member Bundles',
@@ -135,6 +141,7 @@ export const memberProperties: INodeProperties[] = [
 					'addToBundles',
 					'removeFromBundles',
 					'getBundles',
+					'getAiCredits',
 				],
 			},
 		},
@@ -360,6 +367,20 @@ export const memberProperties: INodeProperties[] = [
 		displayOptions: { show: { resource: ['member'], operation: ['getAll'] } },
 		options: [
 			{
+				displayName: 'Created After',
+				name: 'createdAtGte',
+				type: 'dateTime',
+				default: '',
+				description: 'Only include members created at or after this date',
+			},
+			{
+				displayName: 'Created Before',
+				name: 'createdAtLte',
+				type: 'dateTime',
+				default: '',
+				description: 'Only include members created at or before this date',
+			},
+			{
 				displayName: 'Days Not Logged In (GTE)',
 				name: 'daysNotLoggedInGte',
 				type: 'number',
@@ -429,6 +450,14 @@ export const memberProperties: INodeProperties[] = [
 			'Select one or more bundles. Choose from the list, or specify IDs using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 	},
 	{
+		displayName:
+			'If the member already has access to a bundle, that access is <b>updated</b>: only the options you set are changed. Accesses through groups are not affected.',
+		name: 'bundleAccessNotice',
+		type: 'notice',
+		displayOptions: { show: { resource: ['member'], operation: ['addToBundles'] } },
+		default: '',
+	},
+	{
 		displayName: 'Bundle Names or IDs',
 		name: 'bundles',
 		type: 'multiOptions',
@@ -459,14 +488,7 @@ export const memberProperties: INodeProperties[] = [
 				name: 'accessUntilOverride',
 				type: 'dateTime',
 				default: '',
-				description: 'Override the date/time when access ends',
-			},
-			{
-				displayName: 'Unlimited Access',
-				name: 'unlimitedAccess',
-				type: 'boolean',
-				default: false,
-				description: 'Whether access never expires (overrides “Access Until Override”)',
+				description: 'Override the date/time when access ends. The access duration of the bundle is ignored.',
 			},
 			{
 				displayName: 'Disable Access Notification Email',
@@ -474,6 +496,46 @@ export const memberProperties: INodeProperties[] = [
 				type: 'boolean',
 				default: false,
 				description: 'Whether the Access Notification Email option should be disabled',
+			},
+			{
+				displayName: 'Pause Until',
+				name: 'pauseUntil',
+				type: 'dateTime',
+				default: '',
+				description:
+					'Pause the access from today until this date (must be after today, only the date is used). An existing pause is replaced; the access duration is extended by the pause. Cannot be combined with Unlimited Pause or Resume Pause.',
+			},
+			{
+				displayName: 'Remove Access Until Override',
+				name: 'removeAccessUntilOverride',
+				type: 'boolean',
+				default: false,
+				description:
+					"Whether to remove an existing end date. Access then follows the bundle's access duration, counted from the access given at date. Ignored if Access Until Override or Unlimited Access is set.",
+			},
+			{
+				displayName: 'Resume Pause',
+				name: 'resumePause',
+				type: 'boolean',
+				default: false,
+				description:
+					'Whether to end the current pause today. Does nothing if the access is not paused. Cannot be combined with Pause Until or Unlimited Pause.',
+			},
+			{
+				displayName: 'Unlimited Access',
+				name: 'unlimitedAccess',
+				type: 'boolean',
+				default: false,
+				description:
+					'Whether access never expires (overrides “Access Until Override” and clears an end date already stored on the access)',
+			},
+			{
+				displayName: 'Unlimited Pause',
+				name: 'unlimitedPause',
+				type: 'boolean',
+				default: false,
+				description:
+					'Whether to pause the access from today until it is resumed. An existing pause is replaced. Cannot be combined with Pause Until or Resume Pause.',
 			},
 		],
 	},

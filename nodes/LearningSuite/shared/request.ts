@@ -48,11 +48,13 @@ async function requestCore(
 		endpoint,
 		qs,
 		body,
+		arrayFormat,
 	}: {
 		method: IHttpRequestOptions['method'];
 		endpoint: string;
 		qs?: IDataObject;
 		body?: IDataObject;
+		arrayFormat?: IHttpRequestOptions['arrayFormat'];
 	},
 ): Promise<IDataObject | IDataObject[]> {
 	const url = normalizeEndpoint(endpoint);
@@ -71,6 +73,7 @@ async function requestCore(
 	};
 
 	if (qs && Object.keys(qs).length) options.qs = qs as JsonObject;
+	if (arrayFormat) options.arrayFormat = arrayFormat;
 	if (body && Object.keys(body).length && ['POST', 'PUT', 'PATCH', 'DELETE'].includes(String(method).toUpperCase())) {
 		options.body = body as JsonObject;
 	}
@@ -80,9 +83,7 @@ async function requestCore(
 
 		return await this.helpers.httpRequestWithAuthentication.call(this, 'learningSuiteApi', options);
 	} catch (error) {
-		throw error instanceof NodeApiError
-			? error
-			: new NodeApiError(this.getNode(), error as JsonObject);
+		throw error instanceof NodeApiError ? error : new NodeApiError(this.getNode(), error as JsonObject);
 	}
 }
 
@@ -90,9 +91,13 @@ export async function lsRequest(
 	this: ApiThis,
 	method: IHttpRequestOptions['method'],
 	endpoint: string,
-	{ qs, body }: { qs?: IDataObject; body?: IDataObject } = {},
+	{
+		qs,
+		body,
+		arrayFormat,
+	}: { qs?: IDataObject; body?: IDataObject; arrayFormat?: IHttpRequestOptions['arrayFormat'] } = {},
 ): Promise<IDataObject | IDataObject[]> {
-	return requestCore.call(this, { method, endpoint, qs, body });
+	return requestCore.call(this, { method, endpoint, qs, body, arrayFormat });
 }
 
 export async function apiRequest(

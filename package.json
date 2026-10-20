@@ -1,6 +1,6 @@
 {
   "name": "@learningsuite/n8n-nodes-learningsuite",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "description": "n8n node for LearningSuite API",
   "keywords": [
     "n8n-community-node-package",
@@ -54,7 +54,7 @@
     ]
   },
   "devDependencies": {
-    "@n8n/node-cli": "^0.43.2",
+    "@n8n/node-cli": "^0.52.6",
     "@typescript-eslint/parser": "^8.52.0",
     "eslint": "^9.39.4",
     "eslint-plugin-n8n-nodes-base": "^1.16.3",

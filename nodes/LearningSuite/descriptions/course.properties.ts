@@ -284,7 +284,7 @@ export const courseProperties: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				description:
-					'A direct-downloadable video URL to be inserted as the first element on the lesson page. If no explicit thumbnail is set, the first frame of the video will be used as thumbnail.',
+					'A direct-downloadable video URL to be inserted as the first element on the lesson page. Public Google Drive or Dropbox share links work as well. The video is imported asynchronously; if no explicit thumbnail is set, the first frame of the video will be used as thumbnail.',
 			},
 		],
 	},

@@ -254,8 +254,28 @@ const deleteCalendarEvent: ExecuteHandler = async (ctx, i) => {
 	return await lsRequest.call(ctx, 'DELETE', `/calendar-events/${calendarEventSeriesId}`);
 };
 
+const getAnalytics: ExecuteHandler = async (ctx, i) => {
+	const calendarEventSeriesId = String(ctx.getNodeParameter('calendarEventSeriesId', i, '') || '').trim();
+	if (!calendarEventSeriesId) {
+		throw new NodeOperationError(ctx.getNode(), 'Please provide the ID of the calendar event.');
+	}
+
+	const occurrenceDate = String(ctx.getNodeParameter('occurrenceDate', i, '') || '').trim();
+	assertIsoDate(ctx, 'Occurrence Date', occurrenceDate);
+
+	const qs: IDataObject = {
+		occurrenceDate,
+		limit: ctx.getNodeParameter('limit', i, 50) as number,
+		offset: ctx.getNodeParameter('offset', i, 0) as number,
+	};
+	if (ctx.getNodeParameter('onlyWithActions', i, false) === true) qs.onlyWithActions = true;
+
+	return await lsRequest.call(ctx, 'GET', `/calendar-events/${calendarEventSeriesId}/analytics`, { qs });
+};
+
 export const calendarEventHandlers = {
 	getAll,
+	getAnalytics,
 	create,
 	update,
 	delete: deleteCalendarEvent,

@@ -21,7 +21,7 @@
  *   dist   - dist/ JS + package.json, i.e. what actually ends up in the npm tarball
  */
 import { execFileSync } from 'node:child_process';
-import { existsSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
@@ -34,7 +34,7 @@ const TOOLS_MANIFEST = {
 	private: true,
 	description: 'Isolated install of the n8n community-package scanner. Not part of the package.',
 	dependencies: {
-		'@n8n/scan-community-package': '0.32.0',
+		'@n8n/scan-community-package': '0.39.0',
 		// Pinned so it hoists ahead of the scanner's own typescript@7.0.2, which the parser rejects.
 		typescript: '6.0.3',
 	},
@@ -45,7 +45,18 @@ const scannerEntry = path.join(
 	'node_modules/@n8n/scan-community-package/scanner/scanner.mjs',
 );
 
-if (!existsSync(scannerEntry)) {
+const pinnedScanner = TOOLS_MANIFEST.dependencies['@n8n/scan-community-package'];
+const scannerManifest = path.join(toolsDir, 'node_modules/@n8n/scan-community-package/package.json');
+const installedScanner = existsSync(scannerManifest)
+	? JSON.parse(readFileSync(scannerManifest, 'utf8')).version
+	: undefined;
+
+// A stale install would silently scan with an older rule set, so reinstall whenever the pin moves.
+if (installedScanner !== pinnedScanner) {
+	if (installedScanner) {
+		console.log(`Scanner ${installedScanner} is installed, but ${pinnedScanner} is pinned - reinstalling ...`);
+		rmSync(toolsDir, { recursive: true, force: true });
+	}
 	console.log('Installing the n8n community-package scanner into scripts/.scan-tools ...');
 	execFileSync('mkdir', ['-p', toolsDir]);
 	writeFileSync(path.join(toolsDir, 'package.json'), `${JSON.stringify(TOOLS_MANIFEST, null, 2)}\n`);
@@ -55,6 +66,7 @@ if (!existsSync(scannerEntry)) {
 	});
 }
 
+console.log(`Scanning with @n8n/scan-community-package ${pinnedScanner}`);
 const { analyzePackage, SOURCE_FILE_PATTERNS } = await import(pathToFileURL(scannerEntry).href);
 
 const legs = [['source', SOURCE_FILE_PATTERNS]];

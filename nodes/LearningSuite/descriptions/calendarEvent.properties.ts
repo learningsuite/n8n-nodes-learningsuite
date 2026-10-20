@@ -150,6 +150,13 @@ export const calendarEventProperties: INodeProperties[] = [
 				action: 'Delete a calendar event',
 			},
 			{
+				name: 'Get Analytics',
+				value: 'getAnalytics',
+				description:
+					'Get how members engaged with one occurrence of a calendar event series (info opened, links clicked, live joined)',
+				action: 'Get calendar event analytics',
+			},
+			{
 				name: 'Get Many',
 				value: 'getAll',
 				description: 'List calendar event series (never individual dates)',
@@ -188,7 +195,7 @@ export const calendarEventProperties: INodeProperties[] = [
 		name: 'limit',
 		type: 'number',
 		description: 'Max number of results to return',
-		displayOptions: show('getAll'),
+		displayOptions: show('getAll', 'getAnalytics'),
 		typeOptions: { minValue: 1, maxValue: 100 },
 		default: 50,
 	},
@@ -196,7 +203,7 @@ export const calendarEventProperties: INodeProperties[] = [
 		displayName: 'Offset',
 		name: 'offset',
 		type: 'number',
-		displayOptions: show('getAll'),
+		displayOptions: show('getAll', 'getAnalytics'),
 		typeOptions: { minValue: 0 },
 		default: 0,
 		description: 'Number of results to skip for pagination',
@@ -206,11 +213,31 @@ export const calendarEventProperties: INodeProperties[] = [
 		name: 'calendarEventSeriesId',
 		type: 'options',
 		typeOptions: { loadOptionsMethod: 'calendarEvent_getCalendarEvents' },
-		displayOptions: show('update', 'delete'),
+		displayOptions: show('update', 'delete', 'getAnalytics'),
 		default: '',
 		required: true,
 		description:
 			'ID of the calendar event series. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+	},
+	{
+		displayName: 'Occurrence Date',
+		name: 'occurrenceDate',
+		type: 'string',
+		placeholder: '2026-07-20',
+		displayOptions: show('getAnalytics'),
+		default: '',
+		required: true,
+		description:
+			"The occurrence to report on (YYYY-MM-DD). Use the occurrence's original date in the event's time zone, even if it was later moved to another day.",
+	},
+	{
+		displayName: 'Only Members With Actions',
+		name: 'onlyWithActions',
+		type: 'boolean',
+		displayOptions: show('getAnalytics'),
+		default: false,
+		description:
+			'Whether to return only members with at least one recorded action. Leave off to also get the no-shows (members with an empty actions list).',
 	},
 	{
 		displayName: 'Name',
