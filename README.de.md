@@ -5,7 +5,7 @@
 
 ![n8n](https://img.shields.io/badge/n8n-2.17.2+-brightgreen)
 
-![Version](https://img.shields.io/badge/version-1.5.0-blue)
+![Version](https://img.shields.io/badge/version-1.6.0-blue)
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 
@@ -41,18 +41,20 @@ n8n ist ein einfach zu bedienendes Tool, mit dem du Aktionen zwischen verschiede
 ## 🚀 Features
 
 - **16 Ressourcen** vollständig unterstützt (Member, Course, Group, Bundle, Hub, Module, Community, Calendar Event, Custom Fields, Popup, Webhook, Role, User, Team Member, AI, API Call)
-- **100 Action-Endpunkte** für maximale Flexibilität
+- **103 Action-Endpunkte** für maximale Flexibilität
 - **Instant Trigger (Webhook-basierend)** mit 19 Event-Types für Echtzeit-Automatisierung
 - **Polling Trigger** mit 11 Event-Types für zeitgesteuerte Abfragen
 - **Flexible API Call** Resource für custom Endpunkte
 
 ## 📋 Unterstützte Operationen
 
-### 👤 **Member** (20 Operationen)
+### 👤 **Member** (21 Operationen)
 
 - Get Member by Email, Get Member by ID, Get Many Members, Create a Member, Update a Member, Delete a Member, Find or Create Member
 - Activate Deactivate Member, Add Member to Courses, Remove Member From Courses, Add Member to Bundles, Remove Member From Bundles
-- Get Member Courses, Get Member Course Info, Get Member Bundles
+- Get Member Courses, Get Member Course Info, Get Member Bundles, Get Member AI Credits
+- Get Many Members filtert nach Anlagedatum (`Created After` / `Created Before`)
+- Add Member to Bundles ändert auch bestehende Zugänge: Enddatum, Enddatum entfernen, Pausieren bis Datum, unbefristet pausieren, Pause beenden
 - Get Course Progress, Get Module Progress, Get Lesson Progress, Set Course Progress, Reset Course Progress
 
 ### 📚 **Course** (9 Operationen)
@@ -71,9 +73,9 @@ n8n ist ein einfach zu bedienendes Tool, mit dem du Aktionen zwischen verschiede
 
 - Get Bundles, Get Bundle Members
 
-### 🏠 **Hub** (6 Operationen)
+### 🏠 **Hub** (7 Operationen)
 
-- Get Many Hubs, Get Hub Templates, Get Hub Template Variables, Create a Hub, Add Hub Access, Remove Hub Access
+- Get Many Hubs, Get Hub Templates, Get Hub Template Variables, Create a Hub, Delete a Hub, Add Hub Access, Remove Hub Access
 
 ### 📖 **Module** (3 Operationen)
 
@@ -85,9 +87,9 @@ n8n ist ein einfach zu bedienendes Tool, mit dem du Aktionen zwischen verschiede
 - Create Community Post, Add Comment to Post
 - Assign Badges to Member, Remove Badges From Member
 
-### 🗓️ **Calendar Event** (4 Operationen)
+### 🗓️ **Calendar Event** (5 Operationen)
 
-- Get Many Calendar Events, Create a Calendar Event, Update a Calendar Event, Delete a Calendar Event
+- Get Many Calendar Events, Create a Calendar Event, Update a Calendar Event, Delete a Calendar Event, Get Calendar Event Analytics
 - Erinnerungen (Push/E-Mail), Link-Phasen (Before/During/After), Zugriff über Member/Gruppen/Bundles
 - Update übernimmt Felder aus eingehenden Items automatisch
 
@@ -352,6 +354,7 @@ Die Ressource Calendar Event arbeitet auf Event-**Serien**, nie auf einzelnen Te
 - **Wert leeren**: das Feld auf den Ausdruck `{{ null }}` setzen. Die API erlaubt das nur für Description, Duration und End Date.
 - **Link Stages** ersetzen den einzelnen Link durch die Phasen Before/During/After. Sobald eine Phase gesetzt ist, ist die During-Phase Pflicht.
 - **Zugriff** (Member, Gruppen, Bundles) lässt sich nur beim Anlegen setzen; der Update-Endpunkt nimmt ihn nicht entgegen.
+- **Get Analytics** zeigt pro Member, was er bei einem Termin getan hat: `infoOpen`, `beforeLinkClick`, `liveJoin`, `afterLinkClick`. `Occurrence Date` ist das ursprüngliche Datum des Termins, auch wenn er verschoben wurde. Standardmäßig kommt die ganze Zielgruppe zurück; Member mit leerer `actions`-Liste sind die No-Shows. `Only Members With Actions` liefert nur die Teilnehmer. Mit `Limit`/`Offset` (max. 100) blättern, bis `members` leer zurückkommt.
 
 ### ⚡ Instant Webhook Trigger Setup
 

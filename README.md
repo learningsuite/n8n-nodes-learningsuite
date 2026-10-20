@@ -2,7 +2,7 @@
 
 ![n8n](https://img.shields.io/badge/n8n-2.17.2+-brightgreen)
 
-![Version](https://img.shields.io/badge/version-1.5.0-blue)
+![Version](https://img.shields.io/badge/version-1.6.0-blue)
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 
@@ -24,18 +24,20 @@ n8n is an easy-to-use tool that allows you to automate actions between different
 ## 🚀 Features
 
 - **16 resources** fully supported (Member, Course, Group, Bundle, Hub, Module, Community, Calendar Event, Custom Fields, Popup, Webhook, Role, User, Team Member, AI, API Call)
-- **100 action endpoints** for maximum flexibility
+- **103 action endpoints** for maximum flexibility
 - **Instant trigger (webhook-based)** with 19 event types for real-time automation
 - **Polling trigger** with 11 event types for scheduled polling
 - **Flexible API call** resource for custom endpoints
 
 ## 📋 Supported Operations
 
-### 👤 **Member** (20 operations)
+### 👤 **Member** (21 operations)
 
 - Get member by email, get member by ID, get many members, create a member, update a member, delete a member, find or create member
 - Activate deactivate member, add member to courses, remove member from courses, add member to bundles, remove member from bundles
-- Get member courses, get member course info, get member bundles
+- Get member courses, get member course info, get member bundles, get member AI credits
+- Get many members filters by creation date (`Created After` / `Created Before`)
+- Add member to bundles also updates existing accesses: end date, remove end date, pause until a date, unlimited pause, resume
 - Get course progress, get module progress, get lesson progress, set course progress, reset course progress
 
 ### 📚 **Course** (9 operations)
@@ -54,9 +56,9 @@ n8n is an easy-to-use tool that allows you to automate actions between different
 
 - Get bundles, get bundle members
 
-### 🏠 **Hub** (6 operations)
+### 🏠 **Hub** (7 operations)
 
-- Get many hubs, get hub templates, get hub template variables, create a hub, add hub access, remove hub access
+- Get many hubs, get hub templates, get hub template variables, create a hub, delete a hub, add hub access, remove hub access
 
 ### 📖 **Module** (3 operations)
 
@@ -68,9 +70,9 @@ n8n is an easy-to-use tool that allows you to automate actions between different
 - Create community post, add comment to post
 - Assign badges to member, remove badges from member
 
-### 🗓️ **Calendar Event** (4 operations)
+### 🗓️ **Calendar Event** (5 operations)
 
-- Get many calendar events, create a calendar event, update a calendar event, delete a calendar event
+- Get many calendar events, create a calendar event, update a calendar event, delete a calendar event, get calendar event analytics
 - Reminders (push/email), per-phase link stages (before/during/after), access via members/groups/bundles
 - Update maps fields from incoming items automatically
 
@@ -297,6 +299,7 @@ The Calendar Event resource works on event **series**, never on single dates —
 - **Clearing a value**: set the field to the expression `{{ null }}`. The API allows this for Description, Duration, and End Date only.
 - **Link Stages** replace the single link with before/during/after phases. As soon as any phase is set, the During phase is required.
 - **Access** (members, groups, bundles) can only be set when creating an event; the update endpoint does not accept it.
+- **Get Analytics** reports per member what they did on one occurrence: `infoOpen`, `beforeLinkClick`, `liveJoin`, `afterLinkClick`. The `Occurrence Date` is the occurrence's original date, even if it was moved. By default the whole target group is returned, members with an empty `actions` list are the no-shows; `Only Members With Actions` returns just the participants. Page through with `Limit`/`Offset` (max. 100) until `members` comes back empty.
 
 ### ⚡ Instant Webhook Trigger Setup
 

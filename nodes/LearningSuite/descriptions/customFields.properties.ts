@@ -143,6 +143,24 @@ export const customFieldsProperties: INodeProperties[] = [
 		},
 	},
 	{
+		displayName: 'Field Key Names or IDs',
+		name: 'fieldKeys',
+		type: 'multiOptions',
+		default: [],
+		description:
+			'Only return the definitions with these keys (max. 50). Leave empty to return all. Choose from the list, or specify IDs using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+		typeOptions: {
+			loadOptionsMethod: 'customFields_getDefinitions',
+			loadOptionsDependsOn: ['customFieldCardId'],
+		},
+		displayOptions: {
+			show: {
+				resource: ['customFields'],
+				operation: ['getDefinitions'],
+			},
+		},
+	},
+	{
 		displayName: 'Card Name or ID',
 		name: 'customFieldCardId',
 		type: 'options',

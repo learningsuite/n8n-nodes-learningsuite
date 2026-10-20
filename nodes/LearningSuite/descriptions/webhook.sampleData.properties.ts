@@ -158,6 +158,8 @@ export const webhookSampleDataProperties: INodeProperties[] = [
 				type: 'options',
 				default: 'email-password',
 				options: [
+					{ name: 'App Email & Password', value: 'app-email-password' },
+					{ name: 'App Email Code', value: 'app-email-code' },
 					{ name: 'Auto Login', value: 'auto-login' },
 					{ name: 'Email & Password', value: 'email-password' },
 					{ name: 'Google', value: 'google' },

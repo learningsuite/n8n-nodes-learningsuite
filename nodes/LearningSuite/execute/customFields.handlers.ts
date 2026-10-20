@@ -1,6 +1,6 @@
 import type { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import { NodeOperationError } from 'n8n-workflow';
-import { lsRequest, uploadFilesFromBinaryProperties } from '../shared';
+import { lsRequest, toIdArray, uploadFilesFromBinaryProperties } from '../shared';
 import type { ExecuteHandler } from '../exec.types';
 
 type LsType =
@@ -454,10 +454,16 @@ const getDefinitions: ExecuteHandler = async (ctx, i) => {
 	const offset = ctx.getNodeParameter('offset', i, 0) as number;
 	const customFieldCardId = ctx.getNodeParameter('customFieldCardId', i, undefined);
 
+	const fieldKeys = toIdArray(ctx.getNodeParameter('fieldKeys', i, []));
+	if (fieldKeys.length > 50) {
+		throw new NodeOperationError(ctx.getNode(), 'At most 50 field keys can be requested at once', { itemIndex: i });
+	}
+
 	const qs: IDataObject = { limit, offset };
 	if (customFieldCardId) qs.customFieldCardId = customFieldCardId;
+	if (fieldKeys.length) qs.fieldKeys = fieldKeys;
 
-	return await lsRequest.call(ctx, 'GET', '/custom-fields/definitions', { qs });
+	return await lsRequest.call(ctx, 'GET', '/custom-fields/definitions', { qs, arrayFormat: 'repeat' });
 };
 
 const getCategories: ExecuteHandler = async (ctx, i) => {

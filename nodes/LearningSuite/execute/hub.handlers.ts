@@ -49,6 +49,11 @@ const removeAccess: ExecuteHandler = async (ctx, i) => {
 	return await lsRequest.call(ctx, 'DELETE', `/hub/${hubId}/access`, { body });
 };
 
+const deleteHub: ExecuteHandler = async (ctx, i) => {
+	const hubId = ctx.getNodeParameter('hubId', i) as string;
+	return await lsRequest.call(ctx, 'DELETE', `/hub/${encodeURIComponent(hubId)}`);
+};
+
 const getTemplateVariables: ExecuteHandler = async (ctx, i) => {
 	const templateId = ctx.getNodeParameter('templateId', i) as string;
 
@@ -61,6 +66,7 @@ export const hubHandlers = {
 	getAll,
 	getTemplates,
 	create,
+	delete: deleteHub,
 	addAccess,
 	removeAccess,
 	getTemplateVariables,

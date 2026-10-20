@@ -1,5 +1,5 @@
-import type { IDataObject } from 'n8n-workflow';
-import { lsRequest, toIdArray, getHttpCode } from '../shared';
+import { NodeOperationError, type IDataObject } from 'n8n-workflow';
+import { lsRequest, toIdArray, toIsoDateTime, getHttpCode } from '../shared';
 import type { ExecuteHandler } from '../exec.types';
 
 type HttpErrorLike = {
@@ -14,6 +14,23 @@ type HttpErrorLike = {
 		httpCode?: number;
 	};
 };
+
+/** Converts an optional date option to IsoDateTime, failing loudly on unparsable input. */
+function isoDateTimeOption(
+	ctx: Parameters<ExecuteHandler>[0],
+	i: number,
+	label: string,
+	value: unknown,
+): string | undefined {
+	if (value === undefined || value === null || value === '') return undefined;
+	const iso = toIsoDateTime(value);
+	if (!iso) {
+		throw new NodeOperationError(ctx.getNode(), `"${label}" is not a valid date/time: ${String(value)}`, {
+			itemIndex: i,
+		});
+	}
+	return iso;
+}
 
 const getByEmail: ExecuteHandler = async (ctx, i) => {
 	const email = ctx.getNodeParameter('email', i) as string;
@@ -51,6 +68,11 @@ const getAll: ExecuteHandler = async (ctx, i) => {
 
 	if (days !== undefined) qs.days_not_logged_in_gte = days;
 	if (includeNever !== undefined) qs.include_never_logged_in = includeNever;
+
+	const createdAtGte = isoDateTimeOption(ctx, i, 'Created After', additionalOptions.createdAtGte);
+	const createdAtLte = isoDateTimeOption(ctx, i, 'Created Before', additionalOptions.createdAtLte);
+	if (createdAtGte) qs.created_at_gte = createdAtGte;
+	if (createdAtLte) qs.created_at_lte = createdAtLte;
 
 	return await lsRequest.call(ctx, 'GET', '/members', { qs });
 };
@@ -211,14 +233,29 @@ const addToBundles: ExecuteHandler = async (ctx, i) => {
 	const bundles = toIdArray(ctx.getNodeParameter('bundles', i));
 	const add = ctx.getNodeParameter('additionalOptions', i, {}) as IDataObject;
 	const body: IDataObject = { bundles };
-	if (add.accessGivenAtOverride) {
-		body.accessGivenAtOverride = String(add.accessGivenAtOverride);
-	}
+	const accessGivenAtOverride = isoDateTimeOption(ctx, i, 'Access Given At Override', add.accessGivenAtOverride);
+	if (accessGivenAtOverride) body.accessGivenAtOverride = accessGivenAtOverride;
+
+	const accessUntilOverride = isoDateTimeOption(ctx, i, 'Access Until Override', add.accessUntilOverride);
 	if (add.unlimitedAccess === true) {
 		body.unlimitedAccess = true;
-	} else if (add.accessUntilOverride) {
-		body.accessUntilOverride = String(add.accessUntilOverride);
+	} else if (accessUntilOverride) {
+		body.accessUntilOverride = accessUntilOverride;
+	} else if (add.removeAccessUntilOverride === true) {
+		body.accessUntilOverride = null;
 	}
+
+	const pauseUntil = isoDateTimeOption(ctx, i, 'Pause Until', add.pauseUntil);
+	const pauseOptions = [pauseUntil, add.unlimitedPause === true, add.resumePause === true].filter(Boolean);
+	if (pauseOptions.length > 1) {
+		throw new NodeOperationError(ctx.getNode(), 'Pause Until, Unlimited Pause and Resume Pause cannot be combined', {
+			itemIndex: i,
+		});
+	}
+	if (pauseUntil) body.pauseUntil = pauseUntil;
+	if (add.unlimitedPause === true) body.unlimitedPause = true;
+	if (add.resumePause === true) body.resumePause = true;
+
 	if (typeof add.disableAccessNotificationEmail === 'boolean') {
 		body.disableAccessNotificationEmail = add.disableAccessNotificationEmail;
 	}
@@ -236,6 +273,11 @@ const removeFromBundles: ExecuteHandler = async (ctx, i) => {
 const getBundles: ExecuteHandler = async (ctx, i) => {
 	const memberId = ctx.getNodeParameter('memberId', i) as string;
 	return await lsRequest.call(ctx, 'GET', `/members/${memberId}/bundles`);
+};
+
+const getAiCredits: ExecuteHandler = async (ctx, i) => {
+	const memberId = ctx.getNodeParameter('memberId', i) as string;
+	return await lsRequest.call(ctx, 'GET', `/members/${encodeURIComponent(memberId)}/ai-credits`);
 };
 
 const findOrCreate: ExecuteHandler = async (ctx, i) => {
@@ -291,5 +333,6 @@ export const memberHandlers = {
 	addToBundles,
 	removeFromBundles,
 	getBundles,
+	getAiCredits,
 	findOrCreate,
 };
