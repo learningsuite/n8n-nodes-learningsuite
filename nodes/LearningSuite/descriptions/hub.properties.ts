@@ -10,12 +10,8 @@ export const hubProperties: INodeProperties[] = [
 		displayOptions: { show: { resource: ['hub'] } },
 		options: [
 			{ name: 'Create Hub', value: 'create', description: 'Create a new hub from a template', action: 'Create a hub' },
-			{
-				name: 'Delete Hub',
-				value: 'delete',
-				description: 'Permanently delete a hub or hub template',
-				action: 'Delete a hub',
-			},
+			// 'Delete Hub' (value 'delete') is hidden: API 1.28.1 removed DELETE /hub/{hubId} (invalid path).
+			// Handler and fields stay in place; re-add the option if the endpoint returns.
 			{
 				name: 'Get Hub Template Variables',
 				value: 'getTemplateVariables',

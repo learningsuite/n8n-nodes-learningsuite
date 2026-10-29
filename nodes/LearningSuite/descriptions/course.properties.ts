@@ -43,7 +43,7 @@ export const courseProperties: INodeProperties[] = [
 			{
 				name: 'Get Course Submissions',
 				value: 'getSubmissions',
-				description: 'List submissions in a course (newest first)',
+				description: 'List submissions in a course with their grading (newest first)',
 				action: 'Get course submissions',
 			},
 			{
@@ -385,6 +385,20 @@ export const courseProperties: INodeProperties[] = [
 			show: {
 				resource: ['course'],
 				operation: ['getMembers', 'getAccessRequests', 'getSubmissions'],
+			},
+		},
+	},
+	{
+		displayName: 'Only Ungraded',
+		name: 'onlyUngraded',
+		type: 'boolean',
+		default: false,
+		description:
+			'Whether to return only submissions that still need a grading: the latest ungraded submission per member and task. Grading removes submissions from this list, so when grading page by page, always fetch with offset 0.',
+		displayOptions: {
+			show: {
+				resource: ['course'],
+				operation: ['getSubmissions'],
 			},
 		},
 	},

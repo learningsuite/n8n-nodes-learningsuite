@@ -5,7 +5,7 @@
 
 ![n8n](https://img.shields.io/badge/n8n-2.17.2+-brightgreen)
 
-![Version](https://img.shields.io/badge/version-1.6.0-blue)
+![Version](https://img.shields.io/badge/version-1.6.1-blue)
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 
@@ -40,8 +40,8 @@ n8n ist ein einfach zu bedienendes Tool, mit dem du Aktionen zwischen verschiede
 
 ## 🚀 Features
 
-- **16 Ressourcen** vollständig unterstützt (Member, Course, Group, Bundle, Hub, Module, Community, Calendar Event, Custom Fields, Popup, Webhook, Role, User, Team Member, AI, API Call)
-- **103 Action-Endpunkte** für maximale Flexibilität
+- **17 Ressourcen** vollständig unterstützt (Member, Course, Group, Bundle, Hub, Module, Community, Calendar Event, Custom Fields, Popup, Webhook, Role, Submission, User, Team Member, AI, API Call)
+- **106 Action-Endpunkte** für maximale Flexibilität
 - **Instant Trigger (Webhook-basierend)** mit 19 Event-Types für Echtzeit-Automatisierung
 - **Polling Trigger** mit 11 Event-Types für zeitgesteuerte Abfragen
 - **Flexible API Call** Resource für custom Endpunkte
@@ -60,7 +60,7 @@ n8n ist ein einfach zu bedienendes Tool, mit dem du Aktionen zwischen verschiede
 ### 📚 **Course** (9 Operationen)
 
 - Get Published Courses, Publish Course, Get Course Modules, Get Course Modules for Member
-- Get Course Members, Get Course Access Requests, Get Course Submissions
+- Get Course Members, Get Course Access Requests, Get Course Submissions (optional nur unbewertete)
 - Create Lesson, Update Lesson
 
 ### 👥 **Group** (13 Operationen)
@@ -73,9 +73,9 @@ n8n ist ein einfach zu bedienendes Tool, mit dem du Aktionen zwischen verschiede
 
 - Get Bundles, Get Bundle Members
 
-### 🏠 **Hub** (7 Operationen)
+### 🏠 **Hub** (6 Operationen)
 
-- Get Many Hubs, Get Hub Templates, Get Hub Template Variables, Create a Hub, Delete a Hub, Add Hub Access, Remove Hub Access
+- Get Many Hubs, Get Hub Templates, Get Hub Template Variables, Create a Hub, Add Hub Access, Remove Hub Access
 
 ### 📖 **Module** (3 Operationen)
 
@@ -111,6 +111,11 @@ n8n ist ein einfach zu bedienendes Tool, mit dem du Aktionen zwischen verschiede
 
 - Get Webhook Subscription, Get Webhook Subscriptions, Create Webhook Subscription, Update Webhook Subscription, Delete Webhook Subscription
 - Get Webhook Sample Data
+
+### 📝 **Submission** (4 Operationen)
+
+- Get Submission, Get Many Submissions, Grade Submission, Add Comment to Submission
+- Bewertungen und Kommentare laufen im Namen eines Team Members; Get Many liefert auf Wunsch nur unbewertete Einreichungen
 
 ### 👤 **Team Member** (3 Operationen)
 
@@ -355,6 +360,17 @@ Die Ressource Calendar Event arbeitet auf Event-**Serien**, nie auf einzelnen Te
 - **Link Stages** ersetzen den einzelnen Link durch die Phasen Before/During/After. Sobald eine Phase gesetzt ist, ist die During-Phase Pflicht.
 - **Zugriff** (Member, Gruppen, Bundles) lässt sich nur beim Anlegen setzen; der Update-Endpunkt nimmt ihn nicht entgegen.
 - **Get Analytics** zeigt pro Member, was er bei einem Termin getan hat: `infoOpen`, `beforeLinkClick`, `liveJoin`, `afterLinkClick`. `Occurrence Date` ist das ursprüngliche Datum des Termins, auch wenn er verschoben wurde. Standardmäßig kommt die ganze Zielgruppe zurück; Member mit leerer `actions`-Liste sind die No-Shows. `Only Members With Actions` liefert nur die Teilnehmer. Mit `Limit`/`Offset` (max. 100) blättern, bis `members` leer zurückkommt.
+
+### Submissions
+
+Die Ressource Submission deckt die Einreichungen zu Aufgaben in Lektionen ab (Text, Datei-Upload, Audio, Video-Rehearsal).
+
+- **Submission ID** ist die globale `submissionId`, wie sie der Trigger Submission Created oder Get Many liefert. Zur Auswahl aus einer Liste zuerst einen Kurs wählen: Das Dropdown zeigt dessen neueste 100 Einreichungen mit Member, Aufgabe, Datum und Bewertungsstatus.
+- **Get** liefert die Einreichung samt `grading` und allen `comments`, älteste zuerst, interne Kommentare eingeschlossen. Download-URLs von Dateien gelten 7 Tage; für frische URLs die Einreichung erneut abrufen.
+- **Grade** funktioniert genau wie das Bewerten in der LearningSuite-Oberfläche und benachrichtigt den Member. Ohne Note gilt die Einreichung nur als gesehen; eine erneute Bewertung ersetzt die vorherige. Bei Aufgaben mit `submission.isGradable: false` bleibt die Note leer; ein Kommentar ist dann nur zusammen mit `Should Retry` erlaubt.
+- **Add Comment** kommentiert im Namen eines Team Members. `Internal`-Kommentare sehen nur Team Member, der Member wird nicht benachrichtigt.
+- **Only Ungraded** (Get Many und Course → Get Course Submissions) liefert pro Member und Aufgabe die neueste unbewertete Einreichung. Bewerten entfernt Einträge aus dieser Liste — wer seitenweise bewertet, ruft deshalb immer mit Offset 0 ab.
+- **Grader** und **Author** müssen Team Member sein, keine Member; statt der ID funktioniert auch die E-Mail.
 
 ### ⚡ Instant Webhook Trigger Setup
 

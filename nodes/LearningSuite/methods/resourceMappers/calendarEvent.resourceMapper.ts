@@ -30,8 +30,6 @@ const CALENDAR_EVENT_FIELDS: ResourceMapperField[] = [
 
 export const CALENDAR_EVENT_FIELD_IDS = CALENDAR_EVENT_FIELDS.map((field) => field.id);
 
-export async function getCalendarEventResourceMapperFields(
-	this: ILoadOptionsFunctions,
-): Promise<ResourceMapperFields> {
+export async function getCalendarEventResourceMapperFields(this: ILoadOptionsFunctions): Promise<ResourceMapperFields> {
 	return { fields: CALENDAR_EVENT_FIELDS };
 }

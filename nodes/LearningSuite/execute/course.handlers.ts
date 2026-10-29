@@ -48,11 +48,13 @@ const getSubmissions: ExecuteHandler = async (ctx, i) => {
 	const courseId = ctx.getNodeParameter('courseId', i) as string;
 	const limit = ctx.getNodeParameter('limit', i, 15) as number;
 	const offset = ctx.getNodeParameter('offset', i, 0) as number;
+	const onlyUngraded = ctx.getNodeParameter('onlyUngraded', i, false) as boolean;
 
 	const qs: IDataObject = {
 		limit,
 		offset,
 	};
+	if (onlyUngraded) qs.onlyUngraded = true;
 
 	return await lsRequest.call(ctx, 'GET', `/courses/${courseId}/submissions`, { qs });
 };
