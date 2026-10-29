@@ -4,6 +4,23 @@ All notable changes to this project are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.1] - 2026-10-29
+
+### Added
+
+- Support for LearningSuite API 1.28.1
+- **Submission resource** for the new `/submissions` endpoints
+  - **Get** for `GET /submissions/{submissionId}`: the submission with its grading and all comments
+  - **Get Many** for `GET /courses/{courseId}/submissions`, with limit/offset and the `onlyUngraded` filter
+  - **Grade** for `POST /submissions/{submissionId}/grade`, with grader, optional grade (0–100), comment, and `shouldRetry`
+  - **Add Comment** for `POST /submissions/{submissionId}/comments`, with author and the `internal` flag
+  - Submission dropdown for Get, Grade, and Add Comment: after choosing an optional course, it lists the latest 100 submissions with member, task, date, and grading status
+- **Course → Get Course Submissions**: `Only Ungraded` filter (`onlyUngraded`); the response now contains the `grading` of each submission
+
+### Changed
+
+- **Hub → Delete Hub** is hidden from the operation list: LearningSuite API 1.28.1 removed `DELETE /hub/{hubId}`, and the API now answers with an invalid path error. The handler stays in the code in case the endpoint returns; existing workflows that use it fail with that API error until then.
+
 ## [1.6.0] - 2026-10-20
 
 ### Added

@@ -23,6 +23,7 @@ import * as loMember from './methods/loadOptions/member.loadOptions';
 import * as loModule from './methods/loadOptions/module.loadOptions';
 import * as loPopup from './methods/loadOptions/popup.loadOptions';
 import * as loRole from './methods/loadOptions/role.loadOptions';
+import * as loSubmission from './methods/loadOptions/submission.loadOptions';
 import * as loWebhook from './methods/loadOptions/webhook.loadOptions';
 import * as loTeamMember from './methods/loadOptions/teamMember.loadOptions';
 import * as loCustomFields from './methods/loadOptions/customFields.loadOptions';
@@ -44,6 +45,7 @@ import { memberProperties } from './descriptions/member.properties';
 import { moduleProperties } from './descriptions/module.properties';
 import { popupProperties } from './descriptions/popup.properties';
 import { roleProperties } from './descriptions/role.properties';
+import { submissionProperties } from './descriptions/submission.properties';
 import { teamMemberProperties } from './descriptions/teamMember.properties';
 import { userProperties } from './descriptions/user.properties';
 import { webhookProperties } from './descriptions/webhook.properties';
@@ -62,6 +64,7 @@ import { memberHandlers } from './execute/member.handlers';
 import { moduleHandlers } from './execute/module.handlers';
 import { popupHandlers } from './execute/popup.handlers';
 import { roleHandlers } from './execute/role.handlers';
+import { submissionHandlers } from './execute/submission.handlers';
 import { teamMemberHandlers } from './execute/teamMember.handlers';
 import { userHandlers } from './execute/user.handlers';
 import { webhookHandlers } from './execute/webhook.handlers';
@@ -82,6 +85,7 @@ const registry: HandlersRegistry = {
 	module: { ...moduleHandlers },
 	popup: { ...popupHandlers },
 	role: { ...roleHandlers },
+	submission: { ...submissionHandlers },
 	teamMember: { ...teamMemberHandlers },
 	user: { ...userHandlers },
 	webhook: { ...webhookHandlers },
@@ -130,6 +134,7 @@ export class LearningSuite implements INodeType {
 			...moduleProperties,
 			...popupProperties,
 			...roleProperties,
+			...submissionProperties,
 			...teamMemberProperties,
 			...userProperties,
 			...webhookProperties,
@@ -150,6 +155,7 @@ export class LearningSuite implements INodeType {
 			...loModule,
 			...loPopup,
 			...loRole,
+			...loSubmission,
 			...loTeamMember,
 			...loWebhook,
 		},

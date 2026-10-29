@@ -72,6 +72,11 @@ export const resourceSelector: INodeProperties = {
 			description: 'Retrieve available user roles',
 		},
 		{
+			name: 'Submission',
+			value: 'submission',
+			description: 'Get, grade, and comment on task submissions',
+		},
+		{
 			name: 'Team Member',
 			value: 'teamMember',
 			description: 'Retrieve available team members',

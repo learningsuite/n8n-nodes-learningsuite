@@ -11,6 +11,7 @@ import { memberHandlers } from './member.handlers';
 import { moduleHandlers } from './module.handlers';
 import { popupHandlers } from './popup.handlers';
 import { roleHandlers } from './role.handlers';
+import { submissionHandlers } from './submission.handlers';
 import { webhookHandlers } from './webhook.handlers';
 import { teamMemberHandlers } from './teamMember.handlers';
 import { userHandlers } from './user.handlers';
@@ -33,5 +34,6 @@ export const registry: HandlersRegistry = {
 	teamMember: teamMemberHandlers,
 	user: userHandlers,
 	role: roleHandlers,
+	submission: submissionHandlers,
 	webhook: webhookHandlers,
 };

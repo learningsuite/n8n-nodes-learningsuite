@@ -2,7 +2,7 @@
 
 ![n8n](https://img.shields.io/badge/n8n-2.17.2+-brightgreen)
 
-![Version](https://img.shields.io/badge/version-1.6.0-blue)
+![Version](https://img.shields.io/badge/version-1.6.1-blue)
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 
@@ -23,8 +23,8 @@ n8n is an easy-to-use tool that allows you to automate actions between different
 
 ## 🚀 Features
 
-- **16 resources** fully supported (Member, Course, Group, Bundle, Hub, Module, Community, Calendar Event, Custom Fields, Popup, Webhook, Role, User, Team Member, AI, API Call)
-- **103 action endpoints** for maximum flexibility
+- **17 resources** fully supported (Member, Course, Group, Bundle, Hub, Module, Community, Calendar Event, Custom Fields, Popup, Webhook, Role, Submission, User, Team Member, AI, API Call)
+- **106 action endpoints** for maximum flexibility
 - **Instant trigger (webhook-based)** with 19 event types for real-time automation
 - **Polling trigger** with 11 event types for scheduled polling
 - **Flexible API call** resource for custom endpoints
@@ -43,7 +43,7 @@ n8n is an easy-to-use tool that allows you to automate actions between different
 ### 📚 **Course** (9 operations)
 
 - Get published courses, publish course, get course modules, get course modules for member
-- Get course members, get course access requests, get course submissions
+- Get course members, get course access requests, get course submissions (optionally only ungraded)
 - Create lesson, update lesson
 
 ### 👥 **Group** (13 operations)
@@ -56,9 +56,9 @@ n8n is an easy-to-use tool that allows you to automate actions between different
 
 - Get bundles, get bundle members
 
-### 🏠 **Hub** (7 operations)
+### 🏠 **Hub** (6 operations)
 
-- Get many hubs, get hub templates, get hub template variables, create a hub, delete a hub, add hub access, remove hub access
+- Get many hubs, get hub templates, get hub template variables, create a hub, add hub access, remove hub access
 
 ### 📖 **Module** (3 operations)
 
@@ -94,6 +94,11 @@ n8n is an easy-to-use tool that allows you to automate actions between different
 
 - Get webhook subscription, get webhook subscriptions, create webhook subscription, update webhook subscription, delete webhook subscription
 - Get webhook sample data
+
+### 📝 **Submission** (4 operations)
+
+- Get a submission, get many submissions, grade a submission, add comment to submission
+- Grading and comments are posted in the name of a team member; get many can return only ungraded submissions
 
 ### 👤 **Team Member** (3 operations)
 
@@ -300,6 +305,17 @@ The Calendar Event resource works on event **series**, never on single dates —
 - **Link Stages** replace the single link with before/during/after phases. As soon as any phase is set, the During phase is required.
 - **Access** (members, groups, bundles) can only be set when creating an event; the update endpoint does not accept it.
 - **Get Analytics** reports per member what they did on one occurrence: `infoOpen`, `beforeLinkClick`, `liveJoin`, `afterLinkClick`. The `Occurrence Date` is the occurrence's original date, even if it was moved. By default the whole target group is returned, members with an empty `actions` list are the no-shows; `Only Members With Actions` returns just the participants. Page through with `Limit`/`Offset` (max. 100) until `members` comes back empty.
+
+### Submissions
+
+The Submission resource covers the submissions of tasks in lessons (text, file upload, audio, video rehearsal).
+
+- **Submission ID** is the global `submissionId`, as delivered by the Submission Created trigger or by Get Many. To pick one from a list, select a course first: the dropdown shows its latest 100 submissions with member, task, date, and grading status.
+- **Get** returns the submission with its `grading` and all `comments`, oldest first, internal comments included. File download URLs are valid for 7 days; fetch the submission again for fresh ones.
+- **Grade** works exactly like grading in the LearningSuite UI and notifies the member. Without a grade the submission is only marked as seen; grading again replaces the previous grading. For tasks with `submission.isGradable: false`, leave the grade empty; a comment is then only accepted together with `Should Retry`.
+- **Add Comment** posts in the name of a team member. `Internal` comments are visible to team members only and do not notify the member.
+- **Only Ungraded** (Get Many and Course → Get Course Submissions) returns the latest ungraded submission per member and task. Grading removes entries from this list, so when grading page by page, always fetch with offset 0.
+- **Grader** and **Author** must be team members, not members; besides the ID, their email works as well.
 
 ### ⚡ Instant Webhook Trigger Setup
 
