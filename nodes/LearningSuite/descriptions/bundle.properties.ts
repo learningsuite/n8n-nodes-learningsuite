@@ -9,9 +9,9 @@ export const bundleProperties: INodeProperties[] = [
 		default: 'getAll',
 		displayOptions: { show: { resource: ['bundle'] } },
 		options: [
-			{ name: 'Get Many', value: 'getAll', description: 'List bundles', action: 'Get bundles' },
+			{ name: 'Get Many', value: 'getAll', description: 'Retrieve a list of bundles', action: 'Get many bundles' },
 			{
-				name: 'Get Bundle Members',
+				name: 'Get Members',
 				value: 'getMembers',
 				description: 'List members of a bundle, including access information if available',
 				action: 'Get bundle members',

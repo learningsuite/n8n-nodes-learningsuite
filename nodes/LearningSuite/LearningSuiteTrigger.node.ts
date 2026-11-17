@@ -47,6 +47,7 @@ const INSTANT_EVENTS = new Set<string>([
 	'agentAction.executed',
 	'aiAgent.limitForInaccessibleCourseContentExceeded',
 	'accessRequest.created',
+	'certificate.issued',
 	'communityPost.created',
 	'communityPost.commented',
 	'communityPost.moderated',
@@ -225,6 +226,7 @@ function buildDesiredFilter(this: IHookFunctions, event: string): { filter: IDat
 		}
 
 		// course.updated
+		case 'certificate.issued':
 		case 'course.memberAdded':
 		case 'course.updated': {
 			const col = getCol('additionalCourseOptions') as {

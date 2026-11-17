@@ -8,6 +8,8 @@ export const roleProperties: INodeProperties[] = [
 		noDataExpression: true,
 		default: 'getAll',
 		displayOptions: { show: { resource: ['role'] } },
-		options: [{ name: 'Get Many', value: 'getAll', description: 'List user roles', action: 'Get many roles' }],
+		options: [
+			{ name: 'Get Many', value: 'getAll', description: 'Retrieve a list of user roles', action: 'Get many roles' },
+		],
 	},
 ];

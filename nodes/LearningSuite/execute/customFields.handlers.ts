@@ -501,6 +501,39 @@ const getFieldValues: ExecuteHandler = async (ctx, i) => {
 	return normalizeCustomFieldValue(response);
 };
 
+const getFile: ExecuteHandler = async (ctx, i) => {
+	const userId = ctx.getNodeParameter('userId', i) as string;
+	const fileId = (ctx.getNodeParameter('fileId', i) as string).trim();
+	return await lsRequest.call(ctx, 'GET', `/custom-fields/store/${userId}/files/${encodeURIComponent(fileId)}`);
+};
+
+/**
+ * The API returns one array per profile (same order as GET .../fields/{fieldKey}).
+ * Flattened to one item per file, with the index of the profile it belongs to.
+ */
+const getFieldFiles: ExecuteHandler = async (ctx, i) => {
+	const userId = ctx.getNodeParameter('userId', i) as string;
+	const fieldKey = ctx.getNodeParameter('customFieldKey', i) as string;
+	const response: unknown = await lsRequest.call(
+		ctx,
+		'GET',
+		`/custom-fields/store/${userId}/fields/${encodeURIComponent(fieldKey)}/files`,
+	);
+
+	if (!Array.isArray(response)) return [];
+
+	const files: IDataObject[] = [];
+	response.forEach((profileFiles: unknown, profileIndex: number) => {
+		if (!Array.isArray(profileFiles)) return;
+		for (const file of profileFiles) {
+			if (file && typeof file === 'object') {
+				files.push({ ...(file as IDataObject), profileIndex });
+			}
+		}
+	});
+	return files;
+};
+
 const setFieldValue: ExecuteHandler = async (ctx, i) => {
 	const userId = ctx.getNodeParameter('userId', i) as string;
 	const fieldKey = ctx.getNodeParameter('fieldKey', i) as string;
@@ -895,6 +928,8 @@ export const customFieldsHandlers = {
 	getStore,
 	getStoreValues,
 	getFieldValues,
+	getFieldFiles,
+	getFile,
 	setFieldValue,
 	setMultipleFieldValues,
 	createFileUploadTarget,
