@@ -10,19 +10,19 @@ export const moduleProperties: INodeProperties[] = [
 		displayOptions: { show: { resource: ['module'] } },
 		options: [
 			{
-				name: 'Change Module Access for Member',
+				name: 'Change Access for Member',
 				value: 'createUnlockOverride',
 				description: 'Change a member’s access to a module (unlock override)',
 				action: 'Change module access',
 			},
 			{
-				name: 'Get Module Lessons',
+				name: 'Get Lessons',
 				value: 'getLessons',
 				description: 'List lessons for a module',
 				action: 'Get module lessons',
 			},
 			{
-				name: 'Get Module Sections',
+				name: 'Get Sections',
 				value: 'getSections',
 				description: 'List sections for a module',
 				action: 'Get module sections',

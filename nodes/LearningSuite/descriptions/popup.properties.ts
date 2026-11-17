@@ -9,16 +9,21 @@ export const popupProperties: INodeProperties[] = [
 		default: 'getAll',
 		displayOptions: { show: { resource: ['popup'] } },
 		options: [
-			{ name: 'Get Popup', value: 'get', description: 'Get a popup by ID', action: 'Get a popup' },
-			{ name: 'Get Many', value: 'getAll', description: 'List popups (paginated)', action: 'Get many popups' },
+			{ name: 'Get', value: 'get', description: 'Retrieve a popup by ID', action: 'Get popup' },
 			{
-				name: 'Delete Popup Trigger',
+				name: 'Get Many',
+				value: 'getAll',
+				description: 'Retrieve a list of popups (paginated)',
+				action: 'Get many popups',
+			},
+			{
+				name: 'Delete Trigger',
 				value: 'removeTriggerForMember',
 				description: 'Remove a popup trigger for a member',
 				action: 'Remove popup trigger for member',
 			},
 			{
-				name: 'Trigger Popup for Member',
+				name: 'Trigger for Member',
 				value: 'triggerForMember',
 				description: 'Trigger a popup for a member',
 				action: 'Trigger popup for member',

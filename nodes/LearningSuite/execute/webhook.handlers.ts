@@ -165,6 +165,7 @@ function buildDesiredFilter(ctx: ExecuteContext, i: number, eventType: string): 
 		}
 
 		// ---------------- Course
+		case 'certificate.issued':
 		case 'course.memberAdded':
 		case 'course.updated': {
 			const fb = getCol(ctx, i, 'additionalCourseOptions') as { courseId?: string };
@@ -352,6 +353,12 @@ const getSampleData: ExecuteHandler = async (ctx, i) => {
 
 		case 'course-updated-events': {
 			const col = ctx.getNodeParameter('additionalCourseUpdatedSample', i, {}) as IDataObject;
+			qs = col;
+			break;
+		}
+
+		case 'certificate-issued-events': {
+			const col = ctx.getNodeParameter('additionalCertificateIssuedSample', i, {}) as IDataObject;
 			qs = col;
 			break;
 		}

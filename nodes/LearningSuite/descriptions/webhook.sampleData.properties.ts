@@ -410,6 +410,26 @@ export const webhookSampleDataProperties: INodeProperties[] = [
 	},
 
 	{
+		displayName: 'Certificate Issued Options',
+		name: 'additionalCertificateIssuedSample',
+		type: 'collection',
+		default: {},
+		placeholder: 'Add option',
+		displayOptions: { show: { sampleDataType: ['certificate-issued-events'] } },
+		options: [
+			{
+				displayName: 'Course Name or ID',
+				name: 'courseInstanceId',
+				type: 'options',
+				description:
+					'Only return the latest certificates issued in this course. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				typeOptions: { loadOptionsMethod: 'course_getCourses' },
+				default: '',
+			},
+		],
+	},
+
+	{
 		displayName: 'Course Member Added Options',
 		name: 'additionalCourseMemberAddedSample',
 		type: 'collection',

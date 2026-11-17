@@ -14,85 +14,97 @@ export const customFieldsProperties: INodeProperties[] = [
 				name: 'Get Cards',
 				value: 'getCards',
 				description: 'Retrieve all custom field cards',
-				action: 'Retrieve all custom field cards',
+				action: 'Get custom field cards',
 			},
 			{
 				name: 'Get Cards (Expanded)',
 				value: 'getCardsExpanded',
 				description: 'Retrieve custom field cards including their definitions and categories',
-				action: 'Retrieve custom field cards including their definitions and categories',
+				action: 'Get custom field cards with definitions',
 			},
 			{
 				name: 'Get Categories',
 				value: 'getCategories',
 				description: 'Retrieve custom field categories',
-				action: 'Retrieve custom field categories',
+				action: 'Get custom field categories',
 			},
 			{
 				name: 'Get Definitions',
 				value: 'getDefinitions',
 				description: 'Retrieve custom field definitions',
-				action: 'Retrieve custom field definitions',
+				action: 'Get custom field definitions',
+			},
+			{
+				name: 'Get Field Files',
+				value: 'getFieldFiles',
+				description: 'Retrieve the files of a file custom field for a user, with download URLs',
+				action: 'Get custom field files',
 			},
 			{
 				name: 'Get Field Values',
 				value: 'getFieldValues',
 				description: 'Retrieve the values of a custom field for a user',
-				action: 'Retrieve the values of a custom field for a user',
+				action: 'Get custom field values',
+			},
+			{
+				name: 'Get File',
+				value: 'getFile',
+				description: 'Retrieve a custom field file of a user with a download URL',
+				action: 'Get custom field file',
 			},
 			{
 				name: 'Get Profile by Card',
 				value: 'getProfileByCard',
 				description: 'Retrieve the values of a custom field card profile for a user',
-				action: 'Retrieve the values of a custom field card profile for a user',
+				action: 'Get custom field profile by card',
 			},
 			{
 				name: 'Get Profiles',
 				value: 'getProfiles',
 				description: 'Retrieve custom field profiles of a user',
-				action: 'Retrieve custom field profiles of a user',
+				action: 'Get custom field profiles',
 			},
 			{
 				name: 'Get Profiles (Expanded)',
 				value: 'getProfilesExpanded',
 				description: 'Retrieve custom field profiles including their values',
-				action: 'Retrieve custom field profiles including their values',
+				action: 'Get custom field profiles with values',
 			},
 			{
 				name: 'Get Store',
 				value: 'getStore',
 				description: 'Retrieve the complete custom field store of a user',
-				action: 'Retrieve the complete custom field store of a user',
+				action: 'Get custom field store',
 			},
 			{
 				name: 'Get Store Values',
 				value: 'getStoreValues',
 				description: 'Get all custom field values of a user for a given profile',
-				action: 'Get all custom field values of a user for a given profile',
+				action: 'Get custom field store values',
 			},
 			{
 				name: 'Set Field Value',
 				value: 'setFieldValue',
 				description: 'Set the value of a single custom field for a user',
-				action: 'Set the value of a single custom field for a user',
+				action: 'Set custom field value',
 			},
 			{
 				name: 'Set Multiple Field Values',
 				value: 'setMultipleFieldValues',
 				description: 'Set multiple custom field values for a user in one request',
-				action: 'Set multiple custom field values for a user in one request',
+				action: 'Set multiple custom field values',
 			},
 			{
 				name: 'Update Profile Field',
 				value: 'updateProfileField',
 				description: 'Update a custom field value within a profile of a custom field card',
-				action: 'Update a custom field value within a profile of a custom field card',
+				action: 'Update custom field in profile',
 			},
 			{
 				name: 'Upload File From URL',
 				value: 'createFileUploadTarget',
 				description: 'Upload a file from a public URL and append it to a custom field',
-				action: 'Upload a file from a public URL and append it to a custom field',
+				action: 'Upload file from URL to custom field',
 			},
 		],
 	},
@@ -111,7 +123,9 @@ export const customFieldsProperties: INodeProperties[] = [
 			show: {
 				resource: ['customFields'],
 				operation: [
+					'getFieldFiles',
 					'getFieldValues',
+					'getFile',
 					'getProfileByCard',
 					'getProfiles',
 					'getProfilesExpanded',
@@ -271,6 +285,39 @@ export const customFieldsProperties: INodeProperties[] = [
 		default: '',
 	},
 	{
+		displayName: 'Field Key Name or ID',
+		name: 'customFieldKey',
+		type: 'options',
+		description:
+			'The file, image, video, or audio custom field to read. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+		required: true,
+		typeOptions: {
+			loadOptionsMethod: 'customFields_getMediaDefinitions',
+		},
+		displayOptions: {
+			show: {
+				resource: ['customFields'],
+				operation: ['getFieldFiles'],
+			},
+		},
+		default: '',
+	},
+	{
+		displayName: 'File ID',
+		name: 'fileId',
+		type: 'string',
+		required: true,
+		default: '',
+		description:
+			"The file ID from a file value of the user's custom field store (fileId). Only files currently set in one of the user's custom field values can be retrieved.",
+		displayOptions: {
+			show: {
+				resource: ['customFields'],
+				operation: ['getFile'],
+			},
+		},
+	},
+	{
 		displayName: 'File Name',
 		name: 'customFieldFileName',
 		type: 'string',
@@ -291,7 +338,7 @@ export const customFieldsProperties: INodeProperties[] = [
 		type: 'string',
 		default: '',
 		required: true,
-		placeholder: 'https://example.com/file.pdf',
+		placeholder: 'e.g. https://example.com/file.pdf',
 		description: 'Public URL that LearningSuite downloads and uploads before returning the custom field file value',
 		displayOptions: {
 			show: {
@@ -325,7 +372,7 @@ export const customFieldsProperties: INodeProperties[] = [
 		type: 'string',
 		default: '',
 		required: true,
-		placeholder: 'Enter text value',
+		placeholder: 'e.g. Gold',
 		description: 'The string value to set for this custom field',
 		displayOptions: {
 			show: {
@@ -341,7 +388,7 @@ export const customFieldsProperties: INodeProperties[] = [
 		type: 'number',
 		default: 0,
 		required: true,
-		placeholder: 'Enter numeric value',
+		placeholder: 'e.g. 42',
 		description: 'The numeric value to set for this custom field',
 		displayOptions: {
 			show: {
@@ -372,7 +419,6 @@ export const customFieldsProperties: INodeProperties[] = [
 		type: 'dateTime',
 		default: '',
 		required: true,
-		placeholder: 'Select date/time',
 		description: 'The date/time value to set for this custom field',
 		displayOptions: {
 			show: {
@@ -428,7 +474,7 @@ export const customFieldsProperties: INodeProperties[] = [
 		type: 'string',
 		default: 'data',
 		required: true,
-		placeholder: 'data',
+		placeholder: 'e.g. data',
 		description:
 			'Name of the binary property containing the file(s) to upload. If the input contains multiple binary properties, separate their names with commas (e.g. "data,file1,file2").',
 		displayOptions: {
@@ -521,7 +567,7 @@ export const customFieldsProperties: INodeProperties[] = [
 		type: 'string',
 		default: '',
 		required: true,
-		placeholder: 'Enter value',
+		placeholder: 'e.g. Gold',
 		description: 'The value to set for this custom field',
 		displayOptions: {
 			show: {
