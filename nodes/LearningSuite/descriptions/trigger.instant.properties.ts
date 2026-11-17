@@ -20,6 +20,12 @@ export const instantProperties: INodeProperties[] = [
 				description: 'Triggers when an AI agent exceeds the limit for inaccessible course content',
 			},
 			{
+				name: 'Certificate Issued',
+				value: 'certificate.issued',
+				description:
+					'Triggers when a course certificate is issued to a member (automatically, retroactively, or manually), not when it is revoked',
+			},
+			{
 				name: 'Community Post Commented',
 				value: 'communityPost.commented',
 				description: 'Triggers when a community post was commented',
@@ -399,7 +405,7 @@ export const instantProperties: INodeProperties[] = [
 		type: 'collection',
 		default: {},
 		placeholder: 'Add option',
-		displayOptions: { show: { event: ['course.updated', 'course.memberAdded'] } },
+		displayOptions: { show: { event: ['certificate.issued', 'course.updated', 'course.memberAdded'] } },
 		options: [
 			{
 				displayName: 'Course Name or ID',

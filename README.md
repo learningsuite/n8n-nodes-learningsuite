@@ -2,7 +2,7 @@
 
 ![n8n](https://img.shields.io/badge/n8n-2.17.2+-brightgreen)
 
-![Version](https://img.shields.io/badge/version-1.6.1-blue)
+![Version](https://img.shields.io/badge/version-1.7.0-blue)
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 
@@ -21,8 +21,8 @@ The node uses the public LearningSuite API. LearningSuite, its trademarks, and i
 ## 🚀 Features
 
 - **17 resources** fully supported (Member, Course, Group, Bundle, Hub, Module, Community, Calendar Event, Custom Fields, Popup, Webhook, Role, Submission, User, Team Member, AI, API Call)
-- **106 action endpoints** for maximum flexibility
-- **Instant trigger (webhook-based)** with 19 event types for real-time automation
+- **108 action endpoints** for maximum flexibility
+- **Instant trigger (webhook-based)** with 20 event types for real-time automation
 - **Polling trigger** with 11 event types for scheduled polling
 - **Flexible API call** resource for custom endpoints
 
@@ -30,8 +30,8 @@ The node uses the public LearningSuite API. LearningSuite, its trademarks, and i
 
 ### 👤 **Member** (21 operations)
 
-- Get member by email, get member by ID, get many members, create a member, update a member, delete a member, find or create member
-- Activate deactivate member, add member to courses, remove member from courses, add member to bundles, remove member from bundles
+- Get member by email, get member by ID, get many members, create member, update member, delete member, find or create member
+- Activate or deactivate member, add member to courses, remove member from courses, add member to bundles, remove member from bundles
 - Get member courses, get member course info, get member bundles, get member AI credits
 - Get many members filters by creation date (`Created After` / `Created Before`)
 - Add member to bundles also updates existing accesses: end date, remove end date, pause until a date, unlimited pause, resume
@@ -39,23 +39,23 @@ The node uses the public LearningSuite API. LearningSuite, its trademarks, and i
 
 ### 📚 **Course** (9 operations)
 
-- Get published courses, publish course, get course modules, get course modules for member
+- Get many published courses, publish course, get course modules, get course modules for member
 - Get course members, get course access requests, get course submissions (optionally only ungraded)
 - Create lesson, update lesson
 
 ### 👥 **Group** (13 operations)
 
-- Create a group, delete a group, find groups by name, find or create group, get group by ID, get many groups
-- Add members to groups, add members to groups summary, remove members from groups
+- Create group, delete group, find groups by name, find or create group, get group by ID, get many groups
+- Add members to groups, add members to groups and return summary, remove members from groups
 - Add courses to group, remove courses from group, get group courses, add bundles to group
 
 ### 📦 **Bundle** (2 operations)
 
-- Get bundles, get bundle members
+- Get many bundles, get bundle members
 
 ### 🏠 **Hub** (6 operations)
 
-- Get many hubs, get hub templates, get hub template variables, create a hub, add hub access, remove hub access
+- Get many hubs, get hub templates, get hub template variables, create hub, add hub access, remove hub access
 
 ### 📖 **Module** (3 operations)
 
@@ -69,27 +69,26 @@ The node uses the public LearningSuite API. LearningSuite, its trademarks, and i
 
 ### 🗓️ **Calendar Event** (5 operations)
 
-- Get many calendar events, create a calendar event, update a calendar event, delete a calendar event, get calendar event analytics
+- Get many calendar events, create calendar event, update calendar event, delete calendar event, get calendar event analytics
 - Reminders (push/email), per-phase link stages (before/during/after), access via members/groups/bundles
 - Update maps fields from incoming items automatically
 
-### 🔧 **Custom Fields** (14 operations)
+### 🔧 **Custom Fields** (16 operations)
 
-- Retrieve all custom field cards, retrieve custom field cards including their definitions and categories
-- Retrieve custom field categories, retrieve custom field definitions
-- Retrieve the values of a custom field for a user, get all custom field values of a user for a given profile
-- Retrieve custom field profiles of a user, retrieve custom field profiles including their values, retrieve the values of a custom field card profile for a user
-- Retrieve the complete custom field store of a user
-- Set the value of a single custom field for a user, set multiple custom field values for a user in one request, update a custom field value within a profile of a custom field card
-- Upload a file from a public URL and append it to a custom field
+- Get custom field cards, get custom field cards with definitions, get custom field categories, get custom field definitions
+- Get custom field store, get custom field store values, get custom field values
+- Get custom field profiles, get custom field profiles with values, get custom field profile by card
+- Set custom field value, set multiple custom field values, update custom field in profile
+- Upload file from URL to custom field
+- Get custom field file, get custom field files (signed download URLs, valid for 7 days)
 
 ### 🎯 **Popup** (4 operations)
 
-- Get many popups, get a popup, trigger popup for member, remove popup trigger for member
+- Get many popups, get popup, trigger popup for member, remove popup trigger for member
 
 ### 🔗 **Webhook** (6 operations)
 
-- Get webhook subscription, get webhook subscriptions, create webhook subscription, update webhook subscription, delete webhook subscription
+- Get webhook subscription, get many webhook subscriptions, create webhook subscription, update webhook subscription, delete webhook subscription
 - Get webhook sample data
 
 ### 📝 **Submission** (4 operations)
@@ -99,7 +98,7 @@ The node uses the public LearningSuite API. LearningSuite, its trademarks, and i
 
 ### 👤 **Team Member** (3 operations)
 
-- Get team members, get team member by email, get team member by ID
+- Get many team members, get team member by email, get team member by ID
 
 ### 📢 **User** (2 operations)
 
@@ -107,7 +106,7 @@ The node uses the public LearningSuite API. LearningSuite, its trademarks, and i
 
 ### 🤖 **AI** (4 operations)
 
-- Send message to AI agent, send message to AI concierge, list AI agents, list agent actions
+- Send message to AI agent, send message to AI concierge, get AI agents, get agent actions
 
 ### 🛡️ **Role** (1 operation)
 
@@ -115,7 +114,7 @@ The node uses the public LearningSuite API. LearningSuite, its trademarks, and i
 
 ### 🛠️ **API Call** (1 operation)
 
-- Custom API call (for any endpoint)
+- Make custom API call (for any endpoint)
 
 ## 🎣 Trigger Events
 
@@ -125,6 +124,7 @@ The LearningSuite trigger supports the following events:
 
 - ✅ Agent Action Executed
 - ✅ AI Agent Limit for Inaccessible Course Content Exceeded
+- ✅ Certificate Issued
 - ✅ Community Post Commented
 - ✅ Community Post Created
 - ✅ Community Post Moderated
@@ -289,6 +289,8 @@ The Custom Fields resource supports file, image, video, and audio custom fields.
   - **Replace**: replace existing file values with the uploaded file values
   - **Replace if Limit Reached**: append while possible, otherwise replace existing file values
 - The node respects the LearningSuite file limits defined on the custom field, such as `maxFiles`, `maxImages`, `maxVideos`, and `maxAudios`.
+- Use **Get File** (by `fileId` from a file value) or **Get Field Files** (all files of a file, image, video, or audio field) to get signed download URLs. The URLs are valid for 7 days; store the `fileId`, not the URL. **Get Field Files** returns one item per file with the `profileIndex` of the profile it belongs to.
+- Videos can only be retrieved after LearningSuite has processed them, which usually takes a few minutes after the upload. Get File answers with 404 until then, and Get Field Files leaves them out. In workflows that run right after an upload, add a Wait node before these operations.
 - For custom field cards with multiple profiles, use Profile ID, Profile Index, or Profile Name to target a specific profile. If the card does not allow multiple profiles, profile parameters are ignored and the default profile is used.
 
 ### Calendar Events
@@ -311,7 +313,7 @@ The Submission resource covers the submissions of tasks in lessons (text, file u
 - **Get** returns the submission with its `grading` and all `comments`, oldest first, internal comments included. File download URLs are valid for 7 days; fetch the submission again for fresh ones.
 - **Grade** works exactly like grading in the LearningSuite UI and notifies the member. Without a grade the submission is only marked as seen; grading again replaces the previous grading. For tasks with `submission.isGradable: false`, leave the grade empty; a comment is then only accepted together with `Should Retry`.
 - **Add Comment** posts in the name of a team member. `Internal` comments are visible to team members only and do not notify the member.
-- **Only Ungraded** (Get Many and Course → Get Course Submissions) returns the latest ungraded submission per member and task. Grading removes entries from this list, so when grading page by page, always fetch with offset 0.
+- **Only Ungraded** (Get Many and Course → Get Submissions) returns the latest ungraded submission per member and task. Grading removes entries from this list, so when grading page by page, always fetch with offset 0.
 - **Grader** and **Author** must be team members, not members; besides the ID, their email works as well.
 
 ### ⚡ Instant Webhook Trigger Setup

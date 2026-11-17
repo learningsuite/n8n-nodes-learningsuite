@@ -11,37 +11,37 @@ export const webhookProperties: INodeProperties[] = [
 		displayOptions: { show: { resource: ['webhook'] } },
 		options: [
 			{
-				name: 'Create Webhook Subscription',
+				name: 'Create Subscription',
 				value: 'createSubscription',
 				action: 'Create webhook subscription',
 				description: 'Create a webhook subscription to receive events',
 			},
 			{
-				name: 'Delete Webhook Subscription',
+				name: 'Delete Subscription',
 				value: 'deleteSubscription',
 				action: 'Delete webhook subscription',
 				description: 'Delete a webhook subscription by ID',
 			},
 			{
-				name: 'Get Webhook Sample Data',
+				name: 'Get Many Subscriptions',
+				value: 'getSubscriptions',
+				action: 'Get many webhook subscriptions',
+				description: 'Retrieve a list of webhook subscriptions',
+			},
+			{
+				name: 'Get Sample Data',
 				value: 'getSampleData',
 				action: 'Get webhook sample data',
 				description: 'Retrieve sample payloads for supported webhook events',
 			},
 			{
-				name: 'Get Webhook Subscription',
+				name: 'Get Subscription',
 				value: 'getSubscription',
 				action: 'Get webhook subscription',
-				description: 'Get a webhook subscription by ID',
+				description: 'Retrieve a webhook subscription by ID',
 			},
 			{
-				name: 'Get Webhook Subscriptions',
-				value: 'getSubscriptions',
-				action: 'Get webhook subscriptions',
-				description: 'List webhook subscriptions',
-			},
-			{
-				name: 'Update Webhook Subscription',
+				name: 'Update Subscription',
 				value: 'updateSubscription',
 				action: 'Update webhook subscription',
 				description: 'Update a webhook subscription',
@@ -70,7 +70,7 @@ export const webhookProperties: INodeProperties[] = [
 		displayOptions: { show: { resource: ['webhook'], operation: ['createSubscription', 'updateSubscription'] } },
 		default: '',
 		required: true,
-		placeholder: 'https://your-endpoint.com/webhook',
+		placeholder: 'e.g. https://example.com/webhook',
 		description: 'URL to send webhook events to',
 	},
 
@@ -88,6 +88,7 @@ export const webhookProperties: INodeProperties[] = [
 				name: 'AI Agent Limit for Inaccessible Course Content Exceeded',
 				value: 'aiAgent.limitForInaccessibleCourseContentExceeded',
 			},
+			{ name: 'Certificate Issued', value: 'certificate.issued' },
 			{ name: 'Community Post Commented', value: 'communityPost.commented' },
 			{ name: 'Community Post Created', value: 'communityPost.created' },
 			{ name: 'Community Post Moderated', value: 'communityPost.moderated' },
@@ -123,6 +124,7 @@ export const webhookProperties: INodeProperties[] = [
 				name: 'AI Agent Limit for Inaccessible Course Content Exceeded Events',
 				value: 'ai-agent-limit-for-inaccessible-course-content-exceeded-events',
 			},
+			{ name: 'Certificate Issued Events', value: 'certificate-issued-events' },
 			{ name: 'Community Post Commented', value: 'community-post-commented-events' },
 			{ name: 'Community Post Created Events', value: 'community-post-created-events' },
 			{ name: 'Community Post Moderated Events', value: 'community-post-moderated-events' },
@@ -494,7 +496,7 @@ export const webhookProperties: INodeProperties[] = [
 			show: {
 				resource: ['webhook'],
 				operation: ['createSubscription', 'updateSubscription'],
-				eventType: ['course.updated', 'course.memberAdded'],
+				eventType: ['certificate.issued', 'course.updated', 'course.memberAdded'],
 			},
 		},
 		options: [

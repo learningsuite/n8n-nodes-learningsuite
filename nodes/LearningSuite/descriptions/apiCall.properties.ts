@@ -13,7 +13,7 @@ export const apiCallProperties: INodeProperties[] = [
 				name: 'Make Request',
 				value: 'makeRequest',
 				description: 'Make an arbitrary API call',
-				action: 'Custom api call',
+				action: 'Make custom API call',
 			},
 		],
 	},
@@ -40,7 +40,7 @@ export const apiCallProperties: INodeProperties[] = [
 		displayOptions: { show: { resource: ['apiCall'], operation: ['makeRequest'] } },
 		default: '',
 		required: true,
-		placeholder: '/members/123/courses',
+		placeholder: 'e.g. /members/123/courses',
 		description: 'API endpoint path (without base URL)',
 	},
 	{

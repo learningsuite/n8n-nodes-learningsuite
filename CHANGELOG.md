@@ -4,6 +4,27 @@ All notable changes to this project are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.0] - 2026-11-17
+
+### Added
+
+- Support for LearningSuite API 1.31.1
+- **Certificate Issued** webhook event (`certificate.issued`) in the instant trigger and in Webhook → Create/Update Subscription, with an optional course filter (`courseInstanceId`). The payload contains the member, the course and the certificate with trigger, exam score and a signed PDF download URL (valid for 7 days)
+- **Webhook → Get Sample Data**: `Certificate Issued Events` for `GET /webhooks/sample-data/certificate-issued-events`, with an optional course filter
+- **Custom Fields → Get File** for `GET /custom-fields/store/{userId}/files/{fileId}`: a custom field file of a user with a signed download URL (valid for 7 days)
+- **Custom Fields → Get Field Files** for `GET /custom-fields/store/{userId}/fields/{fieldKey}/files`: all files of a file, image, video, or audio field with signed download URLs, one item per file with the `profileIndex` of its profile
+
+### Changed
+
+- **Member → Add Bundles to Member**: the descriptions of `Pause Until` and `Unlimited Pause` explain the behaviour documented in API 1.31.1: for a member who has the bundle only through a group, the call creates a paused direct access, so the member is paused although the group still grants access
+- Operation names, actions and descriptions follow the n8n UX guidelines. Only the displayed texts change, the operation values stay the same, so existing workflows keep working; nodes already on the canvas keep their names
+  - The resource is no longer repeated in the operation name, because the editor shows it above: e.g. Member → **Create** (was Create Member), Group → **Get** (was Get Group by ID), Course → **Get Members** (was Get Course Members), Webhook → **Get Many Subscriptions** (was Get Webhook Subscriptions), Hub → **Add Access** (was Give Hub Access)
+  - Actions are sentence case without articles (`Create member` instead of `Create a member`), `getAll` actions start with `Get many`, and the Custom Fields actions are short (`Get custom field profile by card` instead of a full sentence)
+  - Descriptions use the standard wording (`Retrieve a …`, `Retrieve a list of …`)
+- Placeholders start with `e.g.`; prompt texts like `Enter value` were replaced by examples, and dropdowns and the date picker no longer have a placeholder
+- `@n8n/scan-community-package` 0.44.0 and 1.3.0 pass without warnings
+- `npm run lint:scan` uses `@n8n/scan-community-package` 0.44.0 and its own local scan (`analyzeLocalPackage`) instead of rebuilding the two lint passes by hand; the TypeScript pin is no longer needed. Warnings are listed as well, and `SCANNER_VERSION=<version>` runs another scanner version, e.g. a release candidate
+
 ## [1.6.1] - 2026-10-29
 
 ### Added

@@ -9,30 +9,30 @@ export const hubProperties: INodeProperties[] = [
 		default: 'getAll',
 		displayOptions: { show: { resource: ['hub'] } },
 		options: [
-			{ name: 'Create Hub', value: 'create', description: 'Create a new hub from a template', action: 'Create a hub' },
-			// 'Delete Hub' (value 'delete') is hidden: API 1.28.1 removed DELETE /hub/{hubId} (invalid path).
-			// Handler and fields stay in place; re-add the option if the endpoint returns.
 			{
-				name: 'Get Hub Template Variables',
+				name: 'Add Access',
+				value: 'addAccess',
+				description: 'Grant hub access to selected members, groups, or bundles',
+				action: 'Add hub access',
+			},
+			{ name: 'Create', value: 'create', description: 'Create a new hub from a template', action: 'Create hub' },
+			// 'Delete' (value 'delete', action 'Delete hub') is hidden: API 1.28.1 removed DELETE /hub/{hubId} (invalid path).
+			// Handler and fields stay in place; re-add the option if the endpoint returns.
+			{ name: 'Get Many', value: 'getAll', description: 'Retrieve a list of published hubs', action: 'Get many hubs' },
+			{
+				name: 'Get Template Variables',
 				value: 'getTemplateVariables',
 				description: 'List variables required by the selected hub template',
 				action: 'Get hub template variables',
 			},
 			{
-				name: 'Get Hub Templates',
+				name: 'Get Templates',
 				value: 'getTemplates',
 				description: 'List hub templates',
 				action: 'Get hub templates',
 			},
-			{ name: 'Get Many', value: 'getAll', description: 'List published hubs', action: 'Get many hubs' },
 			{
-				name: 'Give Hub Access',
-				value: 'addAccess',
-				description: 'Grant hub access to selected members, groups, or bundles',
-				action: 'Add hub access',
-			},
-			{
-				name: 'Remove Hub Access',
+				name: 'Remove Access',
 				value: 'removeAccess',
 				description: 'Remove hub access for selected members, groups, or bundles',
 				action: 'Remove hub access',

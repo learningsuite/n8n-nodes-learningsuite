@@ -18,13 +18,13 @@ export const submissionProperties: INodeProperties[] = [
 			{
 				name: 'Get',
 				value: 'get',
-				description: 'Get a submission with its grading and comments',
+				description: 'Retrieve a submission with its grading and comments',
 				action: 'Get submission',
 			},
 			{
 				name: 'Get Many',
 				value: 'getMany',
-				description: 'List submissions in a course with their grading (newest first)',
+				description: 'Retrieve a list of submissions in a course with their grading (newest first)',
 				action: 'Get many submissions',
 			},
 			{
